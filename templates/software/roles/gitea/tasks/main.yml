@@ -1,0 +1,93 @@
+---
+
+- name: include os-specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+  # add the python sni support to legacy python installations
+- include: python_sni.yml
+  when: ansible_os_family == 'Debian'
+    and ansible_python_version is version_compare('2.6.0', '>=')
+    and ansible_python_version is version_compare('2.7.9', '<')
+
+  # install additional ansible dependencies
+- name: install ansible support packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
+
+- name: create gitea group
+  group:
+    name: "{{ gitea_group }}"
+    state: present
+
+- name: create gitea user
+  user:
+    name: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    home: "{{ gitea_working_dir }}"
+    comment: Gitea
+
+- name: install prerequisites
+  tags: gitea
+  become: true
+  package:
+    name: git
+    state: present
+
+- name: make sure the directory containing gitea binary exist
+  file:
+    path: "{{ gitea_bin | dirname }}"
+    state: directory
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 0755
+    recurse: yes
+
+- name: download gitea binary
+  get_url:
+    url: "{{ gitea_download_url }}"
+    dest: "{{ gitea_bin }}"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 0755
+
+- name: Link config
+  tags: gitea
+  become: true
+  file:
+    state: link
+    src: "{{ gitea_config_dir }}"
+    dest: "{{ gitea_working_dir }}/custom/conf"
+    force: yes
+
+- name: Deploy config
+  tags: gitea
+  notify: service gitea restart
+  become: true
+  template:
+    src: gitea.ini.j2
+    dest: "{{ gitea_config_dir }}/app.ini"
+    owner: 0
+    group: "{{ gitea_user }}"
+    mode: 0640
+
+- name: create the gitea systemd service file
+  template:
+    src: gitea.service.j2
+    dest: "{{ systemd_units_dir }}/gitea.service"
+  when: ansible_service_mgr == "systemd"
+  notify: restart gitea
+  register: registered_unitfiledeployment
+
+- name: reload unitfiles
+  tags: gitea
+  become: true
+  when: registered_unitfiledeployment|changed
+  command: systemctl daemon-reload
+
+- name: enable and start the gitea web service
+  service:
+    name: gitea
+    state: started
+    enabled: yes

@@ -1,0 +1,21 @@
+---
+- hosts: <host>
+  module_defaults:
+    apt:
+      force_apt_get: yes
+  vars_files:
+    - <secrets_file>
+  vars:
+    # start secrets
+    gitea_salt: ''
+    gitea_database_password: ''
+    # end secrets
+    # start generated
+    gitea_domain: ''
+    gitea_database_uri: ''
+    gitea_database_user: ''
+    gitea_database_name: ''
+    # end generated
+  roles:
+  #   - common
+    - gitea

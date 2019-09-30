@@ -1,0 +1,10 @@
+---
+- hosts: <host>
+  module_defaults:
+    apt:
+      force_apt_get: yes
+  vars_files:
+    - <secrets_file>
+  # roles:
+  #   - common
+  #   - prometheus

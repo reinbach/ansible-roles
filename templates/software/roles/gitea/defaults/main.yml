@@ -1,0 +1,32 @@
+---
+# Gitea Version
+gitea_version: 1.0.0
+
+# Path to the Gitea binary
+gitea_bin: /home/gitea/bin/gitea
+
+# Path to logs
+gitea_log_dir: /var/log/gitea
+
+# Path to config
+gitea_config_dir: /etc/gitea
+
+# Gitea home directory
+gitea_working_dir: /home/gitea
+
+# Runtime user and group for the gitea service
+gitea_user: git
+gitea_group: git
+gitea_runmode: prod
+
+# domain
+gitea_http_proto: https
+gitea_http_listen_addr: '0.0.0.0'
+gitea_http_port: '3000'
+gitea_ssh_port: '22'
+
+# database
+gitea_database_type: 'postgres'
+# gitea_database_uri: ''
+# gitea_database_name: 'gitea'
+# gitea_database_user: ''
