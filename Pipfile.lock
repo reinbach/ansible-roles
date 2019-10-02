@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1bd8cdc3db04aff7a7b4323e129c688e6174b6a024395876d5c32e981cd8e899"
+            "sha256": "ccd6fbb96d695c47c4c4b42bfa2afc7d2f076612de8d84df3364033f0721dfe0"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -66,10 +66,10 @@
         },
         "attrs": {
             "hashes": [
-                "sha256:69c0dbf2ed392de1cb5ec704444b08a5ef81680a61cb899dc08127123af36a79",
-                "sha256:f0b870f674851ecbfbbbd364d6b5cbdff9dcedbc7f3f5e18a6891057f21fe399"
+                "sha256:ec20e7a4825331c1b5ebf261d111e16fa9612c1f7a5e1f884f12bd53a664dfd2",
+                "sha256:f913492e1663d3c36f502e5e9ba6cd13cf19d7fab50aa13239e420fef95e1396"
             ],
-            "version": "==19.1.0"
+            "version": "==19.2.0"
         },
         "bcrypt": {
             "hashes": [
@@ -207,14 +207,6 @@
             ],
             "version": "==2.7"
         },
-        "docker": {
-            "hashes": [
-                "sha256:acf51b5e3e0d056925c3b780067a6f753c915fffaa46c5f2d79eb0fc1cbe6a01",
-                "sha256:cc5b2e94af6a2b1e1ed9d7dcbdc77eff56c36081757baf9ada6e878ea0213164"
-            ],
-            "index": "pypi",
-            "version": "==4.0.2"
-        },
         "entrypoints": {
             "hashes": [
                 "sha256:589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19",
@@ -327,6 +319,9 @@
             "version": "==0.6.1"
         },
         "molecule": {
+            "extras": [
+                "podman"
+            ],
             "hashes": [
                 "sha256:12fa4231ed69c6e7f50432588eaace36cea917a8c73c1751269ce55df32ced24",
                 "sha256:d9d7621167041ae2a8eb19f1f8dc23c071cdab2cd3ca80655e2c8796b4c00e09"
@@ -635,13 +630,6 @@
                 "sha256:f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c"
             ],
             "version": "==0.1.7"
-        },
-        "websocket-client": {
-            "hashes": [
-                "sha256:1151d5fb3a62dc129164292e1227655e4bbc5dd5340a5165dfae61128ec50aa9",
-                "sha256:1fd5520878b68b84b5748bb30e592b10d0a91529d5383f74f4964e72b297fd3a"
-            ],
-            "version": "==0.56.0"
         },
         "whichcraft": {
             "hashes": [

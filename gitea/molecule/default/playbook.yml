@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  module_defaults:
+    apt:
+      force_apt_get: yes
+  vars:
+    gitea_salt: '123'
+    gitea_database_password: '321'
+    gitea_domain: 'git.example.com'
+    gitea_database_uri: 'db.example.com'
+    gitea_database_user: 'db_user'
+    gitea_database_name: 'db_name'
+  roles:
+    - role: gitea

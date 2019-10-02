@@ -52,42 +52,36 @@
     group: "{{ gitea_group }}"
     mode: 0755
 
-- name: Link config
-  tags: gitea
-  become: true
+- name: make sure the directory containing gitea config exist
   file:
-    state: link
-    src: "{{ gitea_config_dir }}"
-    dest: "{{ gitea_working_dir }}/custom/conf"
-    force: yes
+    path: "{{ gitea_config_dir }}"
+    state: directory
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 0755
+    recurse: yes
 
 - name: Deploy config
   tags: gitea
-  notify: service gitea restart
+  notify: restart gitea
   become: true
   template:
     src: gitea.ini.j2
     dest: "{{ gitea_config_dir }}/app.ini"
-    owner: 0
-    group: "{{ gitea_user }}"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
     mode: 0640
 
 - name: create the gitea systemd service file
   template:
     src: gitea.service.j2
     dest: "{{ systemd_units_dir }}/gitea.service"
-  when: ansible_service_mgr == "systemd"
   notify: restart gitea
   register: registered_unitfiledeployment
 
-- name: reload unitfiles
-  tags: gitea
-  become: true
-  when: registered_unitfiledeployment|changed
-  command: systemctl daemon-reload
-
 - name: enable and start the gitea web service
-  service:
+  systemd:
     name: gitea
     state: started
     enabled: yes
+    daemon-reload: yes
