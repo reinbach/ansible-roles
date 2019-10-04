@@ -1,3 +1,3 @@
-# Bayete - Templates
+# Bayete - Roles
 
-Server and software templates used to build infrastructure
+Ansible roles used to install software
