@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+  enabled: False
+driver:
+  name: podman
+lint:
+  name: yamllint
+platforms:
+  - name: instance
+    image: ubuntu:16.04
+    privileged: True
+    command: "/sbin/init"
+    tty: True
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
