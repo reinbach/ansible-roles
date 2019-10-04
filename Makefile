@@ -1,4 +1,6 @@
 BUILDDIR=build
+ROLES=$(wildcard roles/*/.)
+
 
 help:
 	@echo '                                                    '
@@ -13,8 +15,20 @@ help:
 
 
 lint:
-	flake8; exit 0;
-	isort; exit 0;
+	@for d in ${ROLES} ; \
+	do \
+		cd $$d && molecule lint && cd ${PWD}; \
+	done;
+
+
+syntax:
+	@for d in ${ROLES} ; \
+	do \
+		cd $$d && molecule syntax && cd ${PWD}; \
+	done;
 
 test:
-	pytest tests/; exit 0;
+	@for d in ${ROLES} ; \
+	do \
+		cd $$d && molecule test && cd ${PWD}; \
+	done;
