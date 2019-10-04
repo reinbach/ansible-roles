@@ -1,0 +1,2 @@
+recursive-include roles *.yml
+recursive-exclude **/molecule/ *
