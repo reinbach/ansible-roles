@@ -10,8 +10,6 @@ platforms:
   - name: instance
     image: ubuntu:16.04
     privileged: True
-    command: "/sbin/init"
-    tty: True
 provisioner:
   name: ansible
   lint:
