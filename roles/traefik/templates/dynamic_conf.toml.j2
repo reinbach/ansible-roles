@@ -1,0 +1,13 @@
+[http]
+  [http.routers]
+    [http.routers.{{ domain }}-router]
+      entryPoints = ["web-secure"]
+      service = "service-{{ domain }}"
+      rule = "Host(`{{ domain }}`)"
+      [http.routers.{{ domain }}-router.tls]
+
+  [http.services]
+    [http.services.service-{{ domain }}]
+      [http.services.service-{{ domain }}.loadBalancer]
+        [http.services.service-{{ domain }}.loadBalancer.servers]
+        

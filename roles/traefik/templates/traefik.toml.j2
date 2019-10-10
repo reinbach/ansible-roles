@@ -1,0 +1,25 @@
+{#
+    Check traefik sample for full config options
+    https://raw.githubusercontent.com/containous/traefik/master/traefik.sample.toml
+#}
+logLevel = "INFO"
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+  [entryPoints.web-secure]
+    address = ":443"
+
+[providers]
+  [providers.file]
+    directory = {{ traefik_config_dir }}
+    watch = true
+
+[certificatesResolvers.sample.acme]
+  email = "greg@ironlabs.com"
+  storage = "acme.json"
+  [certificatesResolvers.sample.acme.httpChallenge]
+    entryPoint = "web"
+
+[log]
+  filePath = "{{ traefik.log.dir }}/traefik.log"
