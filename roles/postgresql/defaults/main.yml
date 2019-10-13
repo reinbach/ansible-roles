@@ -3,7 +3,6 @@
 # `restarted` or `reloaded`
 postgresql_restarted_state: "restarted"
 
-postgresql_python_library: python-psycopg2
 postgresql_user: postgres
 postgresql_group: postgres
 
