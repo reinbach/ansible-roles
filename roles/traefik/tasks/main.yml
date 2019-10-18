@@ -36,16 +36,19 @@
   when: traefik_update == "true"
 
 - name: Download Traefik binary
-  get_url:
-    url: "{{ item.url }}"
+  unarchive:
+    src: "{{ item.url }}"
     dest: "{{ item.dest }}"
     owner: root
     group: root
     mode: 0755
-    force: "{{ traefik_update }}"
+    remote_src: true
+    exclude:
+      - CHANGELOG.md
+      - LICENSE.md
   with_items:
     - url: "{{ traefik_binary_url }}"
-      dest: "{{ traefik_bin_path }}"
+      dest: "{{ traefik_install_dir }}"
 
 - name: Ensure traefik service is enabled and running
   systemd:
