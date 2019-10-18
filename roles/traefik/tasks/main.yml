@@ -28,12 +28,27 @@
   notify:
     - Restart traefik
 
+- name: Copy traefik dashboard config file
+  template:
+    src: "{{ traefik_dashboard_config_file }}.j2"
+    dest: "{{ traefik_config_dir }}/{{ traefik_dashboard_config_file }}"
+    owner: root
+    group: root
+    mode: 0744
+  when: traefik_dashboard
+
+- name: Remove traefik dashboard config file
+  file:
+    state: absent
+    path: "{{ traefik_config_dir }}/{{ traefik_dashboard_config_file }}"
+  when: not traefik_dashboard
+
 - name: Ensure traefik service is stopped before traefik update
   service:
     name: traefik
     state: stopped
     enabled: true
-  when: traefik_update == "true"
+  when: traefik_update
 
 - name: Download Traefik binary
   unarchive:
