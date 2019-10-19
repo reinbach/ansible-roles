@@ -85,3 +85,10 @@
     state: started
     enabled: yes
     daemon-reload: yes
+
+- include_role:
+    name: traefik
+  vars:
+    domain: "{{ gitea_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    port: "{{ gitea_http_port }}"
