@@ -43,6 +43,15 @@
     path: "{{ traefik_config_dir }}/{{ traefik_dashboard_config_file }}"
   when: not traefik_dashboard
 
+- name: Add dynamic config
+  template:
+    src: "{{ traefik_dynamic_config_file }}.j2"
+    dest: "{{ traefik_config_dir }}/{{ domain }}.toml"
+    owner: root
+    group: root
+    mode: 0744
+  when: domain is defined
+
 - name: Ensure traefik service is stopped before traefik update
   service:
     name: traefik
@@ -64,6 +73,7 @@
   with_items:
     - url: "{{ traefik_binary_url }}"
       dest: "{{ traefik_install_dir }}"
+  when: traefik_update
 
 - name: Ensure traefik service is enabled and running
   systemd:

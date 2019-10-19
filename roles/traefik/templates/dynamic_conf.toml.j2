@@ -10,4 +10,4 @@
     [http.services.service-{{ domain }}]
       [http.services.service-{{ domain }}.loadBalancer]
         [http.services.service-{{ domain }}.loadBalancer.servers]
-          url = "http://{{ ip_address }}"
+          url = "http://{{ ip_address }}:{{ port }}"

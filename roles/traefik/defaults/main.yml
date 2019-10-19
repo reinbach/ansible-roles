@@ -11,10 +11,11 @@ traefik_bin_path: "{{ traefik_install_dir }}/traefik"
 traefik_dir: /etc/traefik
 traefik_config_file: "{{ traefik_dir }}/traefik.toml"
 traefik_config_dir: "{{ traefik_dir }}/conf.d/"
+traefik_dashboard_config_file: traefik_dashboard.toml
+traefik_dashboard: true
+traefik_dynamic_config_file: dynamic_conf.toml
 traefik_log_dir: /var/log/traefik
 traefik_template: traefik.toml
 traefik_systemd_unit_template: traefik.service
 traefik_systemd_unit_dest: /etc/systemd/system/traefik.service
-traefik_update: false
-traefik_dashboard_config_file: traefik_dashboard.toml
-traefik_dashboard: false
+traefik_update: true
