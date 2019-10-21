@@ -35,14 +35,18 @@
     name: git
     state: present
 
-- name: make sure the directory containing gitea binary exist
+- name: make sure bin, config, and log directories exist
   file:
-    path: "{{ gitea_bin | dirname }}"
+    path: "{{ item }}"
     state: directory
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
     mode: 0755
     recurse: yes
+  with_items:
+    - "{{ gitea_bin | dirname }}"
+    - "{{ gitea_config_dir }}"
+    - "{{ gitea_log_dir }}"
 
 - name: download gitea binary
   get_url:
@@ -51,15 +55,6 @@
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
     mode: 0755
-
-- name: make sure the directory containing gitea config exist
-  file:
-    path: "{{ gitea_config_dir }}"
-    state: directory
-    owner: "{{ gitea_user }}"
-    group: "{{ gitea_group }}"
-    mode: 0755
-    recurse: yes
 
 - name: Deploy config
   tags: gitea
@@ -89,6 +84,7 @@
 - include_role:
     name: traefik
   vars:
+    label: "{{ gitea_domain | regex_replace('\\.', '-') }}"
     domain: "{{ gitea_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     port: "{{ gitea_http_port }}"
