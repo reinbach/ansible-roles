@@ -1,11 +1,12 @@
 ---
 - name: Ensure PostgreSQL Python libraries are installed.
-  apt:
-    name: "{{ postgresql_python_library }}"
+  package:
+    name: "{{ item }}"
     state: present
+  with_items: "{{ postgresql_python_packages }}"
 
 - name: Ensure PostgreSQL packages are installed.
-  apt:
+  package:
     name: "{{ postgresql_packages }}"
     state: present
 
