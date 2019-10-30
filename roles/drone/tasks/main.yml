@@ -1,0 +1,75 @@
+---
+- name: create drone group
+  group:
+    name: "{{ drone_group }}"
+    state: present
+
+- name: create drone user
+  user:
+    name: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    home: "{{ drone_working_dir }}"
+
+- name: make sure relevant directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    mode: 0755
+    recurse: yes
+  with_items:
+    - "{{ drone_config_dir }}"
+
+- name: deploy config file
+  notify: restart drone
+  become: true
+  template:
+    src: drone.env.j2
+    dest: "{{ drone_env_file }}"
+    owner: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    mode: 0640
+
+- name: run drone server
+  docker_container:
+    name: drone-server
+    image: "drone/drone:{{ drone_version }}"
+    state: started
+    restart_policy: always
+    published_ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+      - /drone:/var/lib/drone/
+      - "{{ drone_working_dir }}/data:/data/"
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      "{{ drone_env_file }}"
+  tags:
+    - drone
+
+- name: run drone agent
+  docker_container:
+    name: drone-agent
+    image: "drone/agent:{{ drone_version }}"
+    privileged: yes
+    state: started
+    restart_policy: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    links:
+      - drone-server
+    env_file:
+      "{{ drone_env_file }}"
+  tags:
+    - drone
+    - agent
+
+- include_role:
+    name: traefik
+  vars:
+    label: "{{ drone_domain | regex_replace('\\.', '-') }}"
+    domain: "{{ drone_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    port: "{{ drone_http_port }}"

@@ -1,0 +1,24 @@
+---
+drone_version: 1.6.1
+drone_server_proto: https
+drone_http_port: 8000
+
+drone_config_dir: /etc/drone
+drone_working_dir: /home/drone
+drone_env_file: "{{ drone_config_dir }}/env_vars"
+drone_user: drone
+drone_group: drone
+
+# Drone secret key, used for private communication between agent and web UI
+# drone_rpc_secret:
+
+# Github
+# drone_github_enabled:
+# drone_github_client_id:
+# drone_github_client_secret:
+
+# Database
+# drone_database_user: drone_user
+# drone_database_name: drone
+drone_database_port: 5432
+# drone_db_password:

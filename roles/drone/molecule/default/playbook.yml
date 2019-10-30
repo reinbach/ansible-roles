@@ -1,0 +1,17 @@
+---
+- name: Converge
+  hosts: all
+  module_defaults:
+    apt:
+      force_apt_get: yes
+  vars:
+    drone_domain: drone.example.com
+    drone_rpc_secret: 123
+    drone_database_uri: db.example.com
+    drone_database_user: drone_user
+    drone_database_name: drone
+    drone_database_password: 321
+    drone_users: admin,dev
+  roles:
+    - role: docker
+    - role: drone

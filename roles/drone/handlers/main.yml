@@ -1,0 +1,12 @@
+---
+- name: restart drone server
+  docker_container:
+    name: drone-server
+    restart: yes
+  listen: "restart drone"
+
+- name: restart drone agent
+  docker_container:
+    name: drone-agent
+    restart: yes
+  listen: "restart drone"
