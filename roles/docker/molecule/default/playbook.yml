@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  module_defaults:
+    apt:
+      force_apt_get: yes
+  roles:
+    - role: docker
