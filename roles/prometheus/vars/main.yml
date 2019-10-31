@@ -1,0 +1,6 @@
+---
+go_arch: amd64
+
+prometheus_selinux_packages:
+  - python-selinux
+  - policycoreutils
