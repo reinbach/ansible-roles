@@ -51,7 +51,14 @@
 - name: download gitea binary
   get_url:
     url: "{{ gitea_download_url }}"
-    dest: "{{ gitea_bin }}"
+    dest: "{{ gitea_bin }}-{{ gitea_version }}"
+    force: no
+
+- name: link gitea binary
+  file:
+    path: "{{ gitea_bin }}"
+    src: "{{ gitea_bin }}-{{ gitea_version }}"
+    state: link
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
     mode: 0755
