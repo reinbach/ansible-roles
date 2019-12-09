@@ -15,5 +15,8 @@
     gitea_smtp_port: '587'
     gitea_smtp_user: 'postmaster@example.com'
     gitea_smtp_password: '123'
+    gitea_ldap_host: 'ldap.example.com'
+    gitea_ldap_port: '386'
+    gitea_ldap_user_dn: 'cn=%s,ou=Users,dc=example,dc=com'
   roles:
     - role: gitea

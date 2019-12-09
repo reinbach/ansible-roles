@@ -88,6 +88,20 @@
     enabled: yes
     daemon-reload: yes
 
+- name: add gitea auth
+  command:
+    argv:
+      - "{{ gitea_bin }}"
+      - auth
+      - add-ldap-simple
+      - --name ldap
+      - --security-protocal encrypted
+      - "--host {{ gitea_ldap_host }}"
+      - "--port {{ gitea_ldap_port }}"
+      - --user-dn '{{ gitea_ldap_user_dn }}'
+      - --user-filter '(&(objectClass=posixAccount)(cn=%s))'
+      - --email-attribute mail
+
 - include_role:
     name: traefik
   vars:
