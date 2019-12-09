@@ -1,0 +1,17 @@
+---
+- name: Install LDAP dependencies
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - slapd
+      - ldap-utils
+      - python-ldap
+
+- name: Start slapd
+  systemd:
+    name: slapd
+    state: started
+    enabled: yes
+    masked: no

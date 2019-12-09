@@ -1,0 +1,6 @@
+---
+- include_tasks: deps.yml
+- include_tasks: config.yml
+- include_tasks: structure.yml
+- include_tasks: admin.yml
+- include_tasks: organization.yml
