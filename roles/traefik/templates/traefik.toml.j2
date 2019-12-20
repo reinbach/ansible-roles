@@ -5,10 +5,10 @@ logLevel = "INFO"
     address = ":80"
   [entryPoints.web-secure]
     address = ":443"
-  {% if traefik_dashboard %}
+{% if traefik_dashboard %}
   [entryPoints.api]
     address = ":8080"
-  {% endif %}
+{% endif %}
 
 [providers]
   [providers.file]
