@@ -7,7 +7,7 @@
     packages:
       - slapd
       - ldap-utils
-      - python-ldap
+      - python-ldap3
 
 - name: Start slapd
   systemd:
