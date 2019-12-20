@@ -20,7 +20,7 @@ gitea_group: git
 gitea_runmode: prod
 
 # domain
-gitea_http_proto: https
+gitea_http_proto: http
 gitea_http_listen_addr: '0.0.0.0'
 gitea_http_port: '3000'
 gitea_ssh_port: '22'
