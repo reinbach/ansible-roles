@@ -1,8 +1,4 @@
 ---
-- name: Generate LDAP password
-  set_fact:
-    ldap_password: "{{ lookup('passwordstore', '{{ base_domain }}/ldap create=True') }}"
-
 - name: Configure ldap.conf
   template:
     src: ldap.conf

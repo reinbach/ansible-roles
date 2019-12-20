@@ -8,5 +8,6 @@
     base_domain: ldap.example.com
     organizations:
       - example.com
+    ldap_password: 123
   roles:
     - role: ldap
