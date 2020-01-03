@@ -1,5 +1,6 @@
 ---
 - name: Configure ldap.conf
+  notify: restart slapd
   template:
     src: ldap.conf
     dest: /etc/ldap/ldap.conf
