@@ -152,7 +152,7 @@ DB_TYPE = {{ gitea_database_type }}
 HOST = {{ gitea_database_uri }}
 NAME = {{ gitea_database_name }}
 USER = {{ gitea_database_user }}
-PASSWD = {{ gitea_database_password }}
+PASSWD = "{{ gitea_database_password }}"
 ; For "postgres" only, either "disable", "require" or "verify-full"
 SSL_MODE = disable
 ; For "sqlite3" and "tidb", use absolute path when you start as service
