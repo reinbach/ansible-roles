@@ -15,11 +15,11 @@ logLevel = "INFO"
     directory = "{{ traefik_config_dir }}"
     watch = true
 
-[certificatesResolvers.sample.acme]
+[certificatesResolvers.letsencrypt.acme]
   email = "greg@ironlabs.com"
   storage = "acme.json"
-  [certificatesResolvers.sample.acme.httpChallenge]
-    entryPoint = "web"
+ [certificatesResolvers.letsencrypt.acme.httpChallenge]
+   entryPoint = "web"
 
 [log]
   filePath = "{{ traefik_log_dir }}/traefik.log"
