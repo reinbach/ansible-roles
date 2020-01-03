@@ -18,6 +18,8 @@ postgresql_service_enabled: true
 
 # Global configuration options that will be set in postgresql.conf.
 postgresql_global_config_options:
+  - option: listen_addresses
+    value: '*'
   - option: unix_socket_directories
     value: '{{ postgresql_unix_socket_directories | join(",") }}'
 
