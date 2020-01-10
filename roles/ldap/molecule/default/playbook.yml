@@ -5,9 +5,9 @@
     apt:
       force_apt_get: yes
   vars:
-    base_domain: ldap.example.com
+    ldap_base_dc: dc=dc=example,dc=com
     organizations:
-      - example.com
+      - ldap
     ldap_password: 123
   roles:
     - role: ldap

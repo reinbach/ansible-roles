@@ -11,7 +11,7 @@
         by dn.exact="{{ ldap_dn_external }}" manage
         by dn.exact="{{ ldap_dn_bind }}" manage
         by dn.children="{{ ldap_dn_admin_group }}" manage
-        by dn.children="{{ ldap_dn_services_group }}" write
+        by dn.children="{{ ldap_dn_users_group }}" write
         by self write
         by anonymous auth
         by * none
@@ -41,7 +41,7 @@
     objectClass:
       - organizationalUnit
   with_items:
-    - dn: 'ou=services,{{ ldap_base_dc }}'
-      ou: services
-    - dn: 'ou=admin,{{ ldap_base_dc }}'
-      ou: admin
+    - dn: 'ou=users,{{ ldap_base_dc }}'
+      ou: users
+    - dn: 'ou=admins,{{ ldap_base_dc }}'
+      ou: admins

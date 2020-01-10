@@ -21,5 +21,89 @@
   with_items:
     - dn: "ou=users,dc={{ organization }},{{ ldap_base_dc }}"
       ou: users
-    - dn: "ou=groups,dc={{ organization }},{{ ldap_base_dc }}"
-      ou: groups
+    - dn: "ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+      ou: admins
+
+- name: Create users
+  ldap_entry:
+    state: "{{ item.state }}"
+    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    attributes:
+      sn: "{{ item.last_name }}"
+    objectClass:
+      - inetOrgPerson
+  with_items:
+    - "{{ users }}"
+
+- name: Set user email attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    state: exact
+    name: mail
+    values: "{{ item.email }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present"
+
+- name: Set user first name attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    state: exact
+    name: givenName
+    values: "{{ item.first_name }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present"
+
+- name: Set user last name attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    state: exact
+    name: sn
+    values: "{{ item.last_name }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present"
+
+- name: Create admin users
+  ldap_entry:
+    state: "{{ item.state }}"
+    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    attributes:
+      sn: "{{ item.last_name }}"
+      mail: "{{ item.email }}"
+    objectClass:
+      - inetOrgPerson
+  with_items:
+    - "{{ users }}"
+  when: item.is_admin|bool
+
+- name: Set admin user email attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    state: exact
+    name: mail
+    values: "{{ item.email }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present" and item.is_admin|bool
+
+- name: Set admin user first name attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    state: exact
+    name: givenName
+    values: "{{ item.first_name }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present" and item.is_admin|bool
+
+- name: Set admin user last name attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    state: exact
+    name: sn
+    values: "{{ item.last_name }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present" and item.is_admin|bool
