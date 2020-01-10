@@ -45,8 +45,12 @@
     recurse: yes
   with_items:
     - "{{ gitea_bin | dirname }}"
+    - "{{ gitea_bin | dirname }}/custom"
+    - "{{ gitea_bin | dirname }}/data"
     - "{{ gitea_config_dir }}"
     - "{{ gitea_log_dir }}"
+    - "{{ gitea_repos_dir }}"
+
 
 - name: download gitea binary
   get_url:
@@ -70,9 +74,9 @@
   template:
     src: gitea.ini.j2
     dest: "{{ gitea_config_dir }}/app.ini"
-    owner: "{{ gitea_user }}"
-    group: "{{ gitea_group }}"
-    mode: 0640
+    owner: root
+    group: root
+    mode: 0664
 
 - name: create the gitea systemd service file
   template:
@@ -92,15 +96,21 @@
   command:
     argv:
       - "{{ gitea_bin }}"
+      - --config={{ gitea_config_dir}}/app.ini
       - auth
       - add-ldap-simple
       - --name ldap
       - --security-protocal encrypted
-      - "--host {{ gitea_ldap_host }}"
-      - "--port {{ gitea_ldap_port }}"
+      - --host {{ gitea_ldap_host }}
+      - --port {{ gitea_ldap_port }}
       - --user-dn '{{ gitea_ldap_user_dn }}'
-      - --user-filter '(&(objectClass=posixAccount)(cn=%s))'
+      - --user-filter '(&(objectClass=users)(cn=%s))'
+      - --admin-filter '(&(objectClass=admins)(cn=%s))'
+      - --username-attribute cn
       - --email-attribute mail
+      - --firstname-attribute givenName
+      - --surname-attribute sn
+  ignore_errors: yes
 
 - include_role:
     name: traefik

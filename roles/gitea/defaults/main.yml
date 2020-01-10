@@ -13,6 +13,7 @@ gitea_config_dir: /etc/gitea
 
 # Gitea home directory
 gitea_working_dir: /home/gitea
+gitea_repos_dir: "{{ gitea_working_dir }}/repos"
 
 # Runtime user and group for the gitea service
 gitea_user: git

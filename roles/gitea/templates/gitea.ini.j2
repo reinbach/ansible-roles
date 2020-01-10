@@ -6,7 +6,7 @@ RUN_USER = {{ gitea_user }}
 RUN_MODE = {{ gitea_runmode }}
 
 [repository]
-ROOT =
+ROOT = "{{ gitea_repos_dir }}"
 SCRIPT_TYPE = bash
 ; Default ANSI charset
 ANSI_CHARSET =
@@ -152,7 +152,7 @@ DB_TYPE = {{ gitea_database_type }}
 HOST = {{ gitea_database_uri }}
 NAME = {{ gitea_database_name }}
 USER = {{ gitea_database_user }}
-PASSWD = "{{ gitea_database_password }}"
+PASSWD = {% autoescape false %}{{ gitea_database_password }}{% endautoescape %}
 ; For "postgres" only, either "disable", "require" or "verify-full"
 SSL_MODE = disable
 ; For "sqlite3" and "tidb", use absolute path when you start as service
@@ -162,8 +162,7 @@ PATH = data/gitea.db
 
 [security]
 INSTALL_LOCK = true
-; !!CHANGE THIS TO KEEP YOUR USER DATA SAFE!!
-SECRET_KEY = {{ gitea_salt }}
+SECRET_KEY = {% autoescape false %}{{ gitea_salt }}{% endautoescape %}
 ; Auto-login remember days
 LOGIN_REMEMBER_DAYS = 7
 COOKIE_USERNAME = gitea_awesome
@@ -201,7 +200,7 @@ SKIP_TLS_VERIFY = false
 PAGING_NUM = 10
 
 [mailer]
-ENABLED = false
+ENABLED = true
 ; Buffer length of channel, keep it as it is if you don't know what it is.
 SEND_BUFFER_LEN = 100
 ; Name displayed in mail title
@@ -225,7 +224,7 @@ KEY_FILE = custom/mailer/key.pem
 FROM = no-reply@{{ gitea_domain }}
 ; Mailer user name and password
 USER = {{ gitea_smtp_user }}
-PASSWD = {{ gitea_smtp_password }}
+PASSWD = {% autoescape false %}{{ gitea_smtp_password }}{% endautoescape %}
 ; Use text/html as alternative format of content
 ENABLE_HTML_ALTERNATIVE = false
 ; Enable sendmail (override SMTP)
