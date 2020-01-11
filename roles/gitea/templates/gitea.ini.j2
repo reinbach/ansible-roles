@@ -147,29 +147,23 @@ RSA     = 2048
 DSA     = 1024
 
 [database]
-; Either "mysql", "postgres" or "sqlite3", it's your choice
 DB_TYPE = {{ gitea_database_type }}
 HOST = {{ gitea_database_uri }}
 NAME = {{ gitea_database_name }}
 USER = {{ gitea_database_user }}
-PASSWD = {% autoescape false %}{{ gitea_database_password }}{% endautoescape %}
-; For "postgres" only, either "disable", "require" or "verify-full"
+PASSWD = {{ gitea_database_password }}
 SSL_MODE = disable
-; For "sqlite3" and "tidb", use absolute path when you start as service
 PATH = data/gitea.db
 
 [admin]
 
 [security]
 INSTALL_LOCK = true
-SECRET_KEY = {% autoescape false %}{{ gitea_salt }}{% endautoescape %}
-; Auto-login remember days
+SECRET_KEY = {{ gitea_salt }}
 LOGIN_REMEMBER_DAYS = 7
 COOKIE_USERNAME = gitea_awesome
 COOKIE_REMEMBER_NAME = gitea_incredible
-; Reverse proxy authentication header name of user name
 REVERSE_PROXY_AUTHENTICATION_USER = X-WEBAUTH-USER
-; Sets the minimum password length for new Users
 MIN_PASSWORD_LENGTH = 6
 
 [service]
@@ -222,14 +216,9 @@ CERT_FILE = custom/mailer/cert.pem
 KEY_FILE = custom/mailer/key.pem
 ; Mail from address, RFC 5322. This can be just an email address, or the `"Name" <email@example.com>` format
 FROM = no-reply@{{ gitea_domain }}
-; Mailer user name and password
 USER = {{ gitea_smtp_user }}
-PASSWD = {% autoescape false %}{{ gitea_smtp_password }}{% endautoescape %}
-; Use text/html as alternative format of content
-ENABLE_HTML_ALTERNATIVE = false
-; Enable sendmail (override SMTP)
-USE_SENDMAIL = false
-; Specifiy an alternative sendmail binary
+PASSWD = {{ gitea_smtp_password }}
+MAILER_TYPE = smtp
 SENDMAIL_PATH = sendmail
 
 [cache]
