@@ -1,6 +1,6 @@
 ---
 # Gitea Version
-gitea_version: 1.10.1
+gitea_version: 1.10.2
 
 # Path to the Gitea binary
 gitea_bin: /home/gitea/bin/gitea
