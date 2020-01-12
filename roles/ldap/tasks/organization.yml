@@ -2,7 +2,7 @@
 - name: "Create organization {{ organization }}"
   ldap_entry:
     state: present
-    dn: "dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "{{ ldap_base }}"
     objectClass:
       - organization
       - dcObject
@@ -19,56 +19,71 @@
     objectClass:
       - organizationalUnit
   with_items:
-    - dn: "ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    - dn: "{{ ldap_dn_users_group }}"
       ou: users
-    - dn: "ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    - dn: "{{ ldap_dn_admin_group }}"
       ou: admins
 
 - name: Create users
   ldap_entry:
     state: "{{ item.state }}"
-    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     attributes:
       sn: "{{ item.last_name }}"
     objectClass:
       - inetOrgPerson
   with_items:
     - "{{ users }}"
+  no_log: true
+
+- name: Set user password attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    state: exact
+    name: userPassword
+    values: "{CRYPT}{{ item.password }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present"
+  no_log: true
 
 - name: Set user email attribute
   ldap_attr:
-    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
     name: mail
     values: "{{ item.email }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
+  no_log: true
 
 - name: Set user first name attribute
   ldap_attr:
-    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
     name: givenName
     values: "{{ item.first_name }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
+  no_log: true
 
 - name: Set user last name attribute
   ldap_attr:
-    dn: "cn={{ item.username }},ou=users,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
     name: sn
     values: "{{ item.last_name }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
+  no_log: true
 
 - name: Create admin users
   ldap_entry:
     state: "{{ item.state }}"
-    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     attributes:
       sn: "{{ item.last_name }}"
       mail: "{{ item.email }}"
@@ -77,33 +92,48 @@
   with_items:
     - "{{ users }}"
   when: item.is_admin|bool
+  no_log: true
+
+- name: Set admin user password attribute
+  ldap_attr:
+    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
+    state: exact
+    name: userPassword
+    values: "{CRYPT}{{ item.password }}"
+  with_items:
+    - "{{ users }}"
+  when: item.state == "present" and item.is_admin|bool
+  no_log: true
 
 - name: Set admin user email attribute
   ldap_attr:
-    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
     name: mail
     values: "{{ item.email }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present" and item.is_admin|bool
+  no_log: true
 
 - name: Set admin user first name attribute
   ldap_attr:
-    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
     name: givenName
     values: "{{ item.first_name }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present" and item.is_admin|bool
+  no_log: true
 
 - name: Set admin user last name attribute
   ldap_attr:
-    dn: "cn={{ item.username }},ou=admins,dc={{ organization }},{{ ldap_base_dc }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
     name: sn
     values: "{{ item.last_name }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present" and item.is_admin|bool
+  no_log: true

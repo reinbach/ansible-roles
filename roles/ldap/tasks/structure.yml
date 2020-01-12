@@ -7,7 +7,7 @@
     name: olcAccess
     values:
       - >-
-        {0}to dn.subtree="{{ ldap_base_dc }}"
+        {0}to dn.subtree="{{ ldap_base }}"
         by dn.exact="{{ ldap_dn_external }}" manage
         by dn.exact="{{ ldap_dn_bind }}" manage
         by dn.children="{{ ldap_dn_admin_group }}" manage
@@ -21,10 +21,10 @@
         by anonymous auth
         by * none
 
-- name: 'Create root object "{{ ldap_base_dc }}"'
+- name: 'Create root object "{{ ldap_base }}"'
   ldap_entry:
     state: present
-    dn: '{{ ldap_base_dc }}'
+    dn: '{{ ldap_base }}'
     objectClass:
       - dcObject
       - organization
@@ -41,7 +41,7 @@
     objectClass:
       - organizationalUnit
   with_items:
-    - dn: 'ou=users,{{ ldap_base_dc }}'
-      ou: users
-    - dn: 'ou=admins,{{ ldap_base_dc }}'
-      ou: admins
+    - dn: '{{ ldap_dn_users_group }}'
+      ou: '{{ ldap_users_group }}'
+    - dn: '{{ ldap_dn_admin_group }}'
+      ou: '{{ ldap_admin_group }}'

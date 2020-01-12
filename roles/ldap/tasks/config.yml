@@ -13,7 +13,7 @@
     values: "{{ item.value }}"
   with_items:
     - name: olcSuffix
-      value: "{{ ldap_base_dc }}"
+      value: "{{ ldap_base }}"
 
 - name: Configure LDAP modules
   ldap_entry:
