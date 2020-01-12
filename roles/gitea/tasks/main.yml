@@ -35,7 +35,7 @@
     name: git
     state: present
 
-- name: make sure bin, config, and log directories exist
+- name: make sure all relevant gitea directories exist
   file:
     path: "{{ item }}"
     state: directory
@@ -47,6 +47,7 @@
     - "{{ gitea_bin | dirname }}"
     - "{{ gitea_bin | dirname }}/custom"
     - "{{ gitea_bin | dirname }}/data"
+    - "{{ gitea_bin | dirname }}/scripts"
     - "{{ gitea_config_dir }}"
     - "{{ gitea_log_dir }}"
     - "{{ gitea_repos_dir }}"
@@ -74,8 +75,8 @@
   template:
     src: gitea.ini.j2
     dest: "{{ gitea_config_dir }}/app.ini"
-    owner: root
-    group: root
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_user }}"
     mode: 0664
 
 - name: create the gitea systemd service file
@@ -92,25 +93,18 @@
     enabled: yes
     daemon-reload: yes
 
-- name: add gitea auth
-  command:
-    argv:
-      - "{{ gitea_bin }}"
-      - --config={{ gitea_config_dir}}/app.ini
-      - auth
-      - add-ldap-simple
-      - --name ldap
-      - --security-protocal encrypted
-      - --host {{ gitea_ldap_host }}
-      - --port {{ gitea_ldap_port }}
-      - --user-dn '{{ gitea_ldap_user_dn }}'
-      - --user-filter '(&(objectClass=users)(cn=%s))'
-      - --admin-filter '(&(objectClass=admins)(cn=%s))'
-      - --username-attribute cn
-      - --email-attribute mail
-      - --firstname-attribute givenName
-      - --surname-attribute sn
-  ignore_errors: yes
+- name: Deploy admin auth script
+  tags: gitea
+  become: true
+  template:
+    src: gitea.auth.script.j2
+    dest: "{{ gitea_bin | dirname }}/scripts/auth.sh"
+    owner: root
+    group: root
+    mode: 0770
+
+- name: set gitea auth
+  command: "{{ gitea_bin | dirname }}/scripts/auth.sh"
 
 - include_role:
     name: traefik
