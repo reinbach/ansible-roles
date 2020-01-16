@@ -12,6 +12,7 @@
     state: present
 
 - name: Setup users
+  tags: users
   user:
     name: "{{ item.username }}"
     state: "{{ item.state }}"
@@ -24,6 +25,7 @@
   no_log: true
 
 - name: Add SSH-keys to users
+  tags: users
   authorized_key:
     user: "{{ item.0.username }}"
     key: "{{ item.1 }}"
@@ -35,6 +37,7 @@
   when: item.0.state != "absent"
 
 - name: Remove old SSH-keys from users
+  tags: users
   authorized_key:
     user: "{{ item.0.username }}"
     key: "{{ item.1 }}"

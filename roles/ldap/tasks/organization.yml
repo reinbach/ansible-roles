@@ -25,6 +25,7 @@
       ou: admins
 
 - name: Create users
+  tags: users
   ldap_entry:
     state: "{{ item.state }}"
     dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
@@ -37,6 +38,7 @@
   no_log: true
 
 - name: Set user password attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
@@ -48,6 +50,7 @@
   no_log: true
 
 - name: Set user email attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
@@ -59,6 +62,7 @@
   no_log: true
 
 - name: Set user first name attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
@@ -70,6 +74,7 @@
   no_log: true
 
 - name: Set user last name attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
@@ -81,6 +86,7 @@
   no_log: true
 
 - name: Create admin users
+  tags: users
   ldap_entry:
     state: "{{ item.state }}"
     dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
@@ -95,6 +101,7 @@
   no_log: true
 
 - name: Set admin user password attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
@@ -106,6 +113,7 @@
   no_log: true
 
 - name: Set admin user email attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
@@ -117,6 +125,7 @@
   no_log: true
 
 - name: Set admin user first name attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
@@ -128,6 +137,7 @@
   no_log: true
 
 - name: Set admin user last name attribute
+  tags: users
   ldap_attr:
     dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
     state: exact
