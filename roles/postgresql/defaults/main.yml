@@ -13,6 +13,10 @@ postgresql_group: postgres
 postgresql_unix_socket_directories:
   - /var/run/postgresql
 
+postgresql_backup_directory: /opt/backup
+postgresql_backup_files: "{{ postgresql_backup_directory }}/files"
+postgresql_backup_scripts: "{{ postgresql_backup_directory }}/scripts"
+
 postgresql_service_state: started
 postgresql_service_enabled: true
 

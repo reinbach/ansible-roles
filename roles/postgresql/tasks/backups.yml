@@ -1,0 +1,17 @@
+---
+- name: Create backup scripts for databases
+  template:
+    src: "backup_script.j2"
+    dest: "{{ postgresql_backup_scripts }}/{{ item.name }}.sh"
+    owner: "{{ postgresql_user }}"
+    group: "{{ postgresql_group }}"
+    mode: 0770
+  with_items: "{{ postgresql_databases }}"
+
+- name: Ensure backup of databases
+  cron:
+    special_time: hourly
+    job: "{{ postgresql_backup_scripts }}/{{ item.name }}.sh"
+    state: present
+    user: "{{ postgresql_user }}"
+  with_items: "{{ postgresql_databases }}"

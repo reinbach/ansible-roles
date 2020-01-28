@@ -1,0 +1,16 @@
+#!/bin/bash
+HOUR=`date +"%H"`
+DOW=`date +"%u"`
+WOY=`date +"%V"`
+
+pg_dump {{ item.name }} > {{ postgresql_backup_files }}/{{ item.name }}-hour-${HOUR}
+
+if [ $HOUR -eq "01" ]
+then
+        pg_dump {{ item.name }} > {{ postgresql_backup_files }}/{{ item.name }}-dow-${DOW}
+fi
+
+if [ $DOW -eq "7" -a $HOUR -eq "02" ]
+then
+        pg_dump {{ item.name }} > {{ postgresql_backup_files }}/{{ item.name }}-week-${WOY}
+fi
