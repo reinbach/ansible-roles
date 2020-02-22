@@ -5,6 +5,23 @@
     src: ldap.conf
     dest: /etc/ldap/ldap.conf
 
+- name: Configure database hash format
+  ldap_attr:
+    state: exact
+    dn: cn=config
+    name: olcPasswordCryptSaltFormat
+    values: "$6$rounds=656000$%.16s"
+
+- name: Configure database hash
+  ldap_attr:
+    state: exact
+    dn: olcDatabase={-1}frontend,cn=config
+    name: "{{ item.name }}"
+    values: "{{ item.value }}"
+  with_items:
+    - name: olcPasswordHash
+      value: "{CRYPT}"
+
 - name: Configure base DN
   ldap_attr:
     state: exact
