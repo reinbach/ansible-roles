@@ -20,3 +20,4 @@
       value: "{{ ldap_dn_bind }}"
     - name: olcRootPW
       value: "{{ ldap_password }}"
+  no_log: true
