@@ -85,65 +85,14 @@
   when: item.state == "present"
   no_log: true
 
-- name: Create admin users
-  tags: users
-  ldap_entry:
-    state: "{{ item.state }}"
-    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
-    attributes:
-      sn: "{{ item.last_name }}"
-      mail: "{{ item.email }}"
-    objectClass:
-      - inetOrgPerson
-  with_items:
-    - "{{ users }}"
-  when: item.is_admin|bool
-  no_log: true
-
-- name: Set admin user password attribute
+- name: Set user employee type attribute
   tags: users
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
+    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
-    name: userPassword
-    values: "{CRYPT}{{ item.password }}"
+    name: employeeType
+    values: "{{ item.type }}"
   with_items:
     - "{{ users }}"
-  when: item.state == "present" and item.is_admin|bool
-  no_log: true
-
-- name: Set admin user email attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
-    state: exact
-    name: mail
-    values: "{{ item.email }}"
-  with_items:
-    - "{{ users }}"
-  when: item.state == "present" and item.is_admin|bool
-  no_log: true
-
-- name: Set admin user first name attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
-    state: exact
-    name: givenName
-    values: "{{ item.first_name }}"
-  with_items:
-    - "{{ users }}"
-  when: item.first_name != "" and item.state == "present" and item.is_admin|bool
-  no_log: true
-
-- name: Set admin user last name attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_admin_group }}"
-    state: exact
-    name: sn
-    values: "{{ item.last_name }}"
-  with_items:
-    - "{{ users }}"
-  when: item.state == "present" and item.is_admin|bool
+  when: item.state == "present"
   no_log: true

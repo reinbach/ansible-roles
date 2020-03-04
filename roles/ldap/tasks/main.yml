@@ -4,3 +4,5 @@
 - include_tasks: structure.yml
 - include_tasks: admin.yml
 - include_tasks: organization.yml
+  tags:
+    - users
