@@ -12,7 +12,6 @@
   cron:
     name: "{{ item.name }} backup script"
     special_time: hourly
-    minute: "0"
     job: "{{ postgresql_backup_scripts }}/{{ item.name }}.sh"
     state: present
     user: "{{ postgresql_user }}"
