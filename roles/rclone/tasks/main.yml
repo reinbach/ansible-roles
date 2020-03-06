@@ -28,7 +28,7 @@
     group: root
     mode: 0600
 
-- name: Create sync script for backups
+- name: Create sync script for files
   template:
     src: "sync_script.j2"
     dest: "{{ rclone_sync_script }}"
@@ -36,8 +36,9 @@
     group: root
     mode: 0770
 
-- name: Ensure sync of backups
+- name: Ensure sync of file
   cron:
+    name: Sync files to storage
     special_time: hourly
     minute: 30
     job: "{{ rclone_sync_script }}"
