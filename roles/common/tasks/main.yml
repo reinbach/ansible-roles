@@ -34,7 +34,7 @@
     - "{{ users }}"
     - keys.active
     - flags:
-      skip_missing: True
+      skip_missing: "yes"
   when: item.0.state != "absent"
 
 - name: Remove old SSH-keys from users
@@ -47,7 +47,7 @@
     - "{{ users }}"
     - keys.disabled
     - flags:
-      skip_missing: True
+      skip_missing: "yes"
   when: item.0.state != "absent"
 
 - name: Add admin group to sudoers
