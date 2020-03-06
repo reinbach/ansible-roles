@@ -1,0 +1,19 @@
+{% if storage_type == "s3" %}
+[s3]
+type = s3
+env_auth = false
+access_key_id = {{ storage_access_id }}
+secret_access_key = {{ storage_secret_key }}
+region = {{ storeage_region }}
+location_constraint = aws_location_constraint
+acl = private
+
+{% elif storage_type == "spaces" %}
+[spaces]
+type = s3
+env_auth = false
+access_key_id = {{ storage_access_id }}
+secret_access_key = {{ storage_secret_key }}
+endpoint = {{ storeage_region }}.digitaloceanspaces.com
+acl = private
+{% endif %}

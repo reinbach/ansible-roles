@@ -1,0 +1,8 @@
+---
+# defaults file for rclone
+rclone_download_file: rclone-current-linux-amd64.zip
+rclone_download_url: "https://downloads.rclone.org/{{ rclone_download_file }}"
+rclone_download_dir: /opt
+rclone_dir: /opt/rclone
+rclone_config: "{{ rclone_dir }}/rclone.conf"
+rclone_sync_script: "{{ rclone_dir }}/sync.sh"

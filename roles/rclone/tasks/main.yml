@@ -1,0 +1,45 @@
+---
+# tasks file for rclone
+- name: Download rclone
+  get_url:
+    url: "{{ rclone_download_url }}"
+    dest: "{{ rclone_download_dir }}"
+    force: no
+
+- name: Unarchive rclone download
+  unarchive:
+    src: "{{ rclone_download_dir }}/{{ rclone_download_file }}"
+    dest: "{{ rclone_download_dir }}/rclone"
+    remote_src: yes
+
+- name: Install rclone
+  copy:
+    src: "{{ rclone_download_dir }}/rclone/rclone"
+    dest: /usr/local/bin
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Configure rclone
+  template:
+    src: "rclone_conf.j2"
+    dest: "{{ rclone_config }}"
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Create sync script for backups
+  template:
+    src: "sync_script.j2"
+    dest: "{{ rclone_sync_script }}"
+    owner: root
+    group: root
+    mode: 0770
+
+- name: Ensure sync of backups
+  cron:
+    special_time: hourly
+    minute: 30
+    job: "{{ rclone_sync_script }}"
+    state: present
+    user: root

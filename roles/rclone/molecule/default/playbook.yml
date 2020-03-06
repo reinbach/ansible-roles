@@ -1,0 +1,14 @@
+---
+- name: Converge
+  hosts: all
+  module_defaults:
+    apt:
+      force_apt_get: yes
+  vars:
+    storage_access_id: 123
+    storage_secret_key: 321
+    storage_region: nyc3
+    storage_type: spaces
+    backup_dir: /opt/backup
+  roles:
+    - role: rclone
