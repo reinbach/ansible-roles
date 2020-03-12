@@ -70,7 +70,7 @@
     values: "{{ item.first_name }}"
   with_items:
     - "{{ users }}"
-  when: item.first_name != "" and item.state == "present"
+  when: item.first_name | length > 0 and item.state == "present"
   no_log: true
 
 - name: Set user last name attribute
