@@ -3,3 +3,6 @@
   service:
     name: gitea
     state: restarted
+
+- name: set gitea auth
+  command: "{{ gitea_bin | dirname }}/scripts/auth.sh"

@@ -102,9 +102,7 @@
     owner: root
     group: root
     mode: 0770
-
-- name: set gitea auth
-  command: "{{ gitea_bin | dirname }}/scripts/auth.sh"
+  notify: set gitea auth
 
 - include_role:
     name: traefik
