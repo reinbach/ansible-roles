@@ -1,7 +1,12 @@
 ---
 # defaults file for rclone
-rclone_download_file: rclone-current-linux-amd64.zip
-rclone_download_url: "https://downloads.rclone.org/{{ rclone_download_file }}"
+rclone_packages:
+  - unzip
+
+rclone_version: v1.51.0
+rclone_current: "rclone-{{ rclone_version }}-linux-amd64"
+rclone_download_file: "{{ rclone_current }}.zip"
+rclone_download_url: "https://downloads.rclone.org/{{ rclone_version }}/{{ rclone_download_file }}"
 rclone_download_dir: /opt
 rclone_dir: /opt/rclone
 rclone_config: "{{ rclone_dir }}/rclone.conf"
