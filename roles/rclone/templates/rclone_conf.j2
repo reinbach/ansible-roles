@@ -4,7 +4,7 @@ type = s3
 env_auth = false
 access_key_id = {{ storage_access_id }}
 secret_access_key = {{ storage_secret_key }}
-region = {{ storeage_region }}
+region = {{ storage_region }}
 location_constraint = aws_location_constraint
 acl = private
 
@@ -14,6 +14,6 @@ type = s3
 env_auth = false
 access_key_id = {{ storage_access_id }}
 secret_access_key = {{ storage_secret_key }}
-endpoint = {{ storeage_region }}.digitaloceanspaces.com
+endpoint = {{ storage_region }}.digitaloceanspaces.com
 acl = private
 {% endif %}
