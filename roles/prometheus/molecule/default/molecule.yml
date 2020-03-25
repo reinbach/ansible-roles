@@ -1,20 +1,21 @@
 ---
 dependency:
   name: galaxy
-  enabled: False
+  enabled: false
 driver:
   name: podman
-lint:
-  name: yamllint
 platforms:
-  - name: prometheus-instance
-    image: ubuntu:18.04
-    privileged: True
+  - name: instance-prometheus
+    image: docker.io/ubuntu:18.04
+    pre_build_image: true
+    privileged: true
 provisioner:
   name: ansible
-  lint:
-    name: ansible-lint
+  log: true
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: ansible
+lint: |
+  set -e
+  yamllint .
+  ansible-lint .
+  flake8
