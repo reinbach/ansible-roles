@@ -1,4 +1,7 @@
 ---
+drone_packages:
+  - python3-pip
+
 drone_version: 1.6.1
 drone_server_proto: https
 drone_http_port: 8000
@@ -13,9 +16,15 @@ drone_group: drone
 # drone_rpc_secret:
 
 # Github
-# drone_github_enabled:
+drone_github_enabled: no
 # drone_github_client_id:
 # drone_github_client_secret:
+
+# Gitea
+drone_gitea_enabled: no
+
+# Gitlab
+drone_gitlab_enabled: no
 
 # Database
 # drone_database_user: drone_user
