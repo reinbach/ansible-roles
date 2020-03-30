@@ -104,6 +104,17 @@
     mode: 0770
   notify: set gitea auth
 
+- name: Deploy OAuth script
+  tags: gitea
+  become: true
+  template:
+    src: gitea.oauth.script.j2
+    dest: "{{ gitea_bin | dirname }}/scripts/oauth.sh"
+    owner: root
+    group: root
+    mode: 0770
+  notify: set gitea oauth
+
 - include_role:
     name: traefik
   vars:

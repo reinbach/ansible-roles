@@ -1,0 +1,17 @@
+#!/bin/bash
+
+OAUTH_NAME=drone
+GITEA_BIN={{ gitea_bin }}
+GITEA_CONFIG={{ gitea_config_dir }}/app.ini
+GITEA_AUTH_CMD="${GITEA_BIN} --config=${GITEA_CONFIG} admin auth"
+KEY="{{ gitea_oauth_key }}"
+SECRET="{{ gitea_oauth_secret }}"
+OAUTH_DRONE_URL="https://{{ drone_domain }}/login"
+ARGS=" --name=$OAUTH_NAME --provider=openid --key=$KEY --secret=$SECRET --auto-discover-url=$OAUTH_DRONE_URL"
+
+AUTH_LIST="$($GITEA_AUTH_CMD list)"
+if [[ ${AUTH_LIST} == *"$OAUTH_NAME"* ]]; then
+    $GITEA_AUTH_CMD update-oauth --id=2 $ARGS
+else
+    $GITEA_AUTH_CMD add-oauth --name=$OAUTH_NAME $ARGS
+fi
