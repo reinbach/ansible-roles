@@ -11,15 +11,25 @@ logLevel = "INFO"
 {% endif %}
 
 [providers]
+  {% if docker_config == "yes" %}
+  [providers.docker]
+    endpoint = "unix:///var/run/docker.sock"
+  {% endif %}
+  {% if file_config == "yes" %}
   [providers.file]
     directory = "{{ traefik_config_dir }}"
     watch = true
+  {% endif %}
 
 [certificatesResolvers.letsencrypt.acme]
   email = "greg@ironlabs.com"
   storage = "acme.json"
- [certificatesResolvers.letsencrypt.acme.httpChallenge]
-   entryPoint = "web"
+  {% if docker_config == "yes" %}
+  tlschallenge = true
+  {% else %}
+  [certificatesResolvers.letsencrypt.acme.httpChallenge]
+    entryPoint = "web"
+  {% endif %}
 
 [log]
   filePath = "{{ traefik_log_dir }}/traefik.log"

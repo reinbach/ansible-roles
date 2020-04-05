@@ -50,7 +50,7 @@
     owner: root
     group: root
     mode: 0744
-  when: domain is defined
+  when: file_config == "yes"
 
 - name: Ensure traefik service is stopped before traefik update
   service:
