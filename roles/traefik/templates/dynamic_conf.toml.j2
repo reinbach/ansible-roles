@@ -1,4 +1,8 @@
 [http]
+  [http.middlewares]
+    [http.middlewares.ssl-redirectscheme.redirectScheme]
+      scheme = "https"
+      permanent = true
   [http.routers]
     [http.routers.{{ label }}-router]
       entryPoints = ["web-secure"]
