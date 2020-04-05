@@ -5,8 +5,8 @@
     restart: yes
   listen: "restart drone"
 
-- name: restart drone agent
+- name: restart drone runner
   docker_container:
-    name: drone-agent
+    name: drone-runner
     restart: yes
   listen: "restart drone"

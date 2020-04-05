@@ -12,8 +12,8 @@ drone_env_file: "{{ drone_config_dir }}/env_vars"
 drone_user: drone
 drone_group: drone
 
-# Drone secret key, used for private communication between agent and web UI
-# drone_rpc_secret:
+# Drone secret key, used for private communication between runner and server
+drone_rpc_secret: "{{ drone_rpc_secret }}"
 
 # Github
 drone_github_enabled: no
