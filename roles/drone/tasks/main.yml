@@ -84,4 +84,3 @@
     label: "{{ drone_domain | regex_replace('\\.', '-') }}"
     domain: "{{ drone_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: "{{ drone_http_port }}"
