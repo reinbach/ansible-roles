@@ -2,6 +2,8 @@
 docker_packages:
   - apt-transport-https
   - ca-certificates
+  - python3-pip
+
 docker_libraries:
   - docker
   - docker-compose
