@@ -54,7 +54,7 @@
 - name: Ensure sync of file
   cron:
     name: Sync files to storage
-    minute: 30
+    minute: "30"
     job: "{{ rclone_sync_script }}"
     state: present
     user: root
