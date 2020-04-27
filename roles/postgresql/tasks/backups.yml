@@ -11,7 +11,7 @@
 - name: Ensure backup of databases
   cron:
     name: "{{ item.name }} backup script"
-    minute: 5
+    minute: "5"
     job: "{{ postgresql_backup_scripts }}/{{ item.name }}.sh"
     state: present
     user: "{{ postgresql_user }}"
