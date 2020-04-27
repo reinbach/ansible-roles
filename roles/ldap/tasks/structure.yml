@@ -29,14 +29,14 @@
       - dcObject
       - organization
       - top
-    params:
+    attributes:
       o: ldap
 
 - name: Create basic organizational units
   ldap_entry:
     state: present
     dn: '{{ item.dn }}'
-    params:
+    attributes:
       ou: '{{ item.ou }}'
     objectClass:
       - organizationalUnit

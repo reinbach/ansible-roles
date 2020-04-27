@@ -6,7 +6,7 @@
     objectClass:
       - organizationalUnit
       - top
-    params:
+    attributes:
       ou: "{{ ldap_admin_group }}"
 
 - name: Configure admin user
