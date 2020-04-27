@@ -1,10 +1,14 @@
 ---
 - name: Ensure dependencies are installed.
   apt:
-    name:
-      - apt-transport-https
-      - ca-certificates
+    name: "{{ item }}"
     state: present
+  with_items: "{{ docker_packages }}"
+
+- name: Install required libraries
+  pip:
+    name: "{{ item }}"
+  with_items: "{{ docker_libraries }}"
 
 - name: Add Docker apt key.
   apt_key:
@@ -31,3 +35,9 @@
     name: docker
     state: started
     enabled: true
+
+- name: Install docker-compose.
+  get_url:
+    url: "{{ docker_compose_url }}"
+    dest: /usr/local/bin/docker-compose
+    mode: "0755"
