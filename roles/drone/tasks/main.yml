@@ -5,10 +5,6 @@
     state: present
   with_items: "{{ drone_packages }}"
 
-- name: Install required libraries
-  pip:
-    name: docker
-
 - name: create drone group
   group:
     name: "{{ drone_group }}"
