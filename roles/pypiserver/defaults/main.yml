@@ -1,0 +1,10 @@
+---
+pypi_packages:
+  - python3-pip
+pypi_libraries:
+  - passlib
+
+pypi_dir: /home/pypi
+pypi_auth_dir: "{{ pypi_dir }}/auth"
+pypi_user: pypi
+pypi_group: pypi

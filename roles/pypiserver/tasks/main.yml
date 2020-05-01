@@ -1,0 +1,63 @@
+---
+- name: install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ pypi_packages }}"
+
+- name: install required libraries
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ pypi_libraries }}"
+
+- name: create pypi group
+  group:
+    name: "{{ pypi_group }}"
+    state: present
+
+- name: create pypi user
+  user:
+    name: "{{ pypi_user }}"
+    group: "{{ pypi_group }}"
+    home: "{{ pypi_dir }}"
+    groups: docker
+    append: yes
+
+- name: create auth directory
+  file:
+    path: "{{ pypi_auth_dir }}"
+    state: directory
+    owner: "{{ pypi_user }}"
+    group: "{{ pypi_group }}"
+    mode: 0755
+    recurse: yes
+
+- name: set users auth file
+  template:
+    src: htpasswd.j2
+    dest: "{{ pypi_auth_dir }}/.htpasswd"
+    owner: "{{ pypi_user }}"
+    group: "{{ pypi_group }}"
+    mode: 0640
+  tags:
+    - pypi
+
+- name: deploy docker-compose file
+  notify: restart_pypi
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ pypi_dir }}/docker-compose.yml"
+    owner: "{{ pypi_user }}"
+    group: "{{ pypi_group }}"
+    mode: 0640
+  tags:
+    - pypi
+
+- include_role:
+    name: traefik
+  vars:
+    docker_config: "yes"
+    label: "{{ pypi_domain | regex_replace('\\.', '-') }}"
+    domain: "{{ pypi_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
