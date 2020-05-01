@@ -1,0 +1,15 @@
+---
+sentry_version: 10
+sentry_packages:
+  - git
+  - postgresql-contrib
+
+sentry_repo: https://github.com/Bayete/onpremise.git
+
+sentry_dir: /srv/sentry
+sentry_config_yml_file: "{{ sentry_dir }}/sentry/config.yml"
+sentry_config_py_file: "{{ sentry_dir }}/sentry/sentry.conf.py"
+sentry_requirements_file: "{{ sentry_dir }}/sentry/requirements.txt"
+
+sentry_http_port: 9000
+sentry_database_port: 5432
