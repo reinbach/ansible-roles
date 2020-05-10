@@ -24,19 +24,20 @@
     groups: docker
     append: yes
 
-- name: create auth directory
+- name: create needed directories
   file:
-    path: "{{ pypi_auth_dir }}"
+    path: "{{ pypi_dir }}/{{ item }}"
     state: directory
     owner: "{{ pypi_user }}"
     group: "{{ pypi_group }}"
     mode: 0755
     recurse: yes
+  with_items: "{{ pypi_directories }}"
 
 - name: set users auth file
   template:
     src: htpasswd.j2
-    dest: "{{ pypi_auth_dir }}/.htpasswd"
+    dest: "{{ pypi_dir }}/auth/.htpasswd"
     owner: "{{ pypi_user }}"
     group: "{{ pypi_group }}"
     mode: 0640
@@ -44,7 +45,7 @@
     - pypi
 
 - name: deploy docker-compose file
-  notify: restart_pypi
+  notify: restart pypi
   template:
     src: docker-compose.yml.j2
     dest: "{{ pypi_dir }}/docker-compose.yml"
