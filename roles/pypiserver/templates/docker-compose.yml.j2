@@ -3,7 +3,7 @@ version: "3.3"
 
 services:
     pypiserver-https:
-        image: pypiserver/pypiserver:{{ pypi_version }}
+        image: pypiserver/pypiserver:v{{ pypi_version }}
         volumes:
             - type: bind
               source: ./auth
