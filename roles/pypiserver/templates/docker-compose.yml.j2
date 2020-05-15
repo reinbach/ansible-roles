@@ -3,7 +3,7 @@ version: "3.3"
 
 services:
     pypiserver-https:
-        image: pypiserver/pypiserver:v{{ pypi_version }}
+        image: pypiserver/pypiserver:v{{ pypiserver_version }}
         volumes:
             - type: bind
               source: ./auth
@@ -17,7 +17,7 @@ services:
             - "traefik.enable=true"
 
             # Configure the route
-            - "traefik.http.routers.pypi-router.rule=Host(`{{ pypi_domain }}`)"
+            - "traefik.http.routers.pypi-router.rule=Host(`{{ pypiserver_domain }}`)"
             - "traefik.http.routers.pypi-router.entrypoints=web-secure"
             - "traefik.http.routers.pypi-router.tls.certresolver=letsencrypt"
             - "traefik.http.routers.pypi-router.service: pypi-service"

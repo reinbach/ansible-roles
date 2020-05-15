@@ -3,62 +3,62 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items: "{{ pypi_packages }}"
+  with_items: "{{ pypiserver_packages }}"
 
 - name: install required libraries
   pip:
     name: "{{ item }}"
     state: present
-  with_items: "{{ pypi_libraries }}"
+  with_items: "{{ pypiserver_libraries }}"
 
 - name: create pypi group
   group:
-    name: "{{ pypi_group }}"
+    name: "{{ pypiserver_group }}"
     state: present
 
 - name: create pypi user
   user:
-    name: "{{ pypi_user }}"
-    group: "{{ pypi_group }}"
-    home: "{{ pypi_dir }}"
+    name: "{{ pypiserver_user }}"
+    group: "{{ pypiserver_group }}"
+    home: "{{ pypiserver_dir }}"
     groups: docker
     append: yes
 
 - name: create needed directories
   file:
-    path: "{{ pypi_dir }}/{{ item }}"
+    path: "{{ pypiserver_dir }}/{{ item }}"
     state: directory
-    owner: "{{ pypi_user }}"
-    group: "{{ pypi_group }}"
+    owner: "{{ pypiserver_user }}"
+    group: "{{ pypiserver_group }}"
     mode: 0755
     recurse: yes
-  with_items: "{{ pypi_directories }}"
+  with_items: "{{ pypiserver_directories }}"
 
 - name: set users auth file
   template:
     src: htpasswd.j2
-    dest: "{{ pypi_dir }}/auth/.htpasswd"
-    owner: "{{ pypi_user }}"
-    group: "{{ pypi_group }}"
+    dest: "{{ pypiserver_dir }}/auth/.htpasswd"
+    owner: "{{ pypiserver_user }}"
+    group: "{{ pypiserver_group }}"
     mode: 0640
   tags:
-    - pypi
+    - pypiserver
 
 - name: deploy docker-compose file
-  notify: restart pypi
+  notify: restart pypiserver
   template:
     src: docker-compose.yml.j2
-    dest: "{{ pypi_dir }}/docker-compose.yml"
-    owner: "{{ pypi_user }}"
-    group: "{{ pypi_group }}"
+    dest: "{{ pypiserver_dir }}/docker-compose.yml"
+    owner: "{{ pypiserver_user }}"
+    group: "{{ pypiserver_group }}"
     mode: 0640
   tags:
-    - pypi
+    - pypiserver
 
 - include_role:
     name: traefik
   vars:
     docker_config: "yes"
-    label: "{{ pypi_domain | regex_replace('\\.', '-') }}"
-    domain: "{{ pypi_domain }}"
+    label: "{{ pypiserver_domain | regex_replace('\\.', '-') }}"
+    domain: "{{ pypiserver_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"

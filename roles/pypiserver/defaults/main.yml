@@ -1,12 +1,12 @@
 ---
-pypi_packages:
+pypiserver_packages:
   - python3-pip
-pypi_libraries:
+pypiserver_libraries:
   - passlib
 
-pypi_dir: /home/pypi
-pypi_directories:
+pypiserver_dir: /home/pypi
+pypiserver_directories:
   - auth
   - packages
-pypi_user: pypi
-pypi_group: pypi
+pypiserver_user: pypi
+pypiserver_group: pypi
