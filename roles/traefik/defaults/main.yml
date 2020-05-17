@@ -12,7 +12,6 @@ traefik_dir: /etc/traefik
 traefik_config_file: "{{ traefik_dir }}/traefik.toml"
 traefik_config_dir: "{{ traefik_dir }}/conf.d/"
 traefik_dashboard_config_file: traefik_dashboard.toml
-traefik_dashboard: true
 traefik_dynamic_config_file: dynamic_conf.toml
 traefik_log_dir: /var/log/traefik
 traefik_template: traefik.toml

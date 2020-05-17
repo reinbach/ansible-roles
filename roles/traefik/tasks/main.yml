@@ -25,8 +25,22 @@
     owner: root
     group: root
     mode: 0744
+    force: "no"
   notify:
     - Restart traefik
+
+- name: Set docker provider
+  blockinfile:
+    path: "{{ traefik_config_file }}"
+    marker_begin: "DOCKER_BEGIN"
+    marker_end: "DOCKER_END"
+    state: present
+    block: |
+        [providers.docker]
+          endpoint = "unix:///var/run/docker.sock"
+  notify:
+    - Restart traefik
+  when: docker_config == "yes"
 
 - name: Copy traefik dashboard config file
   template:
@@ -35,13 +49,6 @@
     owner: root
     group: root
     mode: 0744
-  when: traefik_dashboard
-
-- name: Remove traefik dashboard config file
-  file:
-    state: absent
-    path: "{{ traefik_config_dir }}/{{ traefik_dashboard_config_file }}"
-  when: not traefik_dashboard
 
 - name: Add dynamic config
   template:

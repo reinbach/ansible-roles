@@ -1,40 +1,27 @@
-logLevel = "INFO"
-
 [entryPoints]
   [entryPoints.web]
     address = ":80"
   [entryPoints.web-secure]
     address = ":443"
-{% if traefik_dashboard %}
   [entryPoints.api]
     address = ":8080"
-{% endif %}
 
 [providers]
-  {% if docker_config == "yes" %}
-  [providers.docker]
-    endpoint = "unix:///var/run/docker.sock"
-  {% endif %}
-  {% if file_config == "yes" %}
   [providers.file]
     directory = "{{ traefik_config_dir }}"
     watch = true
-  {% endif %}
+# BEGIN_DOCKER ANSIBLE MANAGED BLOCK
+# END_DOCKER ANSIBLE MANAGED BLOCK
 
 [certificatesResolvers.letsencrypt.acme]
   email = "greg@ironlabs.com"
   storage = "acme.json"
-  {% if docker_config == "yes" %}
-  tlschallenge = true
-  {% else %}
-  [certificatesResolvers.letsencrypt.acme.httpChallenge]
-    entryPoint = "web"
-  {% endif %}
+  caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+  [certificatesResolvers.letsencrypt.acme.tlsChallenge]
 
 [log]
+  level = "INFO"
   filePath = "{{ traefik_log_dir }}/traefik.log"
 
-{% if traefik_dashboard %}
 [api]
   dashboard = true
-{% endif %}
