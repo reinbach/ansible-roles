@@ -15,9 +15,8 @@ services:
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.pypiserver.rule=Host(`{{ pypiserver_domain }}`)"
-            - "traefik.http.routers.pypiserver.entrypoints=web-secure"
+            - "traefik.http.routers.pypiserver.entrypoints=web,web-secure"
             - "traefik.http.routers.pypiserver.tls.certresolver=letsencrypt"
             - "traefik.http.routers.pypiserver.service=pypi-service"
+            - "traefik.http.routers.pypiserver.middlewares=https-redirect@file"
             - "traefik.http.services.pypi-service.loadbalancer.server.port=8080"
-            - "traefik.http.middlewares.test-redirectscheme.redirectscheme.scheme=https"
-            - "traefik.http.middlewares.test-redirectscheme.redirectscheme.permanent=true"
