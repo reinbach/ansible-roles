@@ -40,7 +40,7 @@
     dest: "{{ pypiserver_dir }}/auth/.htpasswd"
     owner: "{{ pypiserver_user }}"
     group: "{{ pypiserver_group }}"
-    mode: 0640
+    mode: 0644
   tags:
     - pypiserver
 
