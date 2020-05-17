@@ -1,13 +1,10 @@
 [http]
-  [http.middlewares]
-    [http.middlewares.ssl-redirectscheme.redirectScheme]
-      scheme = "https"
-      permanent = true
   [http.routers]
     [http.routers.{{ label }}-router]
-      entryPoints = ["web-secure"]
+      entryPoints = ["web", "web-secure"]
       service = "service-{{ label }}"
       rule = "Host(`{{ domain }}`)"
+      middlewares = ["https-redirect"]
       [http.routers.{{ label }}-router.tls]
         certResolver = "letsencrypt"
         [[http.routers.{{ label }}-router.tls.domains]]
