@@ -14,9 +14,13 @@ services:
         command: -P /data/auth/.htpasswd -a update,download,list /data/packages
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.pypiserver.rule=Host(`{{ pypiserver_domain }}`)"
-            - "traefik.http.routers.pypiserver.entrypoints=web,web-secure"
-            - "traefik.http.routers.pypiserver.tls.certresolver=letsencrypt"
-            - "traefik.http.routers.pypiserver.service=pypi-service"
-            - "traefik.http.routers.pypiserver.middlewares=https-redirect@file"
+            - "traefik.http.routers.http-pypiserver.rule=Host(`{{ pypiserver_domain }}`)"
+            - "traefik.http.routers.http-pypiserver.entrypoints=web"
+            - "traefik.http.routers.http-pypiserver.service=pypi-service"
+            - "traefik.http.routers.http-pypiserver.middlewares=https-redirect@file"
+            - "traefik.http.routers.https-pypiserver.rule=Host(`{{ pypiserver_domain }}`)"
+            - "traefik.http.routers.https-pypiserver.entrypoints=web-secure"
+            - "traefik.http.routers.https-pypiserver.tls=true"
+            - "traefik.http.routers.https-pypiserver.tls.certresolver=letsencrypt"
+            - "traefik.http.routers.https-pypiserver.service=pypi-service"
             - "traefik.http.services.pypi-service.loadbalancer.server.port=8080"
