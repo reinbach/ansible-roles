@@ -77,6 +77,6 @@
     name: traefik
   vars:
     docker_config: "yes"
-    label: "{{ drone_domain | regex_replace('\\.', '-') }}"
+    label: "{{ drone_label }}"
     domain: "{{ drone_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"

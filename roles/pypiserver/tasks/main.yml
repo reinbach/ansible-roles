@@ -59,6 +59,6 @@
     name: traefik
   vars:
     docker_config: "yes"
-    label: "{{ pypiserver_domain | regex_replace('\\.', '-') }}"
+    label: "{{ pypiserver_label }}"
     domain: "{{ pypiserver_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"

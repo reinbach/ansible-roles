@@ -118,7 +118,7 @@
     name: traefik
   vars:
     file_config: "yes"
-    label: "{{ gitea_domain | regex_replace('\\.', '-') }}"
+    label: "{{ gitea_label }}"
     domain: "{{ gitea_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     port: "{{ gitea_http_port }}"
