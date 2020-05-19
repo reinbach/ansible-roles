@@ -257,7 +257,7 @@ HOST = {{ gitea_database_uri }}
 NAME = {{ gitea_database_name }}
 USER = {{ gitea_database_user }}
 ; Use PASSWD = `your password` for quoting if you use special characters in the password.
-PASSWD = {{ gitea_database_password }}
+PASSWD = `{{ gitea_database_password }}`
 ; For Postgres, either "disable" (default), "require", or "verify-full"
 ; For MySQL, either "false" (default), "true", or "skip-verify"
 SSL_MODE = disable
