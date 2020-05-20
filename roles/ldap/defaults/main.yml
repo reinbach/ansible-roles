@@ -1,7 +1,7 @@
 ---
 ldap_admin_group: 'admins'
 ldap_users_group: 'users'
-ldap_base: 'dc={{ organization }},{{ ldap_base_dc }}'
+ldap_base: 'dc={{ ldap_organization }},{{ ldap_base_dc }}'
 ldap_dn_admin_group: 'ou={{ ldap_admin_group }},{{ ldap_base }}'
 ldap_dn_users_group: 'ou={{ ldap_users_group }},{{ ldap_base }}'
 ldap_dn_bind: 'cn=admin,{{ ldap_base }}'

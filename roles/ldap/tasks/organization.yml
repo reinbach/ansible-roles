@@ -1,5 +1,5 @@
 ---
-- name: "Create organization {{ organization }}"
+- name: "Create organization {{ ldap_organization }}"
   ldap_entry:
     state: present
     dn: "{{ ldap_base }}"
@@ -8,9 +8,9 @@
       - dcObject
       - top
     attributes:
-      o: "{{ organization }}"
+      o: "{{ ldap_organization }}"
 
-- name: "Create organizational units for {{ organization }}"
+- name: "Create organizational units for {{ ldap_organization }}"
   ldap_entry:
     state: present
     dn: "{{ item.dn }}"
