@@ -28,6 +28,7 @@
     recurse: yes
   with_items:
     - "{{ drone_config_dir }}"
+    - "{{ drone_working_dir }}/data"
 
 - name: deploy config file
   notify: restart drone
@@ -39,37 +40,14 @@
     group: "{{ drone_group }}"
     mode: 0640
 
-- name: run drone server
-  docker_container:
-    name: drone-server
-    image: "drone/drone:{{ drone_version }}"
-    state: started
-    restart_policy: always
-    volumes:
-      - /drone:/var/lib/drone/
-      - "{{ drone_working_dir }}/data:/data/"
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      traefik.http.routers.drone-router.rule: "Host(`{{ drone_domain }}`)"
-      traefik.http.routers.drone-router.service: "drone-service"
-      traefik.http.routers.drone-router.tls.certResolver: "letsencrypt"
-      traefik.http.routers.drone-router.entrypoints: "web-secure"
-      traefik.http.services.drone-service.loadbalancer.server.port: "80"
-    env_file:
-      "{{ drone_env_file }}"
-  tags:
-    - drone
-
-- name: run drone runner
-  docker_container:
-    name: drone-runner
-    image: "drone/drone-runner-docker:latest"
-    state: started
-    restart_policy: always
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    env_file:
-      "{{ drone_env_file }}"
+- name: deploy docker-compose file
+  notify: restart drone
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ drone_working_dir }}/docker-compose.yml"
+    owner: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    mode: 0640
   tags:
     - drone
 

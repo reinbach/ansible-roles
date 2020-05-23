@@ -1,12 +1,7 @@
 ---
-- name: restart drone server
-  docker_container:
-    name: drone-server
-    restart: yes
-  listen: "restart drone"
-
-- name: restart drone runner
-  docker_container:
-    name: drone-runner
-    restart: yes
+- name: restart drone
+  docker_compose:
+    project_src: "{{ drone_working_dir }}"
+    build: no
+    restarted: yes
   listen: "restart drone"
