@@ -24,3 +24,12 @@
     enabled: true
   tags:
     - prometheus_run
+
+- include_role:
+    name: traefik
+  vars:
+    file_config: "yes"
+    label: "{{ prometheus_label }}"
+    domain: "{{ prometheus_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    port: "{{ prometheus_web_listen_port }}"

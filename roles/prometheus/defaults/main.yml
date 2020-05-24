@@ -1,11 +1,13 @@
 ---
-prometheus_version: 2.13.1
+prometheus_version: 2.18.1
 
 prometheus_config_dir: /etc/prometheus
 prometheus_db_dir: /var/lib/prometheus
 
-prometheus_web_listen_address: "0.0.0.0:9090"
-prometheus_web_external_url: ''
+prometheus_web_listen_url: "0.0.0.0"
+prometheus_web_listen_port: "9090"
+prometheus_web_listen_address: "{{ prometheus_web_listen_url }}:{{ prometheus_web_listen_port }}"
+prometheus_web_external_url: "{{ prometheus_domain }}"
 
 prometheus_storage_retention: "30d"
 # Available since Prometheus 2.7.0
@@ -52,7 +54,7 @@ prometheus_remote_read: []
 #       password: FOO
 
 prometheus_external_labels:
-  environment: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
+  environment: "{{ prometheus_domain }}"
 
 prometheus_targets: {}
 #  node:
@@ -66,7 +68,7 @@ prometheus_scrape_configs:
     metrics_path: "{{ prometheus_metrics_path }}"
     static_configs:
       - targets:
-          - "{{ ansible_fqdn | default(ansible_host) | default('localhost') }}:9090"
+          - "{{ prometheus_domain }}:9090"
   - job_name: "node"
     file_sd_configs:
       - files:
