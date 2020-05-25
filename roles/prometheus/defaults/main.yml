@@ -68,7 +68,7 @@ prometheus_scrape_configs:
     metrics_path: "{{ prometheus_metrics_path }}"
     static_configs:
       - targets:
-          - "{{ prometheus_domain }}:9090"
+          - "{{ prometheus_domain }}:8080"
   - job_name: "node"
     file_sd_configs:
       - files:
