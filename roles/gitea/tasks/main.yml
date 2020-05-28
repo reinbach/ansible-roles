@@ -113,6 +113,7 @@
     group: root
     mode: 0770
   notify: set gitea oauth
+  when: drone_domain is defined
 
 - include_role:
     name: traefik
