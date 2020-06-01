@@ -1,6 +1,6 @@
 {{ ansible_managed | comment }}
 
-targets:
+- targets:
 {% for target in prometheus_targets.split(",") %}
-  {{ target }}:{{ prometheus_metrics_port }}
+  - {{ target }}:{{ prometheus_metrics_port }}
 {% endfor %}

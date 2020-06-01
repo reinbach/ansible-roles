@@ -70,11 +70,11 @@ prometheus_scrape_configs:
     static_configs:
       - targets:
           - "{{ prometheus_domain }}:{{ prometheus_metrics_port }}"
-  - job_name: "node_metrics"
+  - job_name: "node"
     metrics_path: "{{ prometheus_metrics_path }}"
     file_sd_configs:
       - files:
-          - "{{ prometheus_config_dir }}/file_sd/nodes.yml"
+        - "{{ prometheus_config_dir }}/file_sd/nodes.yml"
 
 # Alternative config file name, searched in ansible templates path.
 prometheus_config_file: 'prometheus.yml.j2'

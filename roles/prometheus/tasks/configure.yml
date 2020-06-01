@@ -67,6 +67,5 @@
     owner: root
     group: prometheus
     mode: 0640
-    validate: "/usr/local/bin/promtool check config %s"
   notify:
     - reload prometheus
