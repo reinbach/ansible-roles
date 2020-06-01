@@ -2,6 +2,8 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include prometheus"
+    - name: "Include node_exporter"
       include_role:
-        name: "prometheus"
+        name: "node_exporter"
+      vars:
+        use_traefik: "no"
