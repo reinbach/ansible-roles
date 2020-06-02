@@ -67,6 +67,14 @@
     mode: 0744
   when: file_config == "yes"
 
+- name: set htpasswd file
+  template:
+    src: htpasswd.j2
+    dest: "{{ traefik_auth_file }}"
+    owner: root
+    group: root
+    mode: 0644
+
 - name: Ensure traefik service is stopped before traefik update
   service:
     name: traefik

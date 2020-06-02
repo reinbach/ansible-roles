@@ -7,6 +7,4 @@
 
   [http.middlewares]
     [http.middlewares.auth.basicAuth]
-      users = [
-        "bayete:$2b$12$p6LMnRzRiuTZXw6xLST/q.6.sUlms/ATYAWSe3DAlwolW5CSZTLZ6"
-      ]
+      usersFile = "{{ traefik_auth_file }}"
