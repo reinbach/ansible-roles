@@ -43,7 +43,7 @@
     dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
     state: exact
     name: userPassword
-    values: "{CRYPT}{{ item.password }}"
+    values: "{CRYPT}{{ item.ldap_password }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
