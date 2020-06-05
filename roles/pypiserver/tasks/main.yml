@@ -7,9 +7,8 @@
 
 - name: install required libraries
   pip:
-    name: "{{ item }}"
+    name: "{{ pypiserver_libraries }}"
     state: present
-  with_items: "{{ pypiserver_libraries }}"
 
 - name: create pypi group
   group:
@@ -34,16 +33,6 @@
     recurse: yes
   with_items: "{{ pypiserver_directories }}"
 
-- name: set users auth file
-  template:
-    src: htpasswd.j2
-    dest: "{{ pypiserver_dir }}/auth/.htpasswd"
-    owner: "{{ pypiserver_user }}"
-    group: "{{ pypiserver_group }}"
-    mode: 0644
-  tags:
-    - pypiserver
-
 - name: deploy docker-compose file
   notify: restart pypiserver
   template:
@@ -62,3 +51,4 @@
     label: "{{ pypiserver_label }}"
     domain: "{{ pypiserver_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
+    middlewares: "['auth']"

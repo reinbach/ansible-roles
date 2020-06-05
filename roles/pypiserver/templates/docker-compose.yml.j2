@@ -6,12 +6,8 @@ services:
         image: pypiserver/pypiserver:v{{ pypiserver_version }}
         volumes:
             - type: bind
-              source: ./auth
-              target: /data/auth
-            - type: bind
               source: ./packages
               target: /data/packages
-        command: -P /data/auth/.htpasswd -a update,download,list /data/packages
         labels:
             - "traefik.enable=true"
             - "traefik.http.routers.http-pypiserver.rule=Host(`{{ pypiserver_domain }}`)"
