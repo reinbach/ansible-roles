@@ -1,6 +1,35 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    # drone_domain: ci.example.com
+    users:
+      - username: greg
+        email: greg@example.com
+        is_admin: true
+    gitea_app_name: Git @ example.com
+    gitea_database_name: code_gitea
+    gitea_database_password: 123
+    gitea_database_uri: psql.example.com
+    gitea_database_user: code_gitea_user
+    gitea_jwt_secret: supersecret
+    gitea_label: code_gitea
+    gitea_ldap_bind_dn: cn=admin,dc=example,dc=com
+    gitea_ldap_bind_password: 321
+    gitea_ldap_host: ldap.ironlabs.net
+    gitea_ldap_port: "389"
+    gitea_ldap_user_search_base: ou=users,dc=example,dc=com
+    gitea_metrics_token: 123
+    gitea_salt: salty
+    gitea_smtp_host: smtp.mailgun.org
+    gitea_smtp_password: 321
+    gitea_smtp_port: "587"
+    gitea_smtp_user: postmaster@git.example.com
+    gitea_version: 1.10.2
+    gitea_domain: git.example.com
+    gitea_enabled: "yes"
+    gitea_oauth_key: oauth-key
+    gitea_oauth_secret: oauth-secret
   tasks:
     - name: "Include gitea"
       include_role:
