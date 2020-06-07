@@ -1,10 +1,13 @@
 ---
+# systemd unit files location
+systemd_units_dir: /lib/systemd/system
 
-# gitea download url
-gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_system | lower }}-{{ 'amd64' if ansible_architecture == 'x86_64' else ansible_architecture }}"
+python_pip_packages:
+  - psycopg2
 
-# python pip packages required to support SNI certificates
-python_sni_pip_dependencies:
-  - pyopenssl
-  - ndg-httpsclient
-  - pyasn1
+# extra packages needed by ansible to correctly configure the system
+ansible_support_packages:
+  - git
+  - python3-pip
+  - ca-certificates
+  - libpq-dev

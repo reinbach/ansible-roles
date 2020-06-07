@@ -1,0 +1,11 @@
+#!/bin/bash
+
+GITEA_BIN={{ gitea_bin }}
+GITEA_CONFIG={{ gitea_config_dir }}/app.ini
+GITEA_AUTH_CMD="${GITEA_BIN} --config=${GITEA_CONFIG} admin create-user"
+
+USERNAME="{{ (users|selectattr('is_admin', 'eq', true)|first).username }}"
+EMAIL="{{ (users|selectattr('is_admin', 'eq', true)|first).email }}"
+ARGS=" --username=$USERNAME --random-password --email=$EMAIL --admin"
+
+$GITEA_AUTH_CMD $ARGS

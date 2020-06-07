@@ -2,6 +2,8 @@
 # Gitea Version
 gitea_version: 1.10.2
 
+gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_system | lower }}-amd64"
+
 # Path to the Gitea binary
 gitea_bin: /home/gitea/bin/gitea
 

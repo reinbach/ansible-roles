@@ -1,0 +1,22 @@
+---
+- name: gitea config file
+  notify: restart gitea
+  become: true
+  template:
+    src: gitea.ini.j2
+    dest: "{{ gitea_config_dir }}/app.ini"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_user }}"
+    mode: 0664
+  tags: gitea
+
+- name: admin auth script
+  become: true
+  template:
+    src: gitea.auth.script.j2
+    dest: "{{ gitea_bin | dirname }}/scripts/auth.sh"
+    owner: root
+    group: root
+    mode: 0770
+  notify: set gitea auth
+  tags: gitea

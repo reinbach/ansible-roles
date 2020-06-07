@@ -1,0 +1,62 @@
+---
+- name: install required packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
+
+- name: install required libraries
+  pip:
+    name: "{{ python_pip_packages }}"
+    state: present
+
+- name: create gitea group
+  group:
+    name: "{{ gitea_group }}"
+    state: present
+
+- name: create gitea user
+  user:
+    name: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    home: "{{ gitea_working_dir }}"
+    comment: Gitea
+
+- name: make sure all relevant gitea directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 0755
+    recurse: yes
+  with_items:
+    - "{{ gitea_bin | dirname }}"
+    - "{{ gitea_bin | dirname }}/custom"
+    - "{{ gitea_bin | dirname }}/data"
+    - "{{ gitea_bin | dirname }}/scripts"
+    - "{{ gitea_config_dir }}"
+    - "{{ gitea_log_dir }}"
+    - "{{ gitea_repos_dir }}"
+
+- name: download gitea binary
+  get_url:
+    url: "{{ gitea_download_url }}"
+    dest: "{{ gitea_bin }}-{{ gitea_version }}"
+    force: no
+
+- name: link gitea binary
+  file:
+    path: "{{ gitea_bin }}"
+    src: "{{ gitea_bin }}-{{ gitea_version }}"
+    state: link
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
+    mode: 0755
+
+- name: create the gitea systemd service file
+  template:
+    src: gitea.service.j2
+    dest: "{{ systemd_units_dir }}/gitea.service"
+  notify: restart gitea

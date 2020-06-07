@@ -7,5 +7,5 @@
 - name: set gitea auth
   command: "{{ gitea_bin | dirname }}/scripts/auth.sh"
 
-- name: set gitea oauth
-  command: "{{ gitea_bin | dirname }}/scripts/oauth.sh"
+- name: set gitea create_user
+  command: "{{ gitea_bin | dirname }}/scripts/create_user.sh"

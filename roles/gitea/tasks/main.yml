@@ -1,89 +1,9 @@
 ---
-- name: include os-specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
+- include_tasks: install.yml
+- include_tasks: config.yml
 
-  # add the python sni support to legacy python installations
-- include: python_sni.yml
-  when: ansible_os_family == 'Debian'
-    and ansible_python_version is version_compare('2.6.0', '>=')
-    and ansible_python_version is version_compare('2.7.9', '<')
-
-  # install additional ansible dependencies
-- name: install ansible support packages
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items: "{{ ansible_support_packages }}"
-
-- name: create gitea group
-  group:
-    name: "{{ gitea_group }}"
-    state: present
-
-- name: create gitea user
-  user:
-    name: "{{ gitea_user }}"
-    group: "{{ gitea_group }}"
-    home: "{{ gitea_working_dir }}"
-    comment: Gitea
-
-- name: install prerequisites
-  tags: gitea
-  become: true
-  package:
-    name: git
-    state: present
-
-- name: make sure all relevant gitea directories exist
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ gitea_user }}"
-    group: "{{ gitea_group }}"
-    mode: 0755
-    recurse: yes
-  with_items:
-    - "{{ gitea_bin | dirname }}"
-    - "{{ gitea_bin | dirname }}/custom"
-    - "{{ gitea_bin | dirname }}/data"
-    - "{{ gitea_bin | dirname }}/scripts"
-    - "{{ gitea_config_dir }}"
-    - "{{ gitea_log_dir }}"
-    - "{{ gitea_repos_dir }}"
-
-
-- name: download gitea binary
-  get_url:
-    url: "{{ gitea_download_url }}"
-    dest: "{{ gitea_bin }}-{{ gitea_version }}"
-    force: no
-
-- name: link gitea binary
-  file:
-    path: "{{ gitea_bin }}"
-    src: "{{ gitea_bin }}-{{ gitea_version }}"
-    state: link
-    owner: "{{ gitea_user }}"
-    group: "{{ gitea_group }}"
-    mode: 0755
-
-- name: Deploy config
-  tags: gitea
-  notify: restart gitea
-  become: true
-  template:
-    src: gitea.ini.j2
-    dest: "{{ gitea_config_dir }}/app.ini"
-    owner: "{{ gitea_user }}"
-    group: "{{ gitea_user }}"
-    mode: 0664
-
-- name: create the gitea systemd service file
-  template:
-    src: gitea.service.j2
-    dest: "{{ systemd_units_dir }}/gitea.service"
-  notify: restart gitea
-  register: registered_unitfiledeployment
+- include_tasks: create_user.yml
+  when: drone_domain is defined
 
 - name: enable and start the gitea web service
   systemd:
@@ -91,17 +11,6 @@
     state: started
     enabled: yes
     daemon-reload: yes
-
-- name: Deploy admin auth script
-  tags: gitea
-  become: true
-  template:
-    src: gitea.auth.script.j2
-    dest: "{{ gitea_bin | dirname }}/scripts/auth.sh"
-    owner: root
-    group: root
-    mode: 0770
-  notify: set gitea auth
 
 - include_role:
     name: traefik
