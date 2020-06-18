@@ -51,6 +51,15 @@
   tags:
     - drone
 
+- name: download drone cli
+  unarchive:
+    src: "{{ drone_download_url }}"
+    dest: "{{ drone_working_dir }}"
+    owner: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    mode: 0755
+    remote_src: yes
+
 - include_role:
     name: traefik
   vars:

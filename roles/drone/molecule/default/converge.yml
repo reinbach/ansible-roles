@@ -1,7 +1,17 @@
 ---
 - name: Converge
   hosts: all
-  tasks:
-    - name: "Include drone"
-      include_role:
-        name: "drone"
+  vars:
+    drone_database_name: ci_drone
+    drone_database_password: 123
+    drone_database_uri: psql.example.com
+    drone_database_user: ci_drone_user
+    drone_label: ci_drone
+    drone_rpc_secret: 321
+    drone_users: greg
+    drone_version: 1.6.1
+  roles:
+    - common
+    - node_exporter
+    - docker
+    - drone
