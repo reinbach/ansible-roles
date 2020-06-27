@@ -2,7 +2,7 @@
 - include_tasks: install.yml
 - include_tasks: config.yml
 
-- include_tasks: create_user.yml
+- include_tasks: create_system_user.yml
   when: drone_domain is defined
 
 - name: enable and start the gitea web service

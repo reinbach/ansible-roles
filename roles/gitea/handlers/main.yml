@@ -7,5 +7,22 @@
 - name: set gitea auth
   command: "{{ gitea_bin | dirname }}/scripts/auth.sh"
 
-- name: set gitea create_user
-  command: "{{ gitea_bin | dirname }}/scripts/create_user.sh"
+- name: run create system user
+  command: "{{ gitea_bin | dirname }}/scripts/create_system_user.sh"
+  ignore_errors: yes
+  notify: create user oauth application record
+  register: system_user_created
+
+- name: create user oauth application record
+  postgresql_query:
+    db: "{{ gitea_database_name }}"
+    login_host: "{{ gitea_database_uri }}"
+    login_user: "{{ gitea_database_user }}"
+    login_password: "{{ gitea_database_password }}"
+    query: INSERT INTO oauth2_application (uid, name, client_id, client_secret, redirect_uris) VALUES (1, %s, %s, %s, CONCAT('["', %s, '"]'))
+    positional_args:
+      - "CI/CD"
+      - "{{ gitea_oauth_key }}"
+      - "{{ gitea_oauth_secret }}"
+      - "https://{{ drone_domain }}/login"
+  when: system_user_created is defined

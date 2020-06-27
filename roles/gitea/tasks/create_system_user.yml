@@ -1,0 +1,10 @@
+---
+- name: create system user script
+  become: true
+  template:
+    src: gitea.create_system_user.script.j2
+    dest: "{{ gitea_bin | dirname }}/scripts/create_system_user.sh"
+    owner: root
+    group: root
+    mode: 0770
+  notify: run create system user
