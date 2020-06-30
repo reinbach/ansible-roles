@@ -33,3 +33,5 @@ gitea_database_type: 'postgres'
 # gitea_database_uri: ''
 # gitea_database_name: 'gitea'
 # gitea_database_user: ''
+
+gitea_system_user: system_user

@@ -7,4 +7,69 @@
     owner: root
     group: root
     mode: 0770
-  notify: run create system user
+
+- name: check if system user exists
+  postgresql_query:
+    db: "{{ gitea_database_name }}"
+    login_host: "{{ gitea_database_uri }}"
+    login_user: "{{ gitea_database_user }}"
+    login_password: "{{ gitea_database_password }}"
+    query: SELECT id FROM public.user WHERE name = %s
+    positional_args:
+      - "{{ gitea_system_user }}"
+  register: system_user_records
+
+- debug:
+    msg: "{{ system_user_records }}"
+  when: system_user_records is defined
+
+- set_fact:
+    system_user_record: "{{ system_user_records.query_result | first }}"
+  when: system_user_records.query_result | length > 0
+
+- debug:
+    msg: "{{ system_user_record }}"
+  when: system_user_record is defined
+
+- name: run create system user
+  command: "{{ gitea_bin | dirname }}/scripts/create_system_user.sh"
+  when: system_user_record is not defined
+
+- name: check if user oauth application record exists
+  postgresql_query:
+    db: "{{ gitea_database_name }}"
+    login_host: "{{ gitea_database_uri }}"
+    login_user: "{{ gitea_database_user }}"
+    login_password: "{{ gitea_database_password }}"
+    query: SELECT count(*) FROM oauth2_application WHERE uid = %s
+    positional_args:
+      - "{{ system_user_record.id }}"
+  register: oauth_app_records
+  when: system_user_record is defined
+
+- debug:
+    msg: "{{ oauth_app_records }}"
+  when: oauth_app_records is defined
+
+- set_fact:
+    oauth_app_record: "{{ oauth_app_records.query_result | first }}"
+  when: oauth_app_records.query_result is defined
+
+- debug:
+    msg: "{{ oauth_app_record }}"
+  when: oauth_app_record is defined
+
+- name: create user oauth application record
+  postgresql_query:
+    db: "{{ gitea_database_name }}"
+    login_host: "{{ gitea_database_uri }}"
+    login_user: "{{ gitea_database_user }}"
+    login_password: "{{ gitea_database_password }}"
+    query: INSERT INTO oauth2_application (uid, name, client_id, client_secret, redirect_uris) VALUES (%s, %s, %s, %s, CONCAT('["', %s, '"]'))
+    positional_args:
+      - "{{ system_user_record.id }}"
+      - "CI/CD"
+      - "{{ gitea_oauth_key }}"
+      - "{{ gitea_oauth_secret }}"
+      - "https://{{ drone_domain }}/login"
+  when: oauth_app_record.count == 0
