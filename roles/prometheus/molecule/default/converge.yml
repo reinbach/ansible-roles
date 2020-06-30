@@ -6,6 +6,8 @@
     prometheus_version: 2.18.1
     prometheus_label: metrics_prometheus
     prometheus_targets: db.example.com,git.example.com
+    drone_token: 123
+    drone_domain: ci.example.com
   tasks:
     - name: "Include prometheus"
       include_role:

@@ -31,4 +31,11 @@ alerting:
 {% endif %}
 
 scrape_configs:
+{% if drone_token is defined %}
+  - job_name: "CI/CD"
+    bearer_token: "{{ drone_token }}"
+    static_configs:
+      - targets:
+        - "{{ drone_domain }}"
+{% endif %}
   {{ prometheus_scrape_configs | to_nice_yaml(indent=2) | indent(2,False) }}
