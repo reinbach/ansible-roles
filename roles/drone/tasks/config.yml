@@ -1,0 +1,21 @@
+---
+- name: deploy config file
+  notify: restart drone
+  become: true
+  template:
+    src: drone.env.j2
+    dest: "{{ drone_env_file }}"
+    owner: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    mode: 0640
+
+- name: deploy docker-compose file
+  notify: restart drone
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ drone_working_dir }}/docker-compose.yml"
+    owner: "{{ drone_user }}"
+    group: "{{ drone_group }}"
+    mode: 0640
+  tags:
+    - drone
