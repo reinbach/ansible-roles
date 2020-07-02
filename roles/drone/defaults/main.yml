@@ -1,19 +1,19 @@
 ---
-drone_packages:
-  - python3-pip
-
 drone_download_url: https://github.com/drone/drone-cli/releases/latest/download/drone_linux_amd64.tar.gz
 
 drone_version: 1.6.1
 drone_server_proto: https
-drone_http_port: 8000
 
 drone_config_dir: /etc/drone
 drone_working_dir: /home/drone
 drone_bin: "{{ drone_working_dir }}/drone"
 drone_env_file: "{{ drone_config_dir }}/env_vars"
+drone_create_user: "{{ drone_working_dir }}/scripts/create_system_user.sh"
 drone_user: drone
 drone_group: drone
+
+drone_system_user: system_user
+drone_machine_user: prometheus
 
 # Drone secret key, used for private communication between runner and server
 drone_rpc_secret: "{{ drone_rpc_secret }}"

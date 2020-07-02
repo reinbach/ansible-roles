@@ -1,0 +1,23 @@
+---
+- name: get system user token
+  postgresql_query:
+    db: "{{ drone_database_name }}"
+    login_host: "{{ drone_database_uri }}"
+    login_user: "{{ drone_database_user }}"
+    login_password: "{{ drone_database_password }}"
+    query: SELECT user_hash FROM users WHERE user_login = %s
+    positional_args:
+      - "{{ drone_system_user }}"
+  register: system_user_records
+
+- debug:
+    msg: "{{ system_user_records }}"
+  when: system_user_records is defined
+
+- set_fact:
+    system_user_token: "{{ system_user_records.query_result | first }}"
+  when: system_user_records.query_result | length > 0
+
+- debug:
+    msg: "{{ system_user_token }}"
+  when: system_user_token is defined

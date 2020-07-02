@@ -3,7 +3,12 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items: "{{ drone_packages }}"
+  with_items: "{{ ansible_support_packages }}"
+
+- name: install required libraries
+  pip:
+    name: "{{ python_pip_packages }}"
+    state: present
 
 - name: create drone group
   group:

@@ -1,2 +1,6 @@
 ---
-# vars file for drone
+ansible_support_packages:
+  - python3-pip
+
+python_pip_packages:
+  - psycopg2-binary

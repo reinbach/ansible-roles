@@ -22,6 +22,7 @@ services:
             - "traefik.http.routers.https-drone.entrypoints=web-secure"
             - "traefik.http.routers.https-drone.tls=true"
             - "traefik.http.routers.https-drone.tls.certresolver=letsencrypt"
+            - "traefik.http.routers.https-drone.tls.domains[0].main={{ drone_domain }}"
             - "traefik.http.routers.https-drone.service=drone-service"
             - "traefik.http.services.drone-service.loadbalancer.server.port=80"
     runner:

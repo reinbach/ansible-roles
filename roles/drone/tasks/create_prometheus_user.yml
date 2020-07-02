@@ -1,0 +1,30 @@
+---
+- name: check if machine user record exists
+  postgresql_query:
+    db: "{{ drone_database_name }}"
+    login_host: "{{ drone_database_uri }}"
+    login_user: "{{ drone_database_user }}"
+    login_password: "{{ drone_database_password }}"
+    query: SELECT count(*) FROM users WHERE user_login = %s
+    positional_args:
+      - "{{ drone_machine_user }}"
+  register: machine_user_records
+
+- debug:
+    msg: "{{ machine_user_records }}"
+  when: machine_user_records is defined
+
+- set_fact:
+    machine_user_record: "{{ machine_user_records.query_result | first }}"
+  when: machine_user_records.query_result is defined
+
+- debug:
+    msg: "{{ machine_user_record }}"
+  when: machine_user_record is defined
+
+- name: add machine user for metrics
+  command: "{{ drone_bin }} user add {{ drone_machine_user }} --admin --machine --token={{ drone_token }}"
+  environment:
+    DRONE_SERVER: "https://{{ drone_domain }}"
+    DRONE_TOKEN: system_user_token.user_hash
+  when: machine_user_record.count == 0

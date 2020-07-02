@@ -2,6 +2,12 @@
 - include_tasks: install.yml
 - include_tasks: config.yml
 
+- name: ensure drone is running
+  docker_compose:
+    project_src: "{{ drone_working_dir }}"
+    build: no
+    state: present
+
 - include_role:
     name: traefik
   vars:
@@ -9,3 +15,9 @@
     label: "{{ drone_label }}"
     domain: "{{ drone_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
+
+# Task needs to happen after Traefik up and running on server
+- include_tasks: create_system_user.yml
+
+- include_tasks: create_prometheus_user.yml
+  when: prometheus_domain is defined

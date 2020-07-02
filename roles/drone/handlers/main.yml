@@ -5,11 +5,3 @@
     build: no
     restarted: yes
   listen: "restart drone"
-  # notify: add machine user for metrics
-
-# TODO need a way to get the token for a user
-- name: add machine user for metrics
-  command: "{{ drone_bin }} user add prometheus --admin --machine --token={{ drone_token }}"
-  environment:
-    DRONE_SERVER: "{{ DRONE_SERVER_PROTO }}://{{ DRONE_SERVER_HOST }}"
-    DRONE_TOKEN: "TODO"
