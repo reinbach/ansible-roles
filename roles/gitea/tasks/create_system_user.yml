@@ -24,16 +24,20 @@
   when: system_user_records is defined
 
 - set_fact:
-    system_user_record: "{{ system_user_records.query_result | first }}"
+    system_user_query: "{{ system_user_records.query_result | first }}"
   when: system_user_records.query_result | length > 0
 
 - debug:
-    msg: "{{ system_user_record }}"
-  when: system_user_record is defined
+    msg: "{{ system_user_query }}"
+  when: system_user_query is defined
 
 - name: run create system user
   command: "{{ gitea_bin | dirname }}/scripts/create_system_user.sh"
-  when: system_user_record is not defined
+  when: system_user_query is not defined
+  register: created_user
+
+- set_fact:
+    system_user_record: "{{ system_user_query.id | default(1) }}"
 
 - name: check if user oauth application record exists
   postgresql_query:
@@ -43,9 +47,8 @@
     login_password: "{{ gitea_database_password }}"
     query: SELECT count(*) FROM oauth2_application WHERE uid = %s
     positional_args:
-      - "{{ system_user_record.id }}"
+      - "{{ system_user_record }}"
   register: oauth_app_records
-  when: system_user_record is defined
 
 - debug:
     msg: "{{ oauth_app_records }}"
@@ -67,7 +70,7 @@
     login_password: "{{ gitea_database_password }}"
     query: INSERT INTO oauth2_application (uid, name, client_id, client_secret, redirect_uris) VALUES (%s, %s, %s, %s, CONCAT('["', %s, '"]'))
     positional_args:
-      - "{{ system_user_record.id }}"
+      - "{{ system_user_record }}"
       - "CI/CD"
       - "{{ gitea_oauth_key }}"
       - "{{ gitea_oauth_secret }}"
