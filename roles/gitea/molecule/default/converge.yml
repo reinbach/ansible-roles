@@ -30,6 +30,7 @@
     gitea_enabled: "yes"
     gitea_oauth_key: oauth-key
     gitea_oauth_secret: oauth-secret
+    gitea_oauth_secret_hashed: oauth-secret-hashed
   tasks:
     - name: "Include gitea"
       include_role:

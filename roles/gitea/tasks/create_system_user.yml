@@ -73,6 +73,6 @@
       - "{{ system_user_record }}"
       - "CI/CD"
       - "{{ gitea_oauth_key }}"
-      - "{{ gitea_oauth_secret }}"
+      - "{{ gitea_oauth_secret_hashed }}"
       - "https://{{ drone_domain }}/login"
   when: oauth_app_record.count == 0
