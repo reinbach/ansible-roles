@@ -4,18 +4,27 @@ gitea_version: 1.10.2
 
 gitea_download_url: "https://dl.gitea.io/gitea/{{ gitea_version }}/gitea-{{ gitea_version }}-{{ ansible_system | lower }}-amd64"
 
-# Path to the Gitea binary
-gitea_bin: /home/gitea/bin/gitea
-
-# Path to logs
-gitea_log_dir: /var/log/gitea
-
-# Path to config
-gitea_config_dir: /etc/gitea
-
-# Gitea home directory
+# Gitea directories
 gitea_working_dir: /home/gitea
+gitea_log_dir: /var/log/gitea
+gitea_config_dir: /etc/gitea
 gitea_repos_dir: "{{ gitea_working_dir }}/repos"
+gitea_scripts_dir: "{{ gitea_working_dir }}/scripts"
+gitea_custom_dir: "{{ gitea_working_dir }}/custom"
+gite_data_dir: "{{ gitea_working_dir }}/data"
+
+# Path to the Gitea binary
+gitea_bin: "{{ gitea_working_dir }}/gitea"
+
+gitea_dirs:
+  - "{{ gitea_bin | dirname }}"
+  - "{{ gitea_log_dir }}"
+  - "{{ gitea_config_dir }}"
+  - "{{ gitea_repos_dir }}"
+  - "{{ gite_data_dir }}"
+  - "{{ gitea_scripts_dir }}"
+  - "{{ gitea_custom_dir }}"
+  - "{{ gitea_custom_dir }}/templates"
 
 # Runtime user and group for the gitea service
 gitea_user: git

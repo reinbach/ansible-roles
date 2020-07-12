@@ -29,16 +29,9 @@
     state: directory
     owner: "{{ gitea_user }}"
     group: "{{ gitea_group }}"
-    mode: 0755
+    mode: 0755  # TODO check if this correct mode for /etc/gitea /home/gitea
     recurse: yes
-  with_items:
-    - "{{ gitea_bin | dirname }}"
-    - "{{ gitea_bin | dirname }}/custom"
-    - "{{ gitea_bin | dirname }}/data"
-    - "{{ gitea_bin | dirname }}/scripts"
-    - "{{ gitea_config_dir }}"
-    - "{{ gitea_log_dir }}"
-    - "{{ gitea_repos_dir }}"
+  with_items: "{{ gitea_dirs }}"
 
 - name: download gitea binary
   get_url:

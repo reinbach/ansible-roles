@@ -8,15 +8,22 @@
     owner: "{{ gitea_user }}"
     group: "{{ gitea_user }}"
     mode: 0664
-  tags: gitea
 
 - name: admin auth script
   become: true
   template:
     src: gitea.auth.script.j2
-    dest: "{{ gitea_bin | dirname }}/scripts/auth.sh"
+    dest: "{{ gitea_scripts_dir }}/auth.sh"
     owner: root
     group: root
     mode: 0770
   notify: set gitea auth
-  tags: gitea
+
+- name: override home page
+  become: true
+  copy:
+    src: files/home.tmpl
+    dest: "{{ gitea_custom_dir }}/templates/home.tmpl"
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_user }}"
+  notify: restart gitea
