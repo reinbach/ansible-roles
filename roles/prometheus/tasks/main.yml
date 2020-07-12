@@ -10,7 +10,7 @@
   tags:
     - prometheus_install
 
-- include: configure.yml
+- include: config.yml
   become: true
   tags:
     - prometheus_configure
