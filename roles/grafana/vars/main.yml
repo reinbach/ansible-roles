@@ -1,0 +1,8 @@
+---
+apt_required_packages:
+  - apt-transport-https
+  - ca-certificates
+
+ansible_support_packages:
+  - software-properties-common
+  - wget

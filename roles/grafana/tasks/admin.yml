@@ -1,0 +1,59 @@
+---
+- name: wait for grafana server
+  wait_for:
+    host: localhost
+    port: "{{ grafana_http_port }}"
+    delay: 5
+
+- name: set org context
+  uri:
+    method: POST
+    url: "http://localhost:{{ grafana_http_port }}/api/user/using/1"
+    user: "{{ grafana_system_user }}"
+    password: "{{ grafana_system_user_password }}"
+    force_basic_auth: yes
+    headers:
+      Content-Type: application/json
+
+- name: check for api token
+  slurp:
+    src: "{{ grafana_token_file }}"
+  register: api_token_encoded
+
+- debug:
+    msg: "{{ api_token_encoded.content }}"
+  when: api_token_encoded is defined
+
+- set_fact:
+    api_token: "{{ api_token_encoded.content | b64decode }}"
+  when: api_token_encoded is defined
+
+- name: create api token
+  uri:
+    method: POST
+    url: "http://localhost:{{ grafana_http_port }}/api/auth/keys"
+    user: "{{ grafana_system_user }}"
+    password: "{{ grafana_system_user_password }}"
+    force_basic_auth: yes
+    headers:
+      Content-Type: application/json
+    body_format: json
+    body:
+      name: ansible
+      role: Admin
+  register: token_response
+  when: api_token is not defined or api_token == ""
+
+- debug:
+    msg: "{{ token_response }}"
+  when: token_response is defined
+
+- set_fact:
+    api_token: "{{ token_response.json.key }}"
+  when: token_response is defined
+
+- name: store api token
+  copy:
+    content: "{{ api_token | b64encode }}"
+    dest: "{{ grafana_token_file }}"
+  when: token_response is defined

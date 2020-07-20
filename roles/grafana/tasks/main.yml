@@ -1,0 +1,25 @@
+---
+- include_tasks: install.yml
+- include_tasks: config.yml
+
+- name: ensure grafana service is started and enabled
+  become: true
+  systemd:
+    daemon_reload: true
+    name: grafana-server
+    state: started
+    enabled: true
+
+- include_tasks: admin.yml
+
+- include_tasks: create_prometheus_datasource.yml
+  when: prometheus_domain is defined
+
+- include_role:
+    name: traefik
+  vars:
+    file_config: "yes"
+    label: "{{ grafana_label }}"
+    domain: "{{ grafana_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    port: "{{ grafana_http_port }}"

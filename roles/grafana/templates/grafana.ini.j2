@@ -1,0 +1,31 @@
+[server]
+domain = "{{ grafana_domain }}"
+http_port = "{{ grafana_http_port }}"
+
+[security]
+admin_user = "{{ grafana_system_user }}"
+admin_password = "{{ grafana_system_user_password }}"
+secret_key = "{{ grafana_secret_key }}"
+{% if prometheus_domain is defined %}
+data_source_proxy_whitelist = "{{ prometheus_domain }}"
+{% endif %}
+
+[database]
+type = "{{ grafana_database_type }}"
+host = "{{ grafana_database_uri }}"
+name = "{{ grafana_database_name }}"
+user = "{{ grafana_database_user }}"
+password = "{{ grafana_database_password }}"
+
+[auth.ldap]
+enabled = True
+config_file = "{{ grafana_config_ldap }}"
+allow_sign_up = True
+
+[smtp]
+enabled = True
+host = "{{ grafana_smtp_host }}:{{ grafana_smtp_port }}"
+user = "{{ grafana_smtp_user }}"
+password = "{{ grafana_smtp_password }}"
+from_address = "no-reply@{{ grafana_domain }}"
+from_name = "{{ grafana_app_name }}

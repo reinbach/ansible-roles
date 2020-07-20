@@ -1,0 +1,31 @@
+---
+- name: set grafana ldap config file
+  become: true
+  template:
+    src: ldap.toml.j2
+    dest: "{{ grafana_config_ldap }}"
+    mode: 0664
+  notify: restart grafana
+
+- name: set grafana config file
+  become: true
+  template:
+    src: grafana.ini.j2
+    dest: "{{ grafana_config_file }}"
+    mode: 0664
+  notify: restart grafana
+
+- name: set grafana config file
+  become: true
+  template:
+    src: grafana.ini.j2
+    dest: "{{ grafana_config_file }}"
+    mode: 0664
+  notify: restart grafana
+
+- name: create grafana token file
+  become: true
+  copy:
+    content: ""
+    dest: "{{ grafana_token_file }}"
+    force: no

@@ -1,0 +1,17 @@
+[[servers]]
+host = "{{ grafana_ldap_host }}"
+port = {{ grafana_ldap_port }}
+use_ssl = false
+start_tls = false
+ssl_skip_verify = false
+
+bind_dn = "{{ grafana_ldap_bind_dn }}"
+bind_password = "{{ grafana_ldap_bind_password }}"
+search_filter = "(cn=%s)"
+search_base_dns = "{{ grafana_ldap_user_search_base }}"
+
+[servers.attributes]
+name = "givenName"
+surname = "sn"
+username = "cn"
+email = "email"
