@@ -1,0 +1,56 @@
+---
+- name: Ensure group "{{ admin_group }}" exists
+  tags: users
+  group:
+    name: "{{ admin_group }}"
+    state: present
+
+- name: Setup users
+  tags: users
+  user:
+    name: "{{ item.username }}"
+    state: "{{ item.state }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    group: "{{ admin_group }}"
+    remove: yes
+  with_items:
+    - "{{ users }}"
+  when: item.is_admin|bool
+  no_log: true
+
+- name: Add SSH-keys to users
+  tags: users
+  authorized_key:
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ users }}"
+    - keys.active
+    - flags:
+      skip_missing: "yes"
+  when: item.0.state != "absent"
+
+- name: Remove old SSH-keys from users
+  tags: users
+  authorized_key:
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+    state: absent
+  with_subelements:
+    - "{{ users }}"
+    - keys.disabled
+    - flags:
+      skip_missing: "yes"
+  when: item.0.state != "absent"
+
+- name: Add admin group to sudoers
+  lineinfile:
+    dest=/etc/sudoers
+    regexp="^%{{ admin_group }}"
+    line="%{{ admin_group }} ALL=(ALL) NOPASSWD:ALL"
+
+- name: Disable Requiretty from sudoers
+  lineinfile:
+    dest=/etc/sudoers
+    regexp="Defaults    requiretty"
+    line="#Defaults    requiretty"

@@ -1,2 +1,17 @@
 ---
 admin_group: "infra_admin"
+
+unattended_upgrades_config: "/etc/apt/apt.conf.d/50unattended-upgrades"
+support_email_address: support@bayete.com
+
+unattended_upgrades_config_options:
+  - option: Unattended-Upgrade::Mail
+    value: "{{ support_email_address }}"
+  - option: Unattended-Upgrade::MailOnlyOnError
+    value: "true"
+  - option: Unattended-Upgrade::Remove-Unused-Kernel-Packages
+    value: "true"
+  - option: Unattended-Upgrade::Remove-Unused-Dependencies
+    value: "true"
+  - option: Unattended-Upgrade::Automatic-Reboot
+    value: "true"

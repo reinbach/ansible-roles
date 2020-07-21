@@ -1,0 +1,14 @@
+---
+- name: configure automatic upgrades
+  lineinfile:
+    dest: "{{ unattended_upgrades_config }}"
+    regexp: "^//{{ item.option }}.+$"
+    line: "{{ item.option }} \"{{ item.value }}\";"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ unattended_upgrades_config_options }}"
+
+- name: set auto-upgrades config
+  become: yes
+  template:
+    src: "auto-upgrades.j2"
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
