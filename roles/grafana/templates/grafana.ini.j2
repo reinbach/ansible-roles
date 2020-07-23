@@ -18,12 +18,12 @@ user = "{{ grafana_database_user }}"
 password = "{{ grafana_database_password }}"
 
 [auth.ldap]
-enabled = True
+enabled = true
 config_file = "{{ grafana_config_ldap }}"
-allow_sign_up = True
+allow_sign_up = true
 
 [smtp]
-enabled = True
+enabled = true
 host = "{{ grafana_smtp_host }}:{{ grafana_smtp_port }}"
 user = "{{ grafana_smtp_user }}"
 password = "{{ grafana_smtp_password }}"

@@ -3,15 +3,28 @@ host = "{{ grafana_ldap_host }}"
 port = {{ grafana_ldap_port }}
 use_ssl = false
 start_tls = false
-ssl_skip_verify = false
+ssl_skip_verify = true
 
 bind_dn = "{{ grafana_ldap_bind_dn }}"
 bind_password = "{{ grafana_ldap_bind_password }}"
 search_filter = "(cn=%s)"
-search_base_dns = "{{ grafana_ldap_user_search_base }}"
+search_base_dns = ["{{ grafana_ldap_user_search_base }}"]
 
 [servers.attributes]
 name = "givenName"
 surname = "sn"
 username = "cn"
 email = "email"
+
+[[servers.group_mappings]]
+group_dn = "{{ grafana_ldap_admin_group_dn }}"
+org_role = "Admin"
+grafana_admin = true
+
+[[servers.group_mappings]]
+group_dn = "{{ grafana_ldap_user_group_dn }}"
+org_role = "Editor"
+
+[[servers.group_mappings]]
+group_dn = "*"
+org_role = "Viewer"
