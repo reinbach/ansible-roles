@@ -28,6 +28,10 @@
     api_token: "{{ api_token_encoded.content | b64decode }}"
   when: api_token_encoded is defined
 
+- debug:
+    msg: "{{ api_token }}"
+  when: api_token is defined
+
 - name: create api token
   uri:
     method: POST
@@ -39,7 +43,7 @@
       Content-Type: application/json
     body_format: json
     body:
-      name: ansible
+      name: bayete
       role: Admin
   register: token_response
   when: api_token is not defined or api_token == ""
@@ -50,10 +54,10 @@
 
 - set_fact:
     api_token: "{{ token_response.json.key }}"
-  when: token_response is defined
+  when: token_response is defined and not "skipped" in token_response
 
 - name: store api token
   copy:
-    content: "{{ api_token | b64encode }}"
+    content: "{{ api_token }}"
     dest: "{{ grafana_token_file }}"
-  when: token_response is defined
+  when: token_response is defined and not "skipped" in token_response
