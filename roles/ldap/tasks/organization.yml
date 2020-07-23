@@ -19,16 +19,16 @@
     objectClass:
       - organizationalUnit
   with_items:
-    - dn: "{{ ldap_dn_users_group }}"
+    - dn: "{{ ldap_user_group_dn }}"
       ou: users
-    - dn: "{{ ldap_dn_admin_group }}"
+    - dn: "{{ ldap_admin_group_dn }}"
       ou: admins
 
 - name: Create users
   tags: users
   ldap_entry:
     state: "{{ item.state }}"
-    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
     attributes:
       sn: "{{ item.last_name }}"
     objectClass:
@@ -40,7 +40,7 @@
 - name: Set user password attribute
   tags: users
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
     state: exact
     name: userPassword
     values: "{CRYPT}{{ item.ldap_password }}"
@@ -52,7 +52,7 @@
 - name: Set user email attribute
   tags: users
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
     state: exact
     name: mail
     values: "{{ item.email }}"
@@ -64,7 +64,7 @@
 - name: Set user first name attribute
   tags: users
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
     state: exact
     name: givenName
     values: "{{ item.first_name }}"
@@ -76,7 +76,7 @@
 - name: Set user last name attribute
   tags: users
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
     state: exact
     name: sn
     values: "{{ item.last_name }}"
@@ -88,7 +88,7 @@
 - name: Set user employee type attribute
   tags: users
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_dn_users_group }}"
+    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
     state: exact
     name: employeeType
     values: "{{ item.type }}"

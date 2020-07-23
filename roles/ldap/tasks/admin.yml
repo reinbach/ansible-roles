@@ -2,7 +2,7 @@
 - name: Create super admin group
   ldap_entry:
     state: present
-    dn: "{{ ldap_dn_admin_group }}"
+    dn: "{{ ldap_admin_group_dn }}"
     objectClass:
       - organizationalUnit
       - top
