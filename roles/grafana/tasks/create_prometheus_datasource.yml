@@ -15,11 +15,15 @@
 
 - debug:
     msg: "{{ source_response }}"
-  when: source_response
+  when: source_response is defined
 
 - set_fact:
-    source_id: "{{ source_response.id | default(0) }}"
-  when: source_response
+    source_id: "{{ source_response.json.id | default(0) }}"
+  when: source_response is defined
+
+- debug:
+    msg: "{{ source_id }}"
+  when: source_id is defined
 
 # See https://grafana.com/docs/grafana/latest/http_api/data_source/#create-a-data-source
 - name: create prometheus as data source
@@ -36,7 +40,7 @@
       url: "{{ prometheus_domain }}"
       access: "proxy"
       basicAuth: true
-      basicAuthUser: "{{ prometheus_sytem_user }}"
+      basicAuthUser: "{{ prometheus_system_user }}"
       secureJsonData:
         basicAuthPassword: "{{ prometheus_system_user_password }}"
   register: source_created
@@ -46,7 +50,7 @@
 - name: update prometheus data source
   uri:
     method: PUT
-    url: "http://localhost:{{ grafana_http_port }}/api/datasources"
+    url: "http://localhost:{{ grafana_http_port }}/api/datasources/{{ source_id }}"
     headers:
       Content-Type: application/json
       Authorization: "Bearer {{ api_token }}"
