@@ -44,7 +44,7 @@
       secureJsonData:
         basicAuthPassword: "{{ prometheus_system_user_password }}"
   register: source_created
-  when: api_token is defined and source_id == 0
+  when: api_token is defined and source_id == "0"
 
 # See https://grafana.com/docs/grafana/latest/http_api/data_source/#update-an-existing-data-source
 - name: update prometheus data source
@@ -66,4 +66,4 @@
       secureJsonData:
         basicAuthPassword: "{{ prometheus_system_user_password }}"
   register: source_created
-  when: api_token is defined and source_id != 0
+  when: api_token is defined and source_id != "0"
