@@ -43,5 +43,3 @@
   with_items:
     - dn: '{{ ldap_user_group_dn }}'
       ou: '{{ ldap_user_group }}'
-    - dn: '{{ ldap_admin_group_dn }}'
-      ou: '{{ ldap_admin_group }}'

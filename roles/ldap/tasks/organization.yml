@@ -20,79 +20,15 @@
       - organizationalUnit
   with_items:
     - dn: "{{ ldap_user_group_dn }}"
-      ou: users
-    - dn: "{{ ldap_admin_group_dn }}"
-      ou: admins
+      ou: "{{ ldap_user_group }}"
 
-- name: Create users
-  tags: users
+- name: create admin group
   ldap_entry:
-    state: "{{ item.state }}"
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    state: present
+    dn: "{{ ldap_admin_group_dn }}"
     attributes:
-      sn: "{{ item.last_name }}"
+      cn: "{{ ldap_admin_group }}"
+      member: "{{ ldap_dn_bind }}"
+      owner: "{{ ldap_dn_bind }}"
     objectClass:
-      - inetOrgPerson
-  with_items:
-    - "{{ users }}"
-  no_log: true
-
-- name: Set user password attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
-    state: exact
-    name: userPassword
-    values: "{CRYPT}{{ item.ldap_password }}"
-  with_items:
-    - "{{ users }}"
-  when: item.state == "present"
-  no_log: true
-
-- name: Set user email attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
-    state: exact
-    name: mail
-    values: "{{ item.email }}"
-  with_items:
-    - "{{ users }}"
-  when: item.state == "present"
-  no_log: true
-
-- name: Set user first name attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
-    state: exact
-    name: givenName
-    values: "{{ item.first_name }}"
-  with_items:
-    - "{{ users }}"
-  when: item.first_name | length > 0 and item.state == "present"
-  no_log: true
-
-- name: Set user last name attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
-    state: exact
-    name: sn
-    values: "{{ item.last_name }}"
-  with_items:
-    - "{{ users }}"
-  when: item.state == "present"
-  no_log: true
-
-- name: Set user employee type attribute
-  tags: users
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
-    state: exact
-    name: employeeType
-    values: "{{ item.type }}"
-  with_items:
-    - "{{ users }}"
-  when: item.state == "present"
-  no_log: true
+      - groupOfNames
