@@ -9,9 +9,9 @@
       - >-
         {0}to dn.subtree="{{ ldap_base }}"
         by dn.exact="{{ ldap_dn_external }}" manage
-        by dn.exact="{{ ldap_dn_bind }}" manage
+        by dn.exact="{{ ldap_admin_dn }}" manage
         by dn.children="{{ ldap_admin_group_dn }}" manage
-        by dn.children="{{ ldap_user_group_dn }}" write
+        by dn.children="{{ ldap_user_dn }}" write
         by self write
         by anonymous auth
         by * none
@@ -41,5 +41,5 @@
     objectClass:
       - organizationalUnit
   with_items:
-    - dn: '{{ ldap_user_group_dn }}'
-      ou: '{{ ldap_user_group }}'
+    - dn: '{{ ldap_user_dn }}'
+      ou: '{{ ldap_user_ou }}'

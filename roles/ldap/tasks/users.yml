@@ -7,15 +7,15 @@
     values: "{{ item.value }}"
   with_items:
     - name: olcRootDN
-      value: "{{ ldap_dn_bind }}"
+      value: "{{ ldap_admin_dn }}"
     - name: olcRootPW
-      value: "{{ ldap_password }}"
+      value: "{{ ldap_admin_password }}"
   no_log: true
 
 - name: Create users
   ldap_entry:
     state: "{{ item.state }}"
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     attributes:
       sn: "{{ item.last_name }}"
     objectClass:
@@ -26,7 +26,7 @@
 
 - name: Set user password attribute
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
     name: userPassword
     values: "{CRYPT}{{ item.ldap_password }}"
@@ -37,7 +37,7 @@
 
 - name: Set user email attribute
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
     name: mail
     values: "{{ item.email }}"
@@ -48,7 +48,7 @@
 
 - name: Set user first name attribute
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
     name: givenName
     values: "{{ item.first_name }}"
@@ -59,7 +59,7 @@
 
 - name: Set user last name attribute
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
     name: sn
     values: "{{ item.last_name }}"
@@ -70,7 +70,7 @@
 
 - name: add user to admin group
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
     name: memberOf
     values: "{{ ldap_admin_group_dn }}"
@@ -81,7 +81,7 @@
 
 - name: remove user from admin group
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: "absent"
     name: memberOf
     values: "{{ ldap_admin_group_dn }}"
@@ -93,7 +93,7 @@
 # TODO remove this attr, need to update gitea --admin_filter
 - name: Set user employee type attribute
   ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_group_dn }}"
+    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
     name: employeeType
     values: "{{ item.type }}"

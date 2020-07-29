@@ -19,16 +19,16 @@
     objectClass:
       - organizationalUnit
   with_items:
-    - dn: "{{ ldap_user_group_dn }}"
-      ou: "{{ ldap_user_group }}"
+    - dn: "{{ ldap_user_dn }}"
+      ou: "{{ ldap_user_ou }}"
 
 - name: create admin group
   ldap_entry:
     state: present
     dn: "{{ ldap_admin_group_dn }}"
     attributes:
-      cn: "{{ ldap_admin_group }}"
-      member: "{{ ldap_dn_bind }}"
-      owner: "{{ ldap_dn_bind }}"
+      cn: "{{ ldap_admin_cn }}"
+      member: "{{ ldap_admin_dn }}"
+      owner: "{{ ldap_admin_dn }}"
     objectClass:
       - groupOfNames
