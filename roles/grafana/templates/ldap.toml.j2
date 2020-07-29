@@ -1,14 +1,14 @@
 [[servers]]
-host = "{{ grafana_ldap_host }}"
-port = {{ grafana_ldap_port }}
+host = "{{ ldap_domain }}"
+port = {{ ldap_port }}
 use_ssl = false
 start_tls = false
 ssl_skip_verify = true
 
-bind_dn = "{{ grafana_ldap_bind_dn }}"
-bind_password = "{{ grafana_ldap_bind_password }}"
+bind_dn = "{{ ldap_admin_dn }}"
+bind_password = "{{ ldap_admin_password }}"
 search_filter = "(mail=%s)"
-search_base_dns = ["{{ grafana_ldap_admin_group_dn }}","{{ grafana_ldap_user_group_dn }}"]
+search_base_dns = ["{{ ldap_admin_group_dn }}","{{ ldap_user_dn }}"]
 
 [servers.attributes]
 name = "givenName"
@@ -18,12 +18,12 @@ email = "email"
 member_of = "memberOf"
 
 [[servers.group_mappings]]
-group_dn = "{{ grafana_ldap_admin_group_dn }}"
+group_dn = "{{ ldap_admin_group_dn }}"
 org_role = "Admin"
 grafana_admin = true
 
 [[servers.group_mappings]]
-group_dn = "{{ grafana_ldap_user_group_dn }}"
+group_dn = "{{ ldap_user_dn }}"
 org_role = "Editor"
 
 [[servers.group_mappings]]
