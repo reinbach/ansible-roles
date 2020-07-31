@@ -6,3 +6,12 @@
 - include_tasks: users.yml
   tags:
     - users
+
+- include_role:
+    name: traefik
+  vars:
+    file_config: "yes"
+    label: "ldap"
+    domain: "{{ ldap_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    port: "80"
