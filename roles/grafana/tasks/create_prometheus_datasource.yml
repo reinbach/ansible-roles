@@ -40,7 +40,7 @@
       url: "{{ prometheus_domain }}"
       access: "proxy"
       basicAuth: true
-      basicAuthUser: "{{ prometheus_system_user }}"
+      basicAuthUser: "{{ prometheus_system_user_email }}"
       secureJsonData:
         basicAuthPassword: "{{ prometheus_system_user_password }}"
   register: source_created
