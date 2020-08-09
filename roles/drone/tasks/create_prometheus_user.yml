@@ -22,9 +22,15 @@
     msg: "{{ machine_user_record }}"
   when: machine_user_record is defined
 
+# need to allow time for traefik to get valid cert
+- name: wait for drone server
+  wait_for:
+    host: "https://{{ drone_domain }}"
+    delay: 10
+
 - name: add machine user for metrics
   command: "{{ drone_bin }} user add {{ drone_machine_user }} --admin --machine --token={{ drone_token }}"
   environment:
     DRONE_SERVER: "https://{{ drone_domain }}"
-    DRONE_TOKEN: system_user_token.user_hash
+    DRONE_TOKEN: "{{ system_user_token.user_hash }}"
   when: machine_user_record.count == 0
