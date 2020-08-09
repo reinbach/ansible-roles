@@ -4,8 +4,8 @@
   template:
     src: gitea.create_system_user.script.j2
     dest: "{{ gitea_scripts_dir }}/create_system_user.sh"
-    owner: root
-    group: root
+    owner: "{{ gitea_user }}"
+    group: "{{ gitea_group }}"
     mode: 0770
 
 - name: check if system user exists
@@ -32,6 +32,8 @@
   when: system_user_query is defined
 
 - name: run create system user
+  become: yes
+  become_user: "{{ gitea_user }}"
   command: "{{ gitea_scripts_dir }}/create_system_user.sh"
   when: system_user_query is not defined
   register: created_user
