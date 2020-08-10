@@ -27,6 +27,7 @@
   wait_for:
     host: "https://{{ drone_domain }}"
     delay: 10
+  when: machine_user_record.count == 0
 
 - name: add machine user for metrics
   command: "{{ drone_bin }} user add {{ drone_machine_user }} --admin --machine --token={{ drone_token }}"
@@ -45,3 +46,4 @@
     positional_args:
       - "{{ drone_token }}"
       - "{{ drone_machine_user }}"
+  when: machine_user_record.count == 0
