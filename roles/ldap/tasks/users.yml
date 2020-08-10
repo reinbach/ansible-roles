@@ -89,15 +89,3 @@
     - "{{ users }}"
   when: not item.is_admin and item.state == "present"
   no_log: true
-
-# TODO remove this attr, need to update gitea --admin_filter
-- name: Set user employee type attribute
-  ldap_attr:
-    dn: "cn={{ item.username }},{{ ldap_user_dn }}"
-    state: exact
-    name: employeeType
-    values: "{{ item.type }}"
-  with_items:
-    - "{{ users }}"
-  when: item.is_admin and item.state == "present"
-  no_log: true
