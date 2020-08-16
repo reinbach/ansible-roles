@@ -1,0 +1,10 @@
+---
+- include_tasks: install.yml
+- include_tasks: config.yml
+
+- name: enable and start the redis service
+  systemd:
+    name: redis
+    state: started
+    enabled: yes
+    daemon-reload: yes

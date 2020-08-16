@@ -1,0 +1,5 @@
+---
+ansible_support_packages:
+  - redis-server
+
+redis_conf_file: /etc/redis/redis.conf
