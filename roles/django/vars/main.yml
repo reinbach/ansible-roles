@@ -1,0 +1,14 @@
+---
+ansible_support_packages:
+  - postgresql-client
+  - python3-pip
+  # TODO allow this is be driven by user, if needed
+  - nodejs
+  - npm
+
+django_libraries:
+  - pipenv
+  # - poetry
+  - daphne
+
+systemd_units_dir: /lib/systemd/system

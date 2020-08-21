@@ -1,0 +1,19 @@
+---
+- include_tasks: install.yml
+- include_tasks: config.yml
+
+- name: enable and start the django app service
+  systemd:
+    name: django
+    state: started
+    enabled: yes
+    daemon-reload: yes
+
+- include_role:
+    name: traefik
+  vars:
+    file_config: "yes"
+    label: "{{ django_project }}"
+    domain: "{{ django_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    port: "{{ django_http_port }}"
