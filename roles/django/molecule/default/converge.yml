@@ -6,8 +6,8 @@
     django_repo_name: site
     django_repo_org: Bayete
     django_repo_domain: git.ironlabs.com
+    django_repo_token: 0d97036f4fd3549854cd358c334cb9b315b62300
     django_project: bayete
-    django_token: 0d97036f4fd3549854cd358c334cb9b315b62300
     django_database_name: django_infra
     django_database_password: 123
     django_database_uri: psql.bayete.com

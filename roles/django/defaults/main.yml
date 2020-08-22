@@ -1,7 +1,7 @@
 ---
 django_version: 0.1
 django_repo_url: "https://{{ django_repo_domain }}/api/v1/repos/{{ django_repo_org }}/{{ django_repo_name }}"
-django_release_url: "{{ django_repo_url }}/archive/{{ django_version }}.tar.gz?token={{ django_token }}"
+django_release_url: "{{ django_repo_url }}/archive/{{ django_version }}.tar.gz?token={{ django_repo_token }}"
 
 django_user: www_data
 django_group: www_data
