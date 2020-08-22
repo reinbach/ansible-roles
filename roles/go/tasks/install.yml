@@ -1,0 +1,21 @@
+---
+- name: download go release
+  unarchive:
+    src: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ go_user }}"
+    group: "{{ go_group }}"
+    mode: 0755
+    remote_src: true
+  with_items:
+    - url: "{{ go_release_url }}"
+      dest: "{{ go_dir }}"
+
+- name: set go path
+  lineinfile:
+    dest: "{{ item }}"
+    line: "export PATH=$PATH:{{ go_dir }}/go/bin"
+    state: present
+  with_items:
+    - /etc/profile
+    - ~/.bashrc

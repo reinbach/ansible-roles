@@ -1,0 +1,8 @@
+---
+go_version: 1.15
+go_release_url: "https://dl.google.com/go/go{{ go_version }}.linux-amd64.tar.gz"
+
+go_user: root
+go_group: root
+
+go_dir: /usr/local
