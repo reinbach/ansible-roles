@@ -34,6 +34,11 @@
     recurse: yes
   with_items: "{{ django_dirs }}"
 
+- name: check if version exists
+  stat:
+    path: "{{ django_dir }}/{{ django_version }}"
+  register: version
+
 - name: download django release
   unarchive:
     src: "{{ item.url }}"
@@ -47,12 +52,14 @@
   with_items:
     - url: "{{ django_release_url }}"
       dest: "{{ django_dir }}"
+  when: version.stat.exists == False
 
 - name: rename django download
   command: "mv {{ django_dir }}/{{ django_repo_name }} {{ django_dir }}/{{ django_version }}"
   args:
     creates: "{{ django_dir }}/{{ django_version }}"
     removes: "{{ django_dir }}/{{ django_repo_name }}"
+  when: version.stat.exists == False
 
 - name: link django release
   file:
