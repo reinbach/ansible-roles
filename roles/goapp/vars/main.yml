@@ -1,0 +1,9 @@
+---
+# systemd unit files location
+systemd_units_dir: /lib/systemd/system
+
+ansible_support_packages:
+  - python3-pip
+
+python_pip_packages:
+  - boto3

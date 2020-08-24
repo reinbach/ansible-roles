@@ -1,0 +1,24 @@
+[Unit]
+Description=GoApp Application
+After=syslog.target
+After=network.target
+
+[Service]
+
+Type=simple
+User={{ goapp_user }}
+Group={{ goapp_group }}
+WorkingDirectory={{ goapp_dir }}
+
+ExecStart={{ goapp_app_name }}
+Restart=always
+
+# Modify these two values and uncomment them if you have
+# repos with lots of files and get an HTTP error 500 because
+# of that
+###
+#LimitMEMLOCK=infinity
+#LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target

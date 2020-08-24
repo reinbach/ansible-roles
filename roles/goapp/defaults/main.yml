@@ -1,0 +1,18 @@
+---
+goapp_version: 0.1
+# TODO these vars need to be better formatted
+# to better handle different scenarios
+goapp_release_bucket: bayete
+goapp_release_file: "app-{{ goapp_version }}.tar.gz"
+goapp_release_object: "releases/sample/{{ goapp_release_file }}"
+goapp_release_url: "https://github.com/Bayete/sample-public/releases/download/{{ goapp_version }}/app-{{ goapp_version }}.tar.gz"
+
+goapp_user: www_data
+goapp_group: www_data
+goapp_dir: /home/www
+goapp_app_name: "{{ goapp_dir }}/app"
+
+goapp_dirs: []
+
+goapp_http_listen_addr: 0.0.0.0
+goapp_http_port: 8000

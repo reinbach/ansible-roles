@@ -1,0 +1,68 @@
+---
+- name: install required packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
+
+- name: install required libraries
+  pip:
+    name: "{{ python_pip_packages }}"
+    state: present
+
+- name: create goapp group
+  group:
+    name: "{{ goapp_group }}"
+    state: present
+
+- name: create goapp user
+  user:
+    name: "{{ goapp_user }}"
+    group: "{{ goapp_group }}"
+    home: "{{ goapp_dir }}"
+    comment: GoApp
+
+- name: make sure all relevant goapp directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ goapp_user }}"
+    group: "{{ goapp_group }}"
+    mode: 0755
+    recurse: yes
+  with_items: "{{ goapp_dirs }}"
+
+- include_tasks: source_s3.yml
+  when: goapp_release_source == "s3"
+
+- include_tasks: source_url.yml
+  when: goapp_release_source == "url"
+
+- name: rename goapp file
+  command: "mv {{ goapp_dir }}/{{ filename }} {{ goapp_dir }}/{{ goapp_version }}"
+  args:
+    creates: "{{ goapp_dir }}/{{ goapp_version }}"
+    removes: "{{ goapp_dir }}/{{ filename }}"
+  when: filename is defined
+
+- name: remove archived file
+  file:
+    path: "{{ goapp_dir }}/{{ goapp_release_file }}"
+    state: absent
+  when: version.stat.exists == False
+
+- name: link goapp release
+  file:
+    path: "{{ goapp_app_name }}"
+    src: "{{ goapp_dir }}/{{ goapp_version }}"
+    state: link
+    owner: "{{ goapp_user }}"
+    group: "{{ goapp_group }}"
+    mode: 0755
+
+- name: create the goapp systemd service file
+  template:
+    src: goapp.service.j2
+    dest: "{{ systemd_units_dir }}/goapp.service"
+  notify: restart goapp
