@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    repo_name: roles
+    repo_org: Bayete
+    repo_domain: git.ironlabs.com
+    repo_token: 0d97036f4fd3549854cd358c334cb9b315b62300
+  tasks:
+    - name: "Include repo"
+      include_role:
+        name: "repo"

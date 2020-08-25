@@ -1,0 +1,12 @@
+---
+repo_version: 0.1
+repo_url: "https://{{ repo_domain }}/api/v1/repos/{{ repo_org }}/{{ repo_name }}"
+repo_release_url: "{{ repo_url }}/archive/{{ repo_version }}.tar.gz?token={{ repo_token }}"
+
+repo_user: www_data
+repo_group: www_data
+repo_dir: "/home/www/{{ repo_name }}"
+repo_app_dir: "{{ repo_dir }}/latest"
+
+repo_dirs:
+  - "{{ repo_dir }}"
