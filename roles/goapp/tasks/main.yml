@@ -12,7 +12,7 @@
     name: traefik
   vars:
     file_config: "yes"
-    label: "{{ goapp_label }}"
+    label: "{{ goapp_name }}"
     domain: "{{ goapp_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     port: "{{ goapp_http_port }}"

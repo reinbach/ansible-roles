@@ -54,7 +54,7 @@
 
 - name: link goapp release
   file:
-    path: "{{ goapp_app_name }}"
+    path: "{{ goapp_app_bin }}"
     src: "{{ goapp_dir }}/{{ goapp_version }}"
     state: link
     owner: "{{ goapp_user }}"

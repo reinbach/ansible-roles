@@ -9,8 +9,8 @@ goapp_release_url: "https://github.com/Bayete/sample-public/releases/download/{{
 
 goapp_user: www_data
 goapp_group: www_data
-goapp_dir: /home/www
-goapp_app_name: "{{ goapp_dir }}/app"
+goapp_dir: "/home/www/{{ goapp_name }}"
+goapp_app_bin: "{{ goapp_dir }}/app"
 
 goapp_dirs: []
 
