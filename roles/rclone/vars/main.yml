@@ -1,2 +1,4 @@
 ---
-# vars file for rclone
+ansible_support_packages:
+  - cron
+  - unzip

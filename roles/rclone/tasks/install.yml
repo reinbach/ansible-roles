@@ -1,0 +1,36 @@
+---
+- name: install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
+
+- name: create rclone directory
+  file:
+    path: "{{ item }}"
+    owner: "{{ rclone_user }}"
+    group: "{{ rclone_group }}"
+    state: directory
+    mode: 0766
+  with_items: "{{ rclone_dirs }}"
+
+- name: download rclone
+  unarchive:
+    src: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ rclone_user }}"
+    group: "{{ rclone_group }}"
+    mode: 0755
+    remote_src: true
+  with_items:
+    - url: "{{ rclone_release_url }}"
+      dest: "{{ rclone_working_dir }}"
+
+- name: install rclone
+  file:
+    path: /usr/local/bin/rclone
+    src: "{{ rclone_working_dir }}/{{ rclone_release }}"
+    state: link
+    owner: "{{ rclone_user }}"
+    group: "{{ rclone_group }}"
+    mode: 0755

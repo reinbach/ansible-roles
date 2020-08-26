@@ -1,0 +1,8 @@
+---
+- name: configure rclone
+  template:
+    src: "rclone_conf.j2"
+    dest: "{{ rclone_config_file }}"
+    owner: "{{ rclone_user }}"
+    group: "{{ rclone_group }}"
+    mode: 0600

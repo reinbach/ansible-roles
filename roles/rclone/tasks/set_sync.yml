@@ -1,0 +1,16 @@
+---
+- name: create sync script
+  template:
+    src: "sync_script.j2"
+    dest: "{{ rclone_sync_script }}"
+    owner: "{{ rclone_user }}"
+    group: "{{ rclone_group }}"
+    mode: 0770
+
+- name: add sync cron
+  cron:
+    name: Sync files to storage
+    minute: "30"
+    job: "{{ rclone_sync_script }}"
+    state: present
+    user: "{{ rclone_user }}"

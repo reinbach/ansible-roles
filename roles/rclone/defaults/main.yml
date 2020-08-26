@@ -1,13 +1,19 @@
 ---
-# defaults file for rclone
-rclone_packages:
-  - unzip
-
-rclone_version: v1.51.0
-rclone_current: "rclone-{{ rclone_version }}-linux-amd64"
-rclone_download_file: "{{ rclone_current }}.zip"
-rclone_download_url: "https://downloads.rclone.org/{{ rclone_version }}/{{ rclone_download_file }}"
+rclone_version: 1.51.0
+rclone_release: "rclone-v{{ rclone_version }}-linux-amd64"
+rclone_release_url: "https://downloads.rclone.org/v{{ rclone_version }}/{{ rclone_release }}.zip"
 rclone_download_dir: /opt
-rclone_dir: /opt/rclone
-rclone_config: "{{ rclone_dir }}/rclone.conf"
-rclone_sync_script: "{{ rclone_dir }}/sync.sh"
+rclone_working_dir: /opt/rclone
+rclone_config_dir: /etc/rclone
+rclone_sync_dir: "{{ rclone_config_dir }}/scripts"
+rclone_config_file: "{{ rclone_config_dir }}/rclone.conf"
+rclone_sync_script: "{{ rclone_sync_dir }}/sync.sh"
+
+rclone_user: root
+rclone_group: root
+
+rclone_dirs:
+  - "{{ rclone_working_dir }}"
+  - "{{ rclone_config_dir }}"
+  - "{{ rclone_sync_dir }}"
+  - "{{ rclone_local_dir }}"

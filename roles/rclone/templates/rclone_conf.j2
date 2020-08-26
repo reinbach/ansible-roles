@@ -1,19 +1,19 @@
-{% if storage_type == "s3" %}
+{% if rclone_remote_type == "s3" %}
 [s3]
 type = s3
 env_auth = false
-access_key_id = {{ storage_access_id }}
-secret_access_key = {{ storage_secret_key }}
-region = {{ storage_region }}
+access_key_id = {{ rclone_remote_access_key }}
+secret_access_key = {{ rclone_remote_access_secret }}
+region = {{ rclone_remote_region }}
 location_constraint = aws_location_constraint
 acl = private
 
-{% elif storage_type == "spaces" %}
+{% elif rclone_remote_type == "spaces" %}
 [spaces]
 type = s3
 env_auth = false
-access_key_id = {{ storage_access_id }}
-secret_access_key = {{ storage_secret_key }}
-endpoint = {{ storage_region }}.digitaloceanspaces.com
+access_key_id = {{ rclone_remote_access_key }}
+secret_access_key = {{ rclone_remote_access_secret }}
+endpoint = {{ rclone_remote_region }}.digitaloceanspaces.com
 acl = private
 {% endif %}

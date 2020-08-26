@@ -1,2 +1,2 @@
 #!/bin/bash
-rclone sync {{ backup_dir }} spaces:backups
+rclone sync {{ rclone_local_dir }} {{ rclone_remote_type }}:{{ rclone_remote_dir }}

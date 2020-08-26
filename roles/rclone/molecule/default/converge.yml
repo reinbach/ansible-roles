@@ -1,6 +1,13 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    rclone_remote_type: s3
+    rclone_remote_access_key: 123
+    rclone_remote_access_secret: 432
+    rclone_remote_region: us-east-1
+    rclone_remote_dir: backups
+    rclone_local_dir: /opt/rclone/backups
   tasks:
     - name: "Include rclone"
       include_role:
