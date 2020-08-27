@@ -1,0 +1,8 @@
+---
+terraform_version: 0.13.1
+terraform_release_url: "https://releases.hashicorp.com/terraform/{{ terraform_version }}/terraform_{{ terraform_version }}_linux_amd64.zip"
+
+terraform_user: root
+terraform_group: root
+
+terraform_dir: /usr/local/bin/
