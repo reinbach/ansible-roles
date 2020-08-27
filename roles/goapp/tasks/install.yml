@@ -4,7 +4,7 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items: "{{ ansible_support_packages }}"
+  with_items: "{{ ansible_support_packages + goapp_ubuntu_packages }}"
 
 - name: install required libraries
   pip:

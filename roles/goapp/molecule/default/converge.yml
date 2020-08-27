@@ -9,6 +9,8 @@
     goapp_database_user: worker_infra_user
     goapp_version: 0.1
     goapp_release_source: url
+    goapp_ubuntu_packages:
+      - ansible
   tasks:
     - name: "Include goapp"
       include_role:
