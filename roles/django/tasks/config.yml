@@ -13,11 +13,6 @@
   args:
     chdir: "{{ django_app_dir }}"
 
-- name: build assets
-  command: "{{ django_build_assets }}"
-  args:
-    chdir: "{{ django_app_dir }}"
-
 - name: collect static files
   command: python3 ./manage.py collectstatic --noinput
   args:
@@ -35,7 +30,7 @@
   with_items: "{{ django_commands }}"
 
 - name: load fixtures
-  command: "python3 ./manage.py {{ item }}"
+  command: "python3 ./manage.py loaddata {{ item }}"
   args:
     chdir: "{{ django_app_dir }}"
   with_items: "{{ django_fixtures }}"
