@@ -3,12 +3,12 @@
     [http.routers.http-{{ label }}-router]
       entryPoints = ["web"]
       service = "service-{{ label }}"
-      rule = "Host(`{{ domain }}`)"
+      rule = "Host(`{{ domain }}`) || Host(`www.{{ domain }}`)"
       middlewares = ["https-redirect"]
     [http.routers.https-{{ label }}-router]
       entryPoints = ["web-secure"]
       service = "service-{{ label }}"
-      rule = "Host(`{{ domain }}`)"
+      rule = "Host(`{{ domain }}`) || Host(`www.{{ domain }}`)"
       {% if middlewares %}
       middlewares = {{ middlewares }}
       {% endif %}
@@ -16,6 +16,7 @@
         certResolver = "letsencrypt"
         [[http.routers.https-{{ label }}-router.tls.domains]]
           main = "{{ domain }}"
+          sans = ["www.{{ domain }}"]
 
   [http.services]
     [http.services.service-{{ label }}]
