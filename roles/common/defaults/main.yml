@@ -15,3 +15,6 @@ unattended_upgrades_config_options:
     value: "true"
   - option: Unattended-Upgrade::Automatic-Reboot
     value: "true"
+
+termite_url: https://raw.githubusercontent.com/thestinger/termite/master/termite.terminfo
+termite_dir: /opt
