@@ -1,5 +1,5 @@
 ---
 - name: restart goapp
   service:
-    name: goapp
+    name: "{{ goapp_name }}"
     state: restarted

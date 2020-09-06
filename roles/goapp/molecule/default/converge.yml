@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   vars:
-    goapp_name: goapp
+    goapp_name: app
     goapp_database_name: worker_infra
     goapp_database_password: 123
     goapp_database_uri: psql.bayete.com

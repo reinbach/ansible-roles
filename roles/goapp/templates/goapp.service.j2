@@ -20,5 +20,9 @@ Restart=always
 #LimitMEMLOCK=infinity
 #LimitNOFILE=65535
 
+{% for item in goapp_env_vars %}
+Environment="{{ item.key }}={{ item.value }}"
+{% endfor %}
+
 [Install]
 WantedBy=multi-user.target

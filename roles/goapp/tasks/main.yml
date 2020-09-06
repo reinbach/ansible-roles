@@ -3,7 +3,7 @@
 
 - name: enable and start the goapp
   systemd:
-    name: goapp
+    name: "{{ goapp_name }}"
     state: started
     enabled: yes
     daemon-reload: yes

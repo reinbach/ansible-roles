@@ -2,15 +2,17 @@
 goapp_version: 0.1
 # TODO these vars need to be better formatted
 # to better handle different scenarios
+goapp_name: app
 goapp_release_bucket: bayete
-goapp_release_file: "app-{{ goapp_version }}.tar.gz"
-goapp_release_object: "releases/sample/{{ goapp_release_file }}"
-goapp_release_url: "https://github.com/Bayete/sample-public/releases/download/{{ goapp_version }}/app-{{ goapp_version }}.tar.gz"
+goapp_release_file: "{{ goapp_name }}-{{ goapp_version }}.tar.gz"
+goapp_release_path: releases/sample
+goapp_release_object: "{{ goapp_release_path }}/{{ goapp_release_file }}"
+goapp_release_url: "https://github.com/Bayete/sample-public/releases/download/{{ goapp_version }}/{{ goapp_release_file }}"
 
 goapp_ubuntu_packages: []
 
-goapp_user: www_data
-goapp_group: www_data
+goapp_user: "{{ goapp_name }}"
+goapp_group: "{{ goapp_user }}"
 goapp_dir: "/home/www/{{ goapp_name }}"
 goapp_app_bin: "{{ goapp_dir }}/app"
 
