@@ -3,8 +3,9 @@ django_version: 0.1
 django_repo_url: "https://{{ django_repo_domain }}/api/v1/repos/{{ django_repo_org }}/{{ django_repo_name }}"
 django_release_url: "{{ django_repo_url }}/archive/{{ django_version }}.tar.gz?token={{ django_repo_token }}"
 
-django_user: www_data
-django_group: www_data
+django_name: django
+django_user: "{{ django_name }}"
+django_group: "{{ django_user }}"
 django_dir: "/home/www/{{ django_project }}"
 django_app_dir: "{{ django_dir }}/app"
 django_static_dir: "{{ django_dir }}/static"

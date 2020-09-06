@@ -4,7 +4,7 @@
 
 - name: enable and start the django app service
   systemd:
-    name: django
+    name: "{{ django_name }}"
     state: started
     enabled: yes
     daemon-reload: yes

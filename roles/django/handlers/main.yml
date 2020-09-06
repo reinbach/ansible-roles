@@ -1,5 +1,5 @@
 ---
 - name: restart django
   service:
-    name: django
+    name: "{{ django_name }}"
     state: restarted
