@@ -20,4 +20,4 @@ goapp_dirs: []
 goapp_env_vars: []
 
 goapp_http_listen_addr: 0.0.0.0
-goapp_http_port: 8000
+goapp_http_port: 3000
