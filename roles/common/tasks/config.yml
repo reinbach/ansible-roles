@@ -18,8 +18,10 @@
     url: "{{ termite_url }}"
     dest: "{{ termite_dir }}"
     force: no
+  register: termite
 
 - name: load termite info
   command:
     cmd: tic -x termite.terminfo
     chdir: "{{ termite_dir }}"
+  when: termite.changed
