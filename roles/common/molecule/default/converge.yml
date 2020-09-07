@@ -5,3 +5,18 @@
     - name: "Include common"
       include_role:
         name: "common"
+  vars:
+    users:
+      - first_name: greg
+        last_name: reinbach
+        username: greg
+        password: $2b$12$oavfdr55JFPR6VytG6JHc.v9F5wvjjpUn4KZgoSqV75ET3unftNSO
+        email: greg@bayete.com
+        public_keys:
+          active:
+            - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDJw0EJcPcCgHlezXtqtuJPGocTF3WGXFvuouttWcY+uk7LF2n1xRKbHdo42cflgLIxMici2oObnnAv2jU3gAK6Fgjo+DRpBky0zJdEMpJUte44g9heIdSI1zMOjUENWo2NIjsmWozhH6QbnpOKHyZu85yrsJkQj3wJ1zQ0mlpYxVISt4a9tQFuAYizQqJKq0MOgRGZ/BaE3fJ8LgnRU90VmImYqT8qjNnPRv+cHlXelOgiXgcK78b58Uz8iR23cdTd4NUNke6EOukgiW6rERAomSGgSHF8CO7lbqH+mpFAIvnemN2R8F6u55UayxwlJ20o+rS2noDxVp5NlmGFqedYNJu5chOu+BascTW2RIE+TIzlCXmPYGWwB0P4HZf3sFEaxWyWIiWG3Cy9gqblbSwDbbshsbp3gFX0E6f025N1Jg3aFm7biFlPQwYcN4rtgQgI2c2feQpFil047rfbUTwT+RZ1qFNvEBVK3RR3ltOC5vaf8YldGeRQBipWaVI7NAzuYZYUEe8CpK0vFCyizNU7vbscZkTWYI+XUmqJpmwPtlWDxKtgQE8TZBDPCaOUGGtq/GkPpYYAlfJSkrn1G9d/Kmcv0k0NhX+VsiRi+BLjZOG9RRkDTmvOFKzk8/A9XDrPOSDt+XB14OL1PXa1lbBozV+q6D6eiti75Jj5IwqEEQ==
+          disabled: []
+        is_admin: true
+        type: admin
+        is_active: true
+        state: present
