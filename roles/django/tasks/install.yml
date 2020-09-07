@@ -74,6 +74,7 @@
   command: pipenv install --system  --ignore-pipfile --deploy
   args:
     chdir: "{{ django_app_dir }}"
+  when: version.stat.exists == False
 
 - name: create the django systemd service file
   template:
