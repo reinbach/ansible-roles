@@ -19,6 +19,7 @@ traefik_template: traefik.toml
 traefik_systemd_unit_template: traefik.service
 traefik_systemd_unit_dest: /etc/systemd/system/traefik.service
 traefik_update: true
+add_www: false
 file_config: "no"
 docker_config: "no"
 middlewares: ""
