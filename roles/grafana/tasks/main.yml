@@ -22,4 +22,4 @@
     label: "{{ grafana_label }}"
     domain: "{{ grafana_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: "{{ grafana_http_port }}"
+    http_port: "{{ grafana_http_port }}"
