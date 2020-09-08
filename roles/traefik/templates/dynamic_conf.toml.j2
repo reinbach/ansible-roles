@@ -22,4 +22,4 @@
     [http.services.service-{{ label }}]
       [http.services.service-{{ label }}.loadBalancer]
         [[http.services.service-{{ label }}.loadBalancer.servers]]
-          url = "http://{{ ip_address }}:{{ port }}"
+          url = "http://{{ ip_address }}:{{ http_port }}"

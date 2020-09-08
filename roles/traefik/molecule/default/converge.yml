@@ -19,7 +19,7 @@
     label: Example
     domain: example.com
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: 3000
+    http_port: 3000
     middlewares: "['auth']"
     add_www: true
   tasks:
