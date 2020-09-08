@@ -14,4 +14,4 @@
     label: "ldap"
     domain: "{{ ldap_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: "80"
+    http_port: "80"

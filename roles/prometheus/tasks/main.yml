@@ -32,5 +32,5 @@
     label: "{{ prometheus_label }}"
     domain: "{{ prometheus_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: "{{ prometheus_web_listen_port }}"
+    http_port: "{{ prometheus_web_listen_port }}"
     middlewares: "['auth']"

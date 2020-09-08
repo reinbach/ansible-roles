@@ -15,4 +15,5 @@
     label: "{{ goapp_name }}"
     domain: "{{ goapp_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: "{{ goapp_http_port }}"
+    http_port: "{{ goapp_http_port }}"
+    add_www: "{{ goapp_add_www }}"
