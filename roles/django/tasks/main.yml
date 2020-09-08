@@ -17,3 +17,4 @@
     domain: "{{ django_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     port: "{{ django_http_port }}"
+    add_www: "{{ django_add_www }}"

@@ -17,6 +17,7 @@ django_dirs:
 
 django_http_listen_addr: 0.0.0.0
 django_http_port: 8000
+django_add_www: false
 
 django_commands: []
 django_fixtures: []
