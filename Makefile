@@ -1,5 +1,6 @@
 BUILDDIR=build
 ROLES=$(wildcard roles/*/.)
+VERSION=0.2
 
 
 help:
