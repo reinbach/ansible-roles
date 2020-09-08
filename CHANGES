@@ -1,0 +1,16 @@
+0.3.0
+-----
+* Rename traefik port variable to http_port
+* Add add_www var to traefik
+* Cleanup traefik converge variables
+
+0.2.0
+-----
+* Add default http port to goapp role
+* Clean up django role package requirements
+* Common role runs termite tasks once
+* Clean up common role molecule setup
+
+0.1.0
+-----
+* Initial release
