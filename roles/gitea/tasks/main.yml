@@ -19,4 +19,4 @@
     label: "{{ gitea_label }}"
     domain: "{{ gitea_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
-    port: "{{ gitea_http_port }}"
+    http_port: "{{ gitea_http_port }}"
