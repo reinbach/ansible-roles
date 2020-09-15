@@ -1,3 +1,7 @@
+0.3.1
+-----
+* Correct gitea traefik port var name
+
 0.3.0
 -----
 * Rename traefik port variable to http_port
