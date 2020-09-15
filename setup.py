@@ -12,7 +12,7 @@ setup(
     description=readme(),
     url="https://git.ironlabs.com/Bayete/roles",
     author="Greg Reinbach",
-    author_email="greg@ironlabs.com",
+    author_email="greg@bayete.com",
     license="MIT",
     packages=[],
     zip_safe=False,
