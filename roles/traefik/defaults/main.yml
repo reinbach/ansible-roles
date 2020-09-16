@@ -1,5 +1,5 @@
 ---
-traefik_version: v2.2.1
+traefik_version: v2.2.11
 traefik_build: linux_amd64
 traefik_install_dir: /usr/bin
 traefik_release_url: https://github.com/containous/traefik/releases/download/

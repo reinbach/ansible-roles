@@ -4,3 +4,7 @@
       scheme = "https"
       permanent = true
       realm = "{{ domain | default('Traefik') }}"
+
+    [http.middlewares.hsts-header.headers]
+      [http.middlewares.hsts-header.headers.customResponseHeaders]
+        Strict-Transport-Security = "max-age=63072000"

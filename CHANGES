@@ -1,3 +1,8 @@
+0.3.2
+-----
+* Set TLS version >= 1.2 in traefik
+* Set CipherSuites used in traefik
+
 0.3.1
 -----
 * Correct gitea traefik port var name
