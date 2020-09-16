@@ -1,3 +1,7 @@
+0.3.3
+-----
+* Set Postgresql Database Collect and CType to C.UTF-8
+
 0.3.2
 -----
 * Set TLS version >= 1.2 in traefik
