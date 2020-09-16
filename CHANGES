@@ -1,3 +1,7 @@
+0.3.4
+-----
+* Add CORS header option to traefik
+
 0.3.3
 -----
 * Set Postgresql Database Collect and CType to C.UTF-8
