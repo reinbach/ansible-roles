@@ -37,6 +37,14 @@
     group: root
     mode: 0744
 
+- name: Copy traefik tls options
+  template:
+    src: "tls_options.toml.j2"
+    dest: "{{ traefik_config_dir }}/tls_options.toml"
+    owner: root
+    group: root
+    mode: 0744
+
 - name: Set docker provider
   blockinfile:
     path: "{{ traefik_config_file }}"
