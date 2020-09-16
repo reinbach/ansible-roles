@@ -20,7 +20,8 @@
     domain: example.com
     ip_address: "{{ ansible_default_ipv4.address }}"
     http_port: 3000
-    middlewares: "['auth']"
+    middlewares: "['auth', 'corsHeader']"
+    cors_domains: '"static.example.com","else.example.com"'
     add_www: true
   tasks:
     - name: "Include traefik"
