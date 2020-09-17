@@ -3,7 +3,7 @@
   hosts: all
   vars:
     django_name: site
-    django_domain: www.example.com
+    django_domain: example.com
     django_repo_name: site
     django_repo_org: Bayete
     django_repo_domain: git.ironlabs.com
