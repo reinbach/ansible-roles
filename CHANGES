@@ -1,3 +1,7 @@
+0.3.6
+-----
+* Add local IP to ALLOWED_HOSTS env var in django role
+
 0.3.5
 -----
 * CORS header now isolated to each app
