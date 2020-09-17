@@ -10,7 +10,7 @@
       service = "service-{{ label }}"
       rule = "Host(`{{ domain }}`){% if add_www %} || Host(`www.{{ domain }}`){% endif %}"
       {% if middlewares %}
-      middlewares = {{ middlewares }}
+      middlewares = [{% for m in middlewares %}"{{ m }}",{% endfor %}]
       {% endif %}
       [http.routers.https-{{ label }}-router.tls]
         certResolver = "letsencrypt"
@@ -23,3 +23,11 @@
       [http.services.service-{{ label }}.loadBalancer]
         [[http.services.service-{{ label }}.loadBalancer.servers]]
           url = "http://{{ ip_address }}:{{ http_port }}"
+
+{% if cors_domains is defined %}
+[http.middlewares.{{ cors_middleware }}.headers]
+  accessControlAllowMethods= ["GET", "OPTIONS"]
+  accessControlAllowOriginList = [{% for c in  cors_domains %}"{{ c }}",{% endfor %}]
+  accessControlMaxAge = 100
+  addVaryHeader = true
+{% endif %}
