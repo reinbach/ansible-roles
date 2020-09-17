@@ -1,3 +1,7 @@
+0.3.7
+-----
+* Add localhost to ALLOWED_HOSTS in django role
+
 0.3.6
 -----
 * Add local IP to ALLOWED_HOSTS env var in django role
