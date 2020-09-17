@@ -8,11 +8,3 @@
     [http.middlewares.hsts-header.headers]
       [http.middlewares.hsts-header.headers.customResponseHeaders]
         Strict-Transport-Security = "max-age=63072000"
-
-    {% if cors_domains %}
-    [http.middlewares.corsHeader.headers]
-      accessControlAllowMethods= ["GET", "OPTIONS"]
-      accessControlAllowOriginList = [{{ cors_domains }}]
-      accessControlMaxAge = 100
-      addVaryHeader = true
-    {% endif %}

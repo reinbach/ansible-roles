@@ -22,4 +22,6 @@ traefik_update: true
 add_www: false
 file_config: "no"
 docker_config: "no"
-middlewares: ""
+
+middlewares: []
+cors_middleware: ""

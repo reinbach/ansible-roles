@@ -1,4 +1,15 @@
 ---
+# Variable configuration.
+- name: define cors middleware label
+  set_fact:
+    cors_middleware: "{{ label }}CORSHeader"
+  when: cors_domains is defined
+
+- name: finalize middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [cors_middleware] }}"
+  when: cors_middleware != ""
+
 - name: Create traefik systemd unit
   template:
     src: "{{ traefik_systemd_unit_template }}.j2"
