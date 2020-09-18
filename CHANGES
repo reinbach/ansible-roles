@@ -1,3 +1,7 @@
+0.3.12
+------
+* Add logrotate role
+
 0.3.11
 ------
 * Update rclone config file permissions
