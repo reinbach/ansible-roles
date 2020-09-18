@@ -59,6 +59,7 @@
     owner: "{{ goapp_user }}"
     group: "{{ goapp_group }}"
     mode: 0755
+  notify: restart goapp
 
 - name: create the goapp systemd service file
   template:
