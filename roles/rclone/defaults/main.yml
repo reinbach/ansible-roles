@@ -8,6 +8,7 @@ rclone_config_file: "{{ rclone_config_dir }}/rclone.conf"
 rclone_sync_script: "{{ rclone_sync_dir }}/sync.sh"
 rclone_download_dir: /opt
 rclone_working_dir: /opt/rclone
+rclone_remote_label: remote
 
 rclone_user: root
 rclone_group: root
