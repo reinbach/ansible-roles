@@ -1,0 +1,8 @@
+---
+- name: configure logrotate
+  template:
+    src: "logrotate_conf.j2"
+    dest: "{{ logrotate_config_dir }}/{{ logrotate_name }}"
+    owner: "{{ logrotate_user }}"
+    group: "{{ logrotate_group }}"
+    mode: 0644
