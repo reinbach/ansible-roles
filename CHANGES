@@ -1,3 +1,7 @@
+0.3.8
+-----
+* Restart goapp service when link changed for goapp release
+
 0.3.7
 -----
 * Add localhost to ALLOWED_HOSTS in django role
