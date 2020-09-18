@@ -1,3 +1,7 @@
+0.3.10
+------
+* Create correct link with rclone binary
+
 0.3.9
 -----
 * Update rclone directory permissions

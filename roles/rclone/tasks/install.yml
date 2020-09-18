@@ -38,7 +38,7 @@
 - name: install rclone
   file:
     path: /usr/local/bin/rclone
-    src: "{{ rclone_working_dir }}/{{ rclone_release }}"
+    src: "{{ rclone_working_dir }}/{{ rclone_release }}/rclone"
     state: link
     owner: "{{ rclone_user }}"
     group: "{{ rclone_group }}"
