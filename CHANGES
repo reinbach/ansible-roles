@@ -1,3 +1,9 @@
+0.3.11
+------
+* Update rclone config file permissions
+* Allow labelling of rclone config section
+* Update S3 rclone settings
+
 0.3.10
 ------
 * Create correct link with rclone binary
