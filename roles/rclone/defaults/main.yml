@@ -2,18 +2,20 @@
 rclone_version: 1.51.0
 rclone_release: "rclone-v{{ rclone_version }}-linux-amd64"
 rclone_release_url: "https://downloads.rclone.org/v{{ rclone_version }}/{{ rclone_release }}.zip"
-rclone_download_dir: /opt
-rclone_working_dir: /opt/rclone
 rclone_config_dir: /etc/rclone
 rclone_sync_dir: "{{ rclone_config_dir }}/scripts"
 rclone_config_file: "{{ rclone_config_dir }}/rclone.conf"
 rclone_sync_script: "{{ rclone_sync_dir }}/sync.sh"
+rclone_download_dir: /opt
+rclone_working_dir: /opt/rclone
 
 rclone_user: root
 rclone_group: root
 
 rclone_dirs:
-  - "{{ rclone_working_dir }}"
   - "{{ rclone_config_dir }}"
   - "{{ rclone_sync_dir }}"
+
+rclone_open_dirs:
+  - "{{ rclone_working_dir }}"
   - "{{ rclone_local_dir }}"

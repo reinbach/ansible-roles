@@ -5,7 +5,7 @@
     dest: "{{ rclone_sync_script }}"
     owner: "{{ rclone_user }}"
     group: "{{ rclone_group }}"
-    mode: 0770
+    mode: 0700
 
 - name: add sync cron
   cron:
