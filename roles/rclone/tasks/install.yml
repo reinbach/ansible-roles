@@ -5,14 +5,23 @@
     state: present
   with_items: "{{ ansible_support_packages }}"
 
-- name: create rclone directory
+- name: create rclone config directory
   file:
     path: "{{ item }}"
     owner: "{{ rclone_user }}"
     group: "{{ rclone_group }}"
     state: directory
-    mode: 0766
+    mode: 0755
   with_items: "{{ rclone_dirs }}"
+
+- name: create rclone open directories
+  file:
+    path: "{{ item }}"
+    owner: "{{ rclone_user }}"
+    group: "{{ rclone_group }}"
+    state: directory
+    mode: 0777
+  with_items: "{{ rclone_open_dirs }}"
 
 - name: download rclone
   unarchive:
