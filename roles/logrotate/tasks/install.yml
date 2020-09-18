@@ -1,0 +1,7 @@
+---
+- name: install required packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
