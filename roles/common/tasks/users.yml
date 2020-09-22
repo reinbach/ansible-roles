@@ -41,7 +41,7 @@
     - keys.disabled
     - flags:
       skip_missing: "yes"
-  when: item.0.state != "absent"
+  when: item.0.state == "absent"
 
 - name: Add admin group to sudoers
   lineinfile:

@@ -1,2 +1,12 @@
 ---
-# vars file for ldap
+ansible_support_packages:
+  - slapd
+  - ldap-utils
+  - python3-pip
+  - python-dev
+  - libldap2-dev
+  - libsasl2-dev
+  - gcc
+
+python_pip_packages:
+  - python-ldap
