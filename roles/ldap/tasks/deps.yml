@@ -1,15 +1,17 @@
 ---
-- name: Install LDAP dependencies
-  apt:
-    name: "{{ packages }}"
+- name: install required packages
+  become: true
+  package:
+    name: "{{ item }}"
     state: present
-  vars:
-    packages:
-      - slapd
-      - ldap-utils
-      - python-ldap
+  with_items: "{{ ansible_support_packages }}"
 
-- name: Start slapd
+- name: install required libraries
+  pip:
+    name: "{{ python_pip_packages }}"
+    state: present
+
+- name: start slapd
   systemd:
     name: slapd
     state: started
