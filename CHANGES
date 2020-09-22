@@ -1,3 +1,9 @@
+0.3.13
+------
+* Update psql backup script with decent flags, makes for easier restore
+* Update packages and libraries required for ldap with move to Ubuntu 20.04
+* Correct check when removing user ssh key from server
+
 0.3.12
 ------
 * Add logrotate role
