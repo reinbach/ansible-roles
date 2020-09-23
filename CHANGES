@@ -1,3 +1,7 @@
+0.3.14
+------
+* Fix setting of user ssh keys on servers
+
 0.3.13
 ------
 * Update psql backup script with decent flags, makes for easier restore
