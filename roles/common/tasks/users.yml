@@ -25,7 +25,7 @@
     key: "{{ item.1 }}"
   with_subelements:
     - "{{ users }}"
-    - keys.active
+    - public_keys.active
     - flags:
       skip_missing: "yes"
   when: item.0.state != "absent"
@@ -38,10 +38,10 @@
     state: absent
   with_subelements:
     - "{{ users }}"
-    - keys.disabled
+    - public_keys.disabled
     - flags:
       skip_missing: "yes"
-  when: item.0.state == "absent"
+  when: item.0.state != "absent"
 
 - name: Add admin group to sudoers
   lineinfile:
