@@ -4,6 +4,7 @@ ansible_support_packages:
   - ldap-utils
   - python3-pip
   - python-dev
+  - python-setuptools
   - libldap2-dev
   - libsasl2-dev
   - gcc

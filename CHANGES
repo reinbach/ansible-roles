@@ -1,3 +1,8 @@
+0.3.15
+------
+* Update COOKIE_SECURE to true for gitea
+* Add python-setuptools to ansible support packages on ldap role
+
 0.3.14
 ------
 * Fix setting of user ssh keys on servers
