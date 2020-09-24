@@ -3,7 +3,8 @@ ansible_support_packages:
   - slapd
   - ldap-utils
   - python3-pip
-  - python-dev
+  - python2
+  - python2-dev
   - python-setuptools
   - libldap2-dev
   - libsasl2-dev
@@ -11,3 +12,6 @@ ansible_support_packages:
 
 python_pip_packages:
   - python-ldap
+
+pip2_download_url: https://bootstrap.pypa.io/get-pip.py
+pip2_file: /root/get-pip.py
