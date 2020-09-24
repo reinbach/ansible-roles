@@ -6,8 +6,7 @@ driver:
   name: podman
 platforms:
   - name: instance-docker
-    image: docker.io/ubuntu:18.04
-    pre_build_image: true
+    image: docker.io/ubuntu:20.04
     privileged: true
 provisioner:
   name: ansible
