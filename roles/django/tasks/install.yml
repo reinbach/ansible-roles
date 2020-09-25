@@ -22,7 +22,6 @@
     name: "{{ django_user }}"
     group: "{{ django_group }}"
     home: "{{ django_dir }}"
-    append: yes
 
 - name: create django directories
   file:
