@@ -1,7 +1,6 @@
 ---
 - name: restart drone
-  docker_compose:
-    project_src: "{{ drone_working_dir }}"
-    build: no
-    restarted: yes
-  listen: "restart drone"
+  service:
+    name: drone
+    state: restarted
+    enabled: yes

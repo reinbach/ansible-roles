@@ -1,2 +1,7 @@
 ---
-# vars file for sentry
+ansible_support_packages:
+  - git
+  - postgresql-contrib
+
+# systemd unit files location
+systemd_units_dir: /lib/systemd/system

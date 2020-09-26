@@ -4,3 +4,6 @@ ansible_support_packages:
 
 python_pip_packages:
   - psycopg2-binary
+
+# systemd unit files location
+systemd_units_dir: /lib/systemd/system

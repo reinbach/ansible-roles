@@ -1,0 +1,82 @@
+---
+- name: installed required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ansible_support_packages }}"
+
+- name: create sentry directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - "{{ srv_dir }}"
+
+- name: check if version exists
+  stat:
+    path: "{{ sentry_version_dir }}"
+  register: version
+
+- name: download sentry release
+  unarchive:
+    src: "{{ item.url }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ sentry_user }}"
+    group: "{{ sentry_group }}"
+    mode: 0755
+    remote_src: true
+    exclude:
+      - tests
+  with_items:
+    - url: "{{ sentry_release_url }}"
+      dest: "{{ srv_dir }}"
+  when: version.stat.exists == False
+
+- name: rename sentry download
+  command: "mv {{ srv_dir }}/{{ sentry_repo_name }} {{ sentry_version_dir }}"
+  args:
+    creates: "{{ sentry_version_dir }}"
+    removes: "{{ srv_dir }}/{{ sentry_repo_name }}"
+  when: version.stat.exists == False
+
+- name: link sentry release
+  file:
+    path: "{{ sentry_dir }}"
+    src: "{{ sentry_version_dir }}"
+    state: link
+    owner: "{{ sentry_user }}"
+    group: "{{ sentry_group }}"
+    mode: 0755
+
+- name: Set domain name in docker compose
+  replace:
+    path: "{{ sentry_dir }}/docker-compose.yml"
+    regexp: "!!domain-name!!"
+    replace: "{{ sentry_domain }}"
+
+- name: add requirements file
+  template:
+    src: requirements.txt.j2
+    dest: "{{ sentry_requirements_file }}"
+    mode: 0644
+  register: requirements_updated
+
+- debug:
+    msg: "{{ requirements_updated }}"
+
+- name: install sentry
+  notify: restart sentry
+  command:
+    chdir: "{{ sentry_dir }}"
+    cmd: "{{ sentry_dir }}/install.sh"
+  # See https://github.com/getsentry/onpremise/issues/412
+  # environment:
+  #   SENTRY_IMAGE: "getsentry/sentry:{{ sentry_version }}"
+  when: version.stat.exists == False or requirements_updated.changed
+
+- name: create the sentry systemd service file
+  template:
+    src: sentry.service.j2
+    dest: "{{ systemd_units_dir }}/sentry.service"
+  notify: restart sentry

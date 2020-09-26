@@ -47,9 +47,9 @@
     login_host: "{{ gitea_database_uri }}"
     login_user: "{{ gitea_database_user }}"
     login_password: "{{ gitea_database_password }}"
-    query: SELECT count(*) FROM oauth2_application WHERE uid = %s
+    query: SELECT count(*) FROM oauth2_application WHERE client_id = %s
     positional_args:
-      - "{{ system_user_record }}"
+      - "{{ gitea_oauth_key }}"
   register: oauth_app_records
 
 - debug:
