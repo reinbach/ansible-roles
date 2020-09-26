@@ -16,7 +16,6 @@
     name: "{{ repo_user }}"
     group: "{{ repo_group }}"
     home: "{{ repo_dir }}"
-    append: yes
 
 - name: create repo directories
   file:
