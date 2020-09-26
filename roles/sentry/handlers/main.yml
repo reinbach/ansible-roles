@@ -1,16 +1,6 @@
 ---
 - name: restart sentry
-  docker_compose:
-    project_src: "{{ sentry_dir }}"
-    build: no
-    restarted: yes
-  listen: "restart sentry"
-
-- name: install sentry
-  notify: restart sentry
-  command:
-    chdir: "{{ sentry_dir }}"
-    cmd: "{{ sentry_dir }}/install.sh --noinput"
-  # See https://github.com/getsentry/onpremise/issues/412
-  # environment:
-  #   SENTRY_IMAGE: "getsentry/sentry:{{ sentry_version }}"
+  service:
+    name: sentry
+    state: restarted
+    enabled: yes

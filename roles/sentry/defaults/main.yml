@@ -1,12 +1,15 @@
 ---
-sentry_version: 10
-sentry_packages:
-  - git
-  - postgresql-contrib
+sentry_version: 0.1
+sentry_repo_name: sentry-onpremise
+sentry_repo_url: "https://git.ironlabs.com/api/v1/repos/Bayete/sentry-onpremise"
+sentry_release_url: "{{ sentry_repo_url }}/archive/{{ sentry_version }}.tar.gz?token={{ sentry_repo_token }}"
 
-sentry_repo: https://github.com/Bayete/onpremise.git
+sentry_user: root
+sentry_group: root
 
+srv_dir: /srv
 sentry_dir: /srv/sentry
+sentry_version_dir: "{{ srv_dir }}/{{ sentry_version }}"
 sentry_config_yml_file: "{{ sentry_dir }}/sentry/config.yml"
 sentry_config_py_file: "{{ sentry_dir }}/sentry/sentry.conf.py"
 sentry_requirements_file: "{{ sentry_dir }}/sentry/requirements.txt"

@@ -1,0 +1,14 @@
+---
+- name: add configuration yml file
+  notify: restart sentry
+  template:
+    src: config.yml.j2
+    dest: "{{ sentry_config_yml_file }}"
+    mode: 0644
+
+- name: add configuration py file
+  notify: restart sentry
+  template:
+    src: sentry.conf.py.j2
+    dest: "{{ sentry_config_py_file }}"
+    mode: 0644

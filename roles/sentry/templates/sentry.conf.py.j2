@@ -30,7 +30,7 @@ SENTRY_USE_BIG_INTS = True
 
 # Instruct Sentry that this install intends to be run by a single organization
 # and thus various UI optimizations should be enabled.
-SENTRY_SINGLE_ORGANIZATION = True
+SENTRY_SINGLE_ORGANIZATION = False
 
 SENTRY_OPTIONS["system.event-retention-days"] = int(env('SENTRY_EVENT_RETENTION_DAYS', '90'))
 
@@ -230,6 +230,7 @@ GITHUB_EXTENDED_PERMISSIONS = ['repo']
 AUTHENTICATION_BACKENDS = AUTHENTICATION_BACKENDS + (
     'sentry_ldap_auth.backend.SentryLdapBackend',
 )
+AUTH_LDAP_DEFAULT_SENTRY_ORGANIZATION = '{{ ldap_organization }}'
 AUTH_LDAP_SENTRY_ORGANIZATION_ROLE_TYPE = 'member'
 AUTH_LDAP_SENTRY_GROUP_ROLE_MAPPING = {
     'owner': ['admin'],
