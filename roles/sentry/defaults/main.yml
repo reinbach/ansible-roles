@@ -1,5 +1,5 @@
 ---
-sentry_version: 0.1
+sentry_version: 0.2
 sentry_repo_name: sentry-onpremise
 sentry_repo_url: "https://git.ironlabs.com/api/v1/repos/Bayete/sentry-onpremise"
 sentry_release_url: "{{ sentry_repo_url }}/archive/{{ sentry_version }}.tar.gz?token={{ sentry_repo_token }}"
