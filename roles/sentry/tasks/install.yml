@@ -60,7 +60,7 @@
     src: requirements.txt.j2
     dest: "{{ sentry_requirements_file }}"
     mode: 0644
-  register: requirements_updated
+  register: requirements
 
 - debug:
     msg: "{{ requirements_updated }}"
@@ -71,6 +71,7 @@
     src: config.yml.j2
     dest: "{{ sentry_config_yml_file }}"
     mode: 0644
+  register: config_yml
 
 - name: add configuration py file
   notify: restart sentry
@@ -78,6 +79,7 @@
     src: sentry.conf.py.j2
     dest: "{{ sentry_config_py_file }}"
     mode: 0644
+  register: config_py
 
 - name: install sentry
   notify: restart sentry
@@ -87,7 +89,7 @@
   # See https://github.com/getsentry/onpremise/issues/412
   # environment:
   #   SENTRY_IMAGE: "getsentry/sentry:{{ sentry_version }}"
-  when: version.stat.exists == False or requirements_updated.changed
+  when: version.stat.exists == False or requirements.changed or config_yml.changed or config_py.changed
 
 - name: create the sentry systemd service file
   template:

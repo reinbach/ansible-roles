@@ -1,3 +1,7 @@
+0.4.3
+-----
+* Update sentry configs
+
 0.4.2
 -----
 * Add system,url-prefix setting to sentry config.yml
