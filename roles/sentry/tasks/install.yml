@@ -62,9 +62,6 @@
     mode: 0644
   register: requirements
 
-- debug:
-    msg: "{{ requirements_updated }}"
-
 - name: add configuration yml file
   notify: restart sentry
   template:
