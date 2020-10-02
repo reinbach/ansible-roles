@@ -1,3 +1,8 @@
+0.4.6
+-----
+* Update pypiserver to use systemctl service file
+* Set DISABLE_HTTP_GIT to false in gitea settings
+
 0.4.5
 -----
 * Correct gitea ROOT_URL setting
