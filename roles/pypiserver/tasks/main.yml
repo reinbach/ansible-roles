@@ -44,6 +44,12 @@
   tags:
     - pypiserver
 
+- name: create the pypiserver systemd service file
+  template:
+    src: pypiserver.service.j2
+    dest: "{{ systemd_units_dir }}/pypiserver.service"
+  notify: restart pypiserver
+
 - include_role:
     name: traefik
   vars:

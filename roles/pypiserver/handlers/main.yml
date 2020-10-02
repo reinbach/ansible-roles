@@ -1,7 +1,6 @@
 ---
 - name: restart pypiserver
-  docker_compose:
-    project_src: "{{ pypiserver_dir }}"
-    build: no
-    restarted: yes
-  listen: "restart pypiserver"
+  service:
+    name: pypiserver
+    state: restarted
+    enabled: yes
