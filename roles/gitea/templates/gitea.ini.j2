@@ -151,7 +151,7 @@ FILE_EXTENSIONS = .md,.markdown,.mdown,.mkd
 ; The protocol the server listens on. One of 'http', 'https', 'unix' or 'fcgi'.
 PROTOCOL = {{ gitea_http_proto }}
 DOMAIN = {{ gitea_domain }}
-ROOT_URL = %(PROTOCOL)s://%(DOMAIN)s:%(HTTP_PORT)s/
+ROOT_URL = https://%(DOMAIN)s/
 ; The address to listen on. Either a IPv4/IPv6 address or the path to a unix socket.
 HTTP_ADDR = {{ gitea_http_listen_addr }}
 HTTP_PORT = {{ gitea_http_port }}
