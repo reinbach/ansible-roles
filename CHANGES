@@ -1,3 +1,7 @@
+0.4.7
+-----
+* Set admin users in Drone
+
 0.4.6
 -----
 * Update pypiserver to use systemctl service file

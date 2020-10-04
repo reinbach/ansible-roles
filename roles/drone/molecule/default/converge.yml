@@ -9,9 +9,9 @@
     drone_label: ci_drone
     drone_rpc_secret: 321
     drone_users: greg
+    drone_admin_users: greg,graybeard
     drone_version: 1.6.1
-  roles:
-    - common
-    - node_exporter
-    - docker
-    - drone
+  tasks:
+    - name: "Include drone"
+      include_role:
+        name: "drone"

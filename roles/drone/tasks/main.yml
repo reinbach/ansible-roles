@@ -21,3 +21,5 @@
 
 - include_tasks: create_prometheus_user.yml
   when: prometheus_domain is defined
+
+- include_tasks: set_admin_users.yml
