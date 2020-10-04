@@ -14,6 +14,7 @@ drone_group: drone
 
 drone_system_user: system_user
 drone_machine_user: prometheus
+admin_users: "{{ drone_admin_users.split(',') }}"
 
 # Drone secret key, used for private communication between runner and server
 drone_rpc_secret: "{{ drone_rpc_secret }}"
