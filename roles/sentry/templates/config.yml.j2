@@ -33,9 +33,6 @@ mail.from: 'no-reply@{{ sentry_domain }}'
 
 system.url-prefix: "https://{{ sentry_domain }}"
 
-# https://github.com/getsentry/onpremise/issues/629
-postprocess.use-cache-key: 1.0
-
 # If this file ever becomes compromised, it's important to regenerate your a new key
 # Changing this value will result in all current sessions being invalidated.
 # A new key can be generated with `$ sentry config generate-secret-key`
