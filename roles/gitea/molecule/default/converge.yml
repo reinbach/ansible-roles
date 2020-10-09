@@ -3,10 +3,6 @@
   hosts: all
   vars:
     # drone_domain: ci.example.com
-    users:
-      - username: greg
-        email: greg@example.com
-        is_admin: true
     gitea_app_name: Git @ example.com
     gitea_database_name: code_gitea
     gitea_database_password: 123
@@ -15,6 +11,7 @@
     gitea_jwt_secret: supersecret
     gitea_label: code_gitea
     ldap_admin_dn: cn=admin,dc=example,dc=com
+    ldap_admin_group_dn: cn=admins,dc=example,dc=com
     ldap_admin_password: 321
     ldap_domain: ldap.ironlabs.net
     ldap_port: "389"
