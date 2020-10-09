@@ -23,6 +23,7 @@
   with_items:
     - "{{ users }}"
   no_log: true
+  tags: users
 
 - name: Set user password attribute
   ldap_attr:
@@ -34,6 +35,7 @@
     - "{{ users }}"
   when: item.state == "present"
   no_log: true
+  tags: users
 
 - name: Set user email attribute
   ldap_attr:
@@ -45,6 +47,7 @@
     - "{{ users }}"
   when: item.state == "present"
   no_log: true
+  tags: users
 
 - name: Set user first name attribute
   ldap_attr:
@@ -56,6 +59,7 @@
     - "{{ users }}"
   when: item.first_name | length > 0 and item.state == "present"
   no_log: true
+  tags: users
 
 - name: Set user last name attribute
   ldap_attr:
@@ -67,6 +71,7 @@
     - "{{ users }}"
   when: item.state == "present"
   no_log: true
+  tags: users
 
 - name: add user to admin group
   ldap_attr:
@@ -78,6 +83,7 @@
     - "{{ users }}"
   when: item.is_admin and item.state == "present"
   no_log: true
+  tags: users
 
 - name: remove user from admin group
   ldap_attr:
@@ -89,3 +95,4 @@
     - "{{ users }}"
   when: not item.is_admin and item.state == "present"
   no_log: true
+  tags: users

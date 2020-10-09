@@ -1,6 +1,5 @@
 ---
 - name: Ensure group "{{ admin_group }}" exists
-  tags: users
   group:
     name: "{{ admin_group }}"
     state: present
@@ -17,6 +16,7 @@
     - "{{ users }}"
   when: item.is_admin|bool
   no_log: true
+  tags: users
 
 - name: Add SSH-keys to users
   tags: users
@@ -29,6 +29,7 @@
     - flags:
       skip_missing: "yes"
   when: item.0.state != "absent"
+  tags: users
 
 - name: Remove old SSH-keys from users
   tags: users
@@ -42,6 +43,7 @@
     - flags:
       skip_missing: "yes"
   when: item.0.state != "absent"
+  tags: users
 
 - name: Add admin group to sudoers
   lineinfile:

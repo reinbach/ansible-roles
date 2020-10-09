@@ -17,3 +17,5 @@
     ip_address: "{{ ansible_default_ipv4.address }}"
     http_port: "{{ goapp_http_port }}"
     add_www: "{{ goapp_add_www }}"
+  tags:
+    - users

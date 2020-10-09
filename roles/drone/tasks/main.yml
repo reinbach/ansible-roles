@@ -15,6 +15,8 @@
     label: "{{ drone_label }}"
     domain: "{{ drone_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
+  tags:
+    - users
 
 # Task needs to happen after Traefik up and running on server
 - include_tasks: create_system_user.yml

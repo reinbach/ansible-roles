@@ -18,3 +18,5 @@
     ip_address: "{{ ansible_default_ipv4.address }}"
     http_port: "{{ django_http_port }}"
     add_www: "{{ django_add_www }}"
+  tags:
+    - users
