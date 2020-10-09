@@ -15,3 +15,5 @@
     domain: "{{ ldap_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     http_port: "80"
+  tags:
+    - users

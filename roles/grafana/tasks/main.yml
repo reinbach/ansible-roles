@@ -23,3 +23,5 @@
     domain: "{{ grafana_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     http_port: "{{ grafana_http_port }}"
+  tags:
+    - users

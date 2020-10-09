@@ -93,6 +93,8 @@
     owner: root
     group: root
     mode: 0644
+  tags:
+    - users
 
 - name: Ensure traefik service is stopped before traefik update
   service:

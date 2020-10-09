@@ -35,3 +35,5 @@
     http_port: "{{ prometheus_web_listen_port }}"
     middlewares:
       - auth
+  tags:
+    - users

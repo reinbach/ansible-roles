@@ -20,3 +20,5 @@
     domain: "{{ gitea_domain }}"
     ip_address: "{{ ansible_default_ipv4.address }}"
     http_port: "{{ gitea_http_port }}"
+  tags:
+    - users

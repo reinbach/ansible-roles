@@ -8,6 +8,8 @@
     owner: "{{ drone_user }}"
     group: "{{ drone_group }}"
     mode: 0640
+  tags:
+    - users
 
 - name: deploy docker-compose file
   notify: restart drone

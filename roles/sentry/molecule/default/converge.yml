@@ -19,7 +19,6 @@
     ldap_admin_dn: dn.admin.ldap.example.com
     ldap_admin_password: '123'
     ldap_user_dn: dn.user.ldap.example.com
-    users: []
   tasks:
     - name: "Include sentry"
       include_role:
