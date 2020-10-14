@@ -12,6 +12,7 @@ WorkingDirectory={{ goapp_dir }}
 
 ExecStart={{ goapp_app_bin }}
 Restart=always
+RestartSec=3
 
 # Modify these two values and uncomment them if you have
 # repos with lots of files and get an HTTP error 500 because
