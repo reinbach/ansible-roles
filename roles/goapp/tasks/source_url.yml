@@ -17,5 +17,5 @@
   when: version.stat.exists == False
 
 - set_fact:
-    filename: "{{ release_list.files[0] }}"
-  when: release_list.changed
+    goapp_filename: "{{ release_list.files[0] }}"
+  when: release_list.changed and goapp_filename is not defined
