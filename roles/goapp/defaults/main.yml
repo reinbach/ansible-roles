@@ -20,6 +20,7 @@ goapp_user: "{{ goapp_name }}"
 goapp_group: "{{ goapp_user }}"
 goapp_dir: "/home/www/{{ goapp_name }}"
 goapp_app_bin: "{{ goapp_dir }}/app"
+goapp_service_params: ""
 
 goapp_dirs: []
 goapp_env_vars: []

@@ -10,7 +10,7 @@ User={{ goapp_user }}
 Group={{ goapp_group }}
 WorkingDirectory={{ goapp_dir }}
 
-ExecStart={{ goapp_app_bin }}
+ExecStart={{ goapp_app_bin }} {{ goapp_service_params }}
 Restart=always
 RestartSec=3
 
