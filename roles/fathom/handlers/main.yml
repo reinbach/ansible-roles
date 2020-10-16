@@ -1,0 +1,5 @@
+---
+- name: restart fathom
+  service:
+    name: "{{ fathom_name }}"
+    state: restarted

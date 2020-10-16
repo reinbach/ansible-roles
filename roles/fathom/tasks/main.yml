@@ -1,0 +1,18 @@
+---
+- include_role:
+    name: goapp
+  vars:
+    goapp_name: "{{ fathom_name }}"
+    goapp_version: "{{ fathom_version }}"
+    goapp_filename: fathom
+    goapp_release_source: url
+    goapp_http_port: "{{ fathom_http_port }}"
+    goapp_domain: "{{ fathom_domain }}"
+    goapp_release_file: "{{ fathom_release_file }}"
+    goapp_release_url: "{{ fathom_release_url }}"
+    goapp_service_params: server
+    goapp_env_vars: "{{ fathom_env_vars }}"
+  tags:
+    - users
+
+- include_tasks: config.yml
