@@ -9,6 +9,10 @@
     fathom_env_vars:
       - key: FATHOM_SERVER_ADDR
         value: "{{ fathom_http_port }}"
+    users:
+      - email: user@example.com
+        password: 123
+        state: present
   tasks:
     - name: "Include fathom"
       include_role:

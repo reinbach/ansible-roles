@@ -1,4 +1,6 @@
 ---
+- include_tasks: install.yml
+
 - include_role:
     name: goapp
   vars:
@@ -16,3 +18,8 @@
     - users
 
 - include_tasks: config.yml
+
+- include_tasks: user.yml
+  with_items: "{{ users }}"
+  tags:
+    - users
