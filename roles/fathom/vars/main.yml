@@ -1,0 +1,8 @@
+---
+ansible_support_packages:
+  - python3-pip
+  - ca-certificates
+  - libpq-dev
+
+python_pip_packages:
+  - psycopg2

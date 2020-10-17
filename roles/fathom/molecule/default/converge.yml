@@ -1,0 +1,19 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    fathom_name: fathom
+    fathom_domain: analytics.example.com
+    fathom_version: 1.2.1
+    fathom_http_port: 9000
+    fathom_env_vars:
+      - key: FATHOM_SERVER_ADDR
+        value: "{{ fathom_http_port }}"
+    users:
+      - email: user@example.com
+        password: 123
+        state: present
+  tasks:
+    - name: "Include fathom"
+      include_role:
+        name: "fathom"

@@ -39,11 +39,11 @@
   when: goapp_release_source == "url"
 
 - name: rename goapp file
-  command: "mv {{ goapp_dir }}/{{ filename }} {{ goapp_dir }}/{{ goapp_version }}"
+  command: "mv {{ goapp_dir }}/{{ goapp_filename }} {{ goapp_dir }}/{{ goapp_version }}"
   args:
     creates: "{{ goapp_dir }}/{{ goapp_version }}"
-    removes: "{{ goapp_dir }}/{{ filename }}"
-  when: filename is defined
+    removes: "{{ goapp_dir }}/{{ goapp_filename }}"
+  when: goapp_filename is defined
 
 - name: remove archived file
   file:

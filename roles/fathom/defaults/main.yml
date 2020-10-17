@@ -1,0 +1,7 @@
+---
+fathom_dir: "/home/www/{{ fathom_name }}"
+fathom_app_bin: "{{ fathom_dir }}/app"
+
+fathom_repo: https://github.com/usefathom/fathom
+fathom_release_file:  "fathom_{{ fathom_version }}_linux_amd64.tar.gz"
+fathom_release_url: "{{ fathom_repo }}/releases/download/v{{ fathom_version }}/{{ fathom_release_file }}"

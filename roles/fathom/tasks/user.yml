@@ -1,0 +1,58 @@
+---
+- name: check if user exists
+  postgresql_query:
+    db: "{{ fathom_database_name }}"
+    login_host: "{{ fathom_database_uri }}"
+    login_user: "{{ fathom_database_user }}"
+    login_password: "{{ fathom_database_password }}"
+    query: SELECT id FROM users WHERE email = %s
+    positional_args:
+      - "{{ item.email }}"
+  register: user_record
+
+- debug:
+    msg: "{{ user_record }}"
+  when: user_record is defined
+
+- set_fact:
+    user_exists: "{{ user_record.query_result | first }}"
+  when: user_record.query_result
+
+- debug:
+    msg: "{{ user_exists }}"
+  when: user_exists is defined
+
+- name: update user if exists
+  postgresql_query:
+    db: "{{ fathom_database_name }}"
+    login_host: "{{ fathom_database_uri }}"
+    login_user: "{{ fathom_database_user }}"
+    login_password: "{{ fathom_database_password }}"
+    query: UPDATE users SET password = %s WHERE email = %s
+    positional_args:
+      - "{{ item.password }}"
+      - "{{ item.email }}"
+  when: user_exists is defined and item.state == "present"
+
+- name: create user if it does not exists and present
+  postgresql_query:
+    db: "{{ fathom_database_name }}"
+    login_host: "{{ fathom_database_uri }}"
+    login_user: "{{ fathom_database_user }}"
+    login_password: "{{ fathom_database_password }}"
+    query: INSERT INTO users (email, password) VALUES (%s, %s)
+    positional_args:
+      - "{{ item.email }}"
+      - "{{ item.password }}"
+  when: user_exists is not defined and item.state == "present"
+
+- name: remove user if exists and absent
+  postgresql_query:
+    db: "{{ fathom_database_name }}"
+    login_host: "{{ fathom_database_uri }}"
+    login_user: "{{ fathom_database_user }}"
+    login_password: "{{ fathom_database_password }}"
+    query: DELETE FROM users WHERE email = %s
+    positional_args:
+      - "{{ item.email }}"
+  when: user_exists is defined and item.state == "absent"

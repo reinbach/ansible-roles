@@ -1,3 +1,9 @@
+0.5.0
+-----
+* Add fathom role
+* Update drone service to not remove volumes on shutdown
+* Update goapp role, better able to handle being re-used by another role
+
 0.4.9
 -----
 * Update relevant tasks with users tag
