@@ -19,6 +19,7 @@
   pip:
     name: "{{ python_pip_packages }}"
     state: present
+    executable: pip2
 
 - name: start slapd
   systemd:
