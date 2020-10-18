@@ -1,3 +1,8 @@
+0.5.2
+-----
+* Manage users in drone properly
+* Set executable attribute for pip command in lda
+
 0.5.1
 -----
 * Remove set admin user functionality in Drone role
