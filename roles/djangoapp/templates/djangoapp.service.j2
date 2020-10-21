@@ -1,24 +1,21 @@
 [Unit]
-Description=Django Application
+Description={{ djangoapp_name|title }} Application
 After=syslog.target
 After=network.target
 
 [Service]
 
 Type=simple
-User={{ django_user }}
-Group={{ django_group }}
-WorkingDirectory={{ django_working_dir }}
+User={{ djangoapp_user }}
+Group={{ djangoapp_group }}
+WorkingDirectory={{ djangoapp_working_dir }}
 
-ExecStart=daphne -b {{ django_http_listen_addr }} -p {{ django_http_port }} {{ django_project }}.asgi:application
+ExecStart=daphne -b {{ djangoapp_http_listen_addr }} -p {{ djangoapp_http_port }} {{ djangoapp_project }}.asgi:application
 Restart=always
 
-# Modify these two values and uncomment them if you have
-# repos with lots of files and get an HTTP error 500 because
-# of that
-###
-#LimitMEMLOCK=infinity
-#LimitNOFILE=65535
+{% for item in djangoapp_env_vars %}
+Environment="{{ item.key }}={{ item.value }}"
+{% endfor %}
 
 [Install]
 WantedBy=multi-user.target

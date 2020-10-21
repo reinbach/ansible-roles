@@ -1,0 +1,42 @@
+---
+- name: create the djangoapp systemd service file
+  template:
+    src: djangoapp.service.j2
+    dest: "{{ systemd_units_dir }}/{{ djangoapp_name }}.service"
+  notify: restart djangoapp
+
+- name: setup environment file
+  notify: restart djangoapp
+  template:
+    src: env_vars.j2
+    dest: "{{ djangoapp_app_dir }}/.env"
+    owner: "{{ djangoapp_user }}"
+    group: "{{ djangoapp_user }}"
+    mode: 0664
+
+- name: run deployment checklist
+  command: python3 ./manage.py check --deploy
+  args:
+    chdir: "{{ djangoapp_app_dir }}"
+
+- name: collect static files
+  command: python3 ./manage.py collectstatic --noinput
+  args:
+    chdir: "{{ djangoapp_app_dir }}"
+
+- name: migrate database
+  command: python3 ./manage.py migrate --noinput
+  args:
+    chdir: "{{ djangoapp_app_dir }}"
+
+- name: run initial commands
+  command: "python3 ./manage.py {{ item }}"
+  args:
+    chdir: "{{ djangoapp_app_dir }}"
+  with_items: "{{ djangoapp_commands }}"
+
+- name: load fixtures
+  command: "python3 ./manage.py loaddata {{ item }}"
+  args:
+    chdir: "{{ djangoapp_app_dir }}"
+  with_items: "{{ djangoapp_fixtures }}"
