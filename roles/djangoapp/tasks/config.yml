@@ -11,7 +11,7 @@
     src: env_vars.j2
     dest: "{{ djangoapp_app_dir }}/.env"
     owner: "{{ djangoapp_user }}"
-    group: "{{ djangoapp_user }}"
+    group: "{{ djangoapp_group }}"
     mode: 0664
 
 - name: run deployment checklist
