@@ -7,5 +7,3 @@ django_libraries:
   - pipenv
   # - poetry
   - daphne
-
-systemd_units_dir: /lib/systemd/system

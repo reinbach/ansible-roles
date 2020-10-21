@@ -23,16 +23,6 @@
     group: "{{ django_group }}"
     home: "{{ django_dir }}"
 
-- name: create django directories
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: "{{ django_user }}"
-    group: "{{ django_group }}"
-    mode: 0755
-    recurse: yes
-  with_items: "{{ django_dirs }}"
-
 - name: check if version exists
   stat:
     path: "{{ django_dir }}/{{ django_version }}"
@@ -74,9 +64,3 @@
   args:
     chdir: "{{ django_app_dir }}"
   when: version.stat.exists == False
-
-- name: create the django systemd service file
-  template:
-    src: django.service.j2
-    dest: "{{ systemd_units_dir }}/{{ django_name }}.service"
-  notify: restart django
