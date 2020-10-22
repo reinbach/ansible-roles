@@ -1,3 +1,11 @@
+0.6.0
+-----
+* Add celery role
+* Add djangoapp role
+* Update django role to just install django
+* Fathom passes add_prefix to traefik
+* Allow add_prefix param to traefik
+
 0.5.2
 -----
 * Manage users in drone properly
