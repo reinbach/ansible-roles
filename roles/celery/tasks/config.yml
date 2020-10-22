@@ -1,0 +1,30 @@
+---
+- name: create the celery systemd service file
+  template:
+    src: celery.service.j2
+    dest: "{{ systemd_units_dir }}/{{ celery_name }}.service"
+  notify: restart celery
+
+- name: create the celery beater systemd service file
+  template:
+    src: beater.service.j2
+    dest: "{{ systemd_units_dir }}/celery-beater.service"
+  notify: restart beater
+
+- name: setup celery environment file
+  template:
+    src: celery_conf.j2
+    dest: "{{ celery_config_file }}"
+    owner: "{{ celery_user }}"
+    group: "{{ celery_group }}"
+    mode: 0664
+  notify: restart celery
+
+- name: setup django environment file
+  template:
+    src: env_vars.j2
+    dest: "{{ celery_app_dir }}/.env"
+    owner: "{{ celery_user }}"
+    group: "{{ celery_group }}"
+    mode: 0664
+  notify: restart celery

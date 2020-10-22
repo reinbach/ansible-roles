@@ -1,0 +1,24 @@
+DEBUG=False
+SECRET_KEY={{ djangoapp_secret_key }}
+ALLOWED_HOSTS={{ djangoapp_domain }},www.{{ djangoapp_domain }},{{ ansible_default_ipv4.address }},127.0.0.1
+SITE_DOMAIN={{ djangoapp_domain }}
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+
+DATABASE_URL=psql://{{ djangoapp_database_user }}:{{ djangoapp_database_password }}@{{ djangoapp_database_uri }}:5432/{{ djangoapp_database_name }}
+
+{% if redis_domain is defined %}
+CACHE_URL=rediscache://{{ redis_domain }}:6379/0?client_class=djangoapp_redis.client.DefaultClient&password={{ redis_password }}
+{% endif %}
+
+EMAIL_HOST={{ djangoapp_smtp_host }}
+EMAIL_PORT={{ djangoapp_smtp_port }}
+EMAIL_HOST_USER={{ djangoapp_smtp_user }}
+EMAIL_HOST_PASSWORD={{ djangoapp_smtp_password }}
+
+STATIC_ROOT={{ djangoapp_static_dir }}
+
+{% for item in djangoapp_env_vars %}
+{{ item.key }}={{ item.value }}
+{% endfor %}

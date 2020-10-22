@@ -1,0 +1,17 @@
+[Unit]
+Description=Celery Beater Service
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User={{ celery_user }}
+Group={{ celery_group }}
+EnvironmentFile={{ celery_config_file }}
+WorkingDirectory={{ celery_working_dir }}
+ExecStart=/bin/sh -c '${CELERY_BIN} -A ${CELERY_APP} beat  \
+    --pidfile=${CELERYBEAT_PID_FILE} \
+    --logfile=${CELERYBEAT_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL}'
+
+[Install]
+WantedBy=multi-user.target

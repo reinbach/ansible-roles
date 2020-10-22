@@ -14,6 +14,7 @@
     goapp_release_url: "{{ fathom_release_url }}"
     goapp_service_params: server
     goapp_env_vars: "{{ fathom_env_vars }}"
+    goapp_add_prefix: "/api"
   tags:
     - users
 

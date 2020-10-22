@@ -2,38 +2,14 @@
 - name: Converge
   hosts: all
   vars:
+    django_version: 0.1
     django_name: site
     django_domain: example.com
     django_repo_name: site
     django_repo_org: Bayete
     django_repo_domain: git.ironlabs.com
-    django_repo_token: 0d97036f4fd3549854cd358c334cb9b315b62300
+    django_repo_token: 9fb0a313928fad2a9b9173b6c70a26044524b142
     django_project: bayete
-    django_database_name: django_infra
-    django_database_password: 123
-    django_database_uri: psql.bayete.com
-    django_database_user: django_infra_user
-    django_smtp_host: smtp.mailgun.org
-    django_smtp_password: 098
-    django_smtp_port: "587"
-    django_smtp_user: postmaster@email.bayete.com
-    django_secret_key: supersecret
-    django_build_assets: "npx webpack"
-    django_env_vars:
-      - key: FERNET_KEYS
-        value: 321
-      - key: PROVIDER_DO_TOKEN
-        value: 456
-      - key: WORKER_API
-        value: 654
-      - key: WORKER_URL
-        value: worker.bayete.com
-      - key: STRIPE_PUBLIC_KEY
-        value: 789
-      - key: STRIPE_API_KEY
-        value: secretsecret
-    redis_domain: cache.example.com
-    redis_password: redissecret
   tasks:
     - name: "Include django"
       include_role:

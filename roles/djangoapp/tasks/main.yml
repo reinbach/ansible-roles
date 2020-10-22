@@ -1,0 +1,36 @@
+---
+- include_role:
+    name: django
+  vars:
+    django_version: "{{ djangoapp_version }}"
+    django_name: "{{ djangoapp_name }}"
+    django_user: "{{ djangoapp_name }}"
+    django_group: "{{ djangoapp_user }}"
+    django_domain: "{{ djangoapp_domain }}"
+    django_repo_name: "{{ djangoapp_repo_name }}"
+    django_repo_org: "{{ djangoapp_repo_org }}"
+    django_repo_domain: "{{ djangoapp_repo_domain }}"
+    django_repo_token: "{{ djangoapp_repo_token }}"
+    django_project: "{{ djangoapp_project }}"
+
+- include_tasks: install.yml
+- include_tasks: config.yml
+
+- name: enable and start the django app service
+  systemd:
+    name: "{{ djangoapp_name }}"
+    state: started
+    enabled: yes
+    daemon-reload: yes
+
+- include_role:
+    name: traefik
+  vars:
+    file_config: "yes"
+    label: "{{ djangoapp_project }}"
+    domain: "{{ djangoapp_domain }}"
+    ip_address: "{{ ansible_default_ipv4.address }}"
+    http_port: "{{ djangoapp_http_port }}"
+    add_www: "{{ djangoapp_add_www }}"
+  tags:
+    - users

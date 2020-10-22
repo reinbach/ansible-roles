@@ -1,0 +1,10 @@
+---
+- name: create djangoapp directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ djangoapp_user }}"
+    group: "{{ djangoapp_group }}"
+    mode: 0755
+    recurse: yes
+  with_items: "{{ djangoapp_dirs }}"
