@@ -1,0 +1,40 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    celery_version: 0.1
+    celery_name: site
+    celery_domain: example.com
+    celery_repo_name: site
+    celery_repo_org: Bayete
+    celery_repo_domain: git.ironlabs.com
+    celery_repo_token: 9fb0a313928fad2a9b9173b6c70a26044524b142
+    celery_project: bayete
+    celery_database_name: celery_infra
+    celery_database_password: 123
+    celery_database_uri: psql.bayete.com
+    celery_database_user: celery_infra_user
+    celery_smtp_host: smtp.mailgun.org
+    celery_smtp_password: 098
+    celery_smtp_port: "587"
+    celery_smtp_user: postmaster@email.bayete.com
+    celery_secret_key: supersecret
+    celery_env_vars:
+      - key: FERNET_KEYS
+        value: 321
+      - key: PROVIDER_DO_TOKEN
+        value: 456
+      - key: WORKER_API
+        value: 654
+      - key: WORKER_URL
+        value: worker.bayete.com
+      - key: STRIPE_PUBLIC_KEY
+        value: 789
+      - key: STRIPE_API_KEY
+        value: secretsecret
+    redis_domain: cache.example.com
+    redis_password: redissecret
+  tasks:
+    - name: "Include celery"
+      include_role:
+        name: "celery"

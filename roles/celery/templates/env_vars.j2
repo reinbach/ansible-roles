@@ -1,0 +1,24 @@
+DEBUG=False
+SECRET_KEY={{ celery_secret_key }}
+ALLOWED_HOSTS={{ celery_domain }},www.{{ celery_domain }},{{ ansible_default_ipv4.address }},127.0.0.1
+SITE_DOMAIN={{ celery_domain }}
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+
+DATABASE_URL=psql://{{ celery_database_user }}:{{ celery_database_password }}@{{ celery_database_uri }}:5432/{{ celery_database_name }}
+
+{% if redis_domain is defined %}
+CACHE_URL=rediscache://{{ redis_domain }}:6379/0?client_class=celery_redis.client.DefaultClient&password={{ redis_password }}
+{% endif %}
+
+EMAIL_HOST={{ celery_smtp_host }}
+EMAIL_PORT={{ celery_smtp_port }}
+EMAIL_HOST_USER={{ celery_smtp_user }}
+EMAIL_HOST_PASSWORD={{ celery_smtp_password }}
+
+STATIC_ROOT={{ celery_static_dir }}
+
+{% for item in celery_env_vars %}
+{{ item.key }}={{ item.value }}
+{% endfor %}

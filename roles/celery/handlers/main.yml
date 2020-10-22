@@ -1,0 +1,10 @@
+---
+- name: restart celery
+  service:
+    name: "{{ celery_name }}"
+    state: restarted
+
+- name: restart beater
+  service:
+    name: celery-beater
+    state: restarted

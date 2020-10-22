@@ -1,0 +1,31 @@
+---
+- include_role:
+    name: django
+  vars:
+    django_version: "{{ celery_version }}"
+    django_name:  "{{ celery_name }}"
+    django_user: "{{ celery_name }}"
+    django_group: "{{ celery_user }}"
+    django_domain: "{{ celery_domain }}"
+    django_repo_name: "{{ celery_repo_name }}"
+    django_repo_org: "{{ celery_repo_org }}"
+    django_repo_domain: "{{ celery_repo_domain }}"
+    django_repo_token: "{{ celery_repo_token }}"
+    django_project: "{{ celery_project }}"
+
+- include_tasks: install.yml
+- include_tasks: config.yml
+
+- name: enable and start the celery service
+  systemd:
+    name: "{{ celery_name }}"
+    state: started
+    enabled: yes
+    daemon-reload: yes
+
+- name: enable and start the celery beater service
+  systemd:
+    name: celery-beater
+    state: started
+    enabled: yes
+    daemon-reload: yes

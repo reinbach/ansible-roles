@@ -1,0 +1,13 @@
+---
+celery_name: celery
+celery_user: "{{ celery_name }}"
+celery_group: "{{ celery_user }}"
+celery_dir: "/home/www/{{ celery_project }}"
+celery_app_dir: "{{ celery_dir }}/app"
+celery_static_dir: "{{ celery_dir }}/static"
+celery_project_src: src
+celery_working_dir: "{{ celery_app_dir }}/{{ celery_project_src }}"
+celery_config_file: "{{ celery_dir }}/celery"
+
+celery_dirs:
+  - "{{ celery_static_dir }}"
