@@ -1,3 +1,7 @@
+0.6.1
+-----
+* Correct client_class used in redis cache url
+
 0.6.0
 -----
 * Add celery role
