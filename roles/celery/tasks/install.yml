@@ -1,4 +1,12 @@
 ---
+- name: ensure systemd-tmpfiles dir exists
+  file:
+    path: /etc/tmpfiles.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
 - name: create djangoapp directories
   file:
     path: "{{ item }}"
