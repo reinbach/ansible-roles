@@ -1,3 +1,7 @@
+0.6.4
+-----
+* Fox celery directories
+
 0.6.3
 -----
 * Update celery role to create necessary dirs
