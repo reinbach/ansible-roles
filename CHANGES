@@ -1,3 +1,7 @@
+0.6.5
+-----
+* Update celery options
+
 0.6.4
 -----
 * Fix celery directories
