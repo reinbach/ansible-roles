@@ -11,3 +11,5 @@ celery_config_file: "{{ celery_dir }}/celery"
 
 celery_dirs:
   - "{{ celery_static_dir }}"
+  - /etc/run/celery
+  - /etc/log/celery

@@ -2,7 +2,7 @@
 - name: Create systemd-tmpfiles for user/group
   template:
     src: systemd-tempfiles.j2
-    dest: /etc/tmpfiles.d/celery.conf
+    dest: "/etc/tmpfiles.d/{{ celery_name }}.conf"
   notify: restart celery
 
 - name: create the celery systemd service file
