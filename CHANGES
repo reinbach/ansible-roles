@@ -1,3 +1,8 @@
+0.6.2
+-----
+* Add setup of systemd-tempfiles for celery service
+* Remove duplicate tags in common roles
+
 0.6.1
 -----
 * Correct client_class used in redis cache url
