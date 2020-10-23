@@ -9,7 +9,7 @@ CSRF_COOKIE_SECURE=True
 DATABASE_URL=psql://{{ celery_database_user }}:{{ celery_database_password }}@{{ celery_database_uri }}:5432/{{ celery_database_name }}
 
 {% if redis_domain is defined %}
-CACHE_URL=rediscache://{{ redis_domain }}:6379/0?client_class=celery_redis.client.DefaultClient&password={{ redis_password }}
+CACHE_URL=rediscache://{{ redis_domain }}:6379/0?client_class=django_redis.client.DefaultClient&password={{ redis_password }}
 {% endif %}
 
 EMAIL_HOST={{ celery_smtp_host }}

@@ -9,7 +9,7 @@ CSRF_COOKIE_SECURE=True
 DATABASE_URL=psql://{{ djangoapp_database_user }}:{{ djangoapp_database_password }}@{{ djangoapp_database_uri }}:5432/{{ djangoapp_database_name }}
 
 {% if redis_domain is defined %}
-CACHE_URL=rediscache://{{ redis_domain }}:6379/0?client_class=djangoapp_redis.client.DefaultClient&password={{ redis_password }}
+CACHE_URL=rediscache://{{ redis_domain }}:6379/0?client_class=django_redis.client.DefaultClient&password={{ redis_password }}
 {% endif %}
 
 EMAIL_HOST={{ djangoapp_smtp_host }}
