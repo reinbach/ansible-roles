@@ -1,3 +1,7 @@
+0.6.3
+-----
+* Update celery role to create necessary dirs
+
 0.6.2
 -----
 * Add setup of systemd-tempfiles for celery service
