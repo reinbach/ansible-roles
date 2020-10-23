@@ -1,6 +1,10 @@
+0.6.5
+-----
+* Update celery options
+
 0.6.4
 -----
-* Fox celery directories
+* Fix celery directories
 
 0.6.3
 -----
