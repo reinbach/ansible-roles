@@ -3,9 +3,9 @@
     name: django
   vars:
     django_version: "{{ celery_version }}"
-    django_name:  "{{ celery_name }}"
-    django_user: "{{ celery_name }}"
-    django_group: "{{ celery_user }}"
+    django_name: "{{ celery_name }}"
+    django_user: "{{ celery_user }}"
+    django_group: "{{ celery_group }}"
     django_domain: "{{ celery_domain }}"
     django_repo_name: "{{ celery_repo_name }}"
     django_repo_org: "{{ celery_repo_org }}"

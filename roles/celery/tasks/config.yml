@@ -19,7 +19,7 @@
 
 - name: setup celery environment file
   template:
-    src: celery_conf.j2
+    src: celery.conf.j2
     dest: "{{ celery_config_file }}"
     owner: "{{ celery_user }}"
     group: "{{ celery_group }}"
