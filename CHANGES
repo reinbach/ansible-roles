@@ -1,3 +1,7 @@
+0.6.7
+-----
+* Update celery service template
+
 0.6.6
 -----
 * Update celery options and service
