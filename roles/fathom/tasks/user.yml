@@ -10,17 +10,9 @@
       - "{{ item.email }}"
   register: user_record
 
-- debug:
-    msg: "{{ user_record }}"
-  when: user_record is defined
-
 - set_fact:
     user_exists: "{{ user_record.query_result | first }}"
   when: user_record.query_result
-
-- debug:
-    msg: "{{ user_exists }}"
-  when: user_exists is defined
 
 - name: update user if exists
   postgresql_query:

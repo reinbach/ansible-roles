@@ -85,10 +85,6 @@
     router_rule: "{{ router_rule }} || ({{ router_rule }} && PathPrefix(`{{ add_prefix }}`))"
   when: file_config == "yes" and add_prefix is defined and add_prefix != ""
 
-- debug:
-    msg: "{{ router_rule }}"
-  when: router_rule is defined
-
 - name: Add dynamic config
   template:
     src: "{{ traefik_dynamic_config_file }}.j2"

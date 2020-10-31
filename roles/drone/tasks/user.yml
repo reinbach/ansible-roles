@@ -10,17 +10,9 @@
       - "{{ item.username }}"
   register: user_record
 
-- debug:
-    msg: "{{ user_record }}"
-  when: user_record is defined
-
 - set_fact:
     user_exists: "{{ user_record.query_result | first }}"
   when: user_record.query_result
-
-- debug:
-    msg: "{{ user_exists }}"
-  when: user_exists is defined
 
 - set_fact:
     admin_flag: "--admin"
@@ -29,9 +21,6 @@
 - set_fact:
     admin_flag: ""
   when: not item.is_admin
-
-- debug:
-    msg: "{{ admin_flag }}"
 
 # need to allow time for traefik to get valid cert
 - name: wait for drone server
