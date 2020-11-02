@@ -20,17 +20,9 @@
     src: "{{ grafana_token_file }}"
   register: api_token_encoded
 
-- debug:
-    msg: "{{ api_token_encoded.content }}"
-  when: api_token_encoded is defined
-
 - set_fact:
     api_token: "{{ api_token_encoded.content | b64decode }}"
   when: api_token_encoded is defined
-
-- debug:
-    msg: "{{ api_token }}"
-  when: api_token is defined
 
 - name: create api token
   uri:
@@ -47,10 +39,6 @@
       role: Admin
   register: token_response
   when: api_token is not defined or api_token == ""
-
-- debug:
-    msg: "{{ token_response }}"
-  when: token_response is defined
 
 - set_fact:
     api_token: "{{ token_response.json.key }}"

@@ -10,17 +10,9 @@
       - "{{ drone_machine_user }}"
   register: machine_user_records
 
-- debug:
-    msg: "{{ machine_user_records }}"
-  when: machine_user_records is defined
-
 - set_fact:
     machine_user_record: "{{ machine_user_records.query_result | first }}"
   when: machine_user_records.query_result is defined
-
-- debug:
-    msg: "{{ machine_user_record }}"
-  when: machine_user_record is defined
 
 # need to allow time for traefik to get valid cert
 - name: wait for drone server

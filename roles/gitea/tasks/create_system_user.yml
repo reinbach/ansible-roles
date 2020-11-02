@@ -19,17 +19,9 @@
       - "{{ gitea_system_user }}"
   register: system_user_records
 
-- debug:
-    msg: "{{ system_user_records }}"
-  when: system_user_records is defined
-
 - set_fact:
     system_user_query: "{{ system_user_records.query_result | first }}"
   when: system_user_records.query_result | length > 0
-
-- debug:
-    msg: "{{ system_user_query }}"
-  when: system_user_query is defined
 
 - name: run create system user
   become: yes
@@ -52,17 +44,9 @@
       - "{{ gitea_oauth_key }}"
   register: oauth_app_records
 
-- debug:
-    msg: "{{ oauth_app_records }}"
-  when: oauth_app_records is defined
-
 - set_fact:
     oauth_app_record: "{{ oauth_app_records.query_result | first }}"
   when: oauth_app_records.query_result is defined
-
-- debug:
-    msg: "{{ oauth_app_record }}"
-  when: oauth_app_record is defined
 
 - name: create user oauth application record
   postgresql_query:

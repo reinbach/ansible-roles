@@ -25,3 +25,4 @@ docker_config: "no"
 
 middlewares: []
 cors_middleware: ""
+allowed_hosts_middleware: ""

@@ -1,6 +1,6 @@
 DEBUG=False
 SECRET_KEY={{ djangoapp_secret_key }}
-ALLOWED_HOSTS={{ djangoapp_domain }},www.{{ djangoapp_domain }},{{ ansible_default_ipv4.address }},127.0.0.1
+ALLOWED_HOSTS={{ allowed_hosts }}
 SITE_DOMAIN={{ djangoapp_domain }}
 SECURE_SSL_REDIRECT=True
 SESSION_COOKIE_SECURE=True
