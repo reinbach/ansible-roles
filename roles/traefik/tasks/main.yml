@@ -5,10 +5,20 @@
     cors_middleware: "{{ label }}CORSHeader"
   when: cors_domains is defined
 
-- name: finalize middlewares list
+- name: add cors_middle to middlewares list
   set_fact:
     middlewares: "{{ middlewares + [cors_middleware] }}"
   when: cors_middleware != ""
+
+- name: define allowed hosts middleware label
+  set_fact:
+    allowed_hosts_middleware: "{{ label }}AllowdHosts"
+  when: add_allowed_hosts is defined
+
+- name: add allowed_hosts_middle to middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [allowed_hosts_middleware] }}"
+  when: allowed_hosts_middleware != ""
 
 - name: Create traefik systemd unit
   template:

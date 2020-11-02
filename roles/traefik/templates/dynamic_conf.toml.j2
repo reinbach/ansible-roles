@@ -26,8 +26,13 @@
 
 {% if cors_domains is defined %}
 [http.middlewares.{{ cors_middleware }}.headers]
-  accessControlAllowMethods= ["GET", "OPTIONS"]
-  accessControlAllowOriginList = [{% for c in  cors_domains %}"{{ c }}",{% endfor %}]
+  accessControlAllowMethods = ["GET", "OPTIONS"]
+  accessControlAllowOriginList = [{% for c in cors_domains %}"{{ c }}",{% endfor %}]
   accessControlMaxAge = 100
   addVaryHeader = true
+{% endif %}
+
+{% if add_allowed_hosts is defined %}
+[http.middlewares.{{ allowed_hosts_middleware }}.headers]
+  allowedHosts = [{% for h in add_allowed_hosts.split(",") %}"{{ h }}",{% endfor %}]
 {% endif %}
