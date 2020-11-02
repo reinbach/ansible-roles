@@ -1,3 +1,8 @@
+0.6.8
+-----
+* Add allowsHosts option to traefik
+* Remove debug statements
+
 0.6.7
 -----
 * Update celery service template
