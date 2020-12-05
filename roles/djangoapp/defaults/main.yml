@@ -5,11 +5,13 @@ djangoapp_group: "{{ djangoapp_user }}"
 djangoapp_dir: "/home/www/{{ djangoapp_project }}"
 djangoapp_app_dir: "{{ djangoapp_dir }}/app"
 djangoapp_static_dir: "{{ djangoapp_dir }}/static"
+djangoapp_media_dir: "{{ djangoapp_dir }}/media"
 djangoapp_project_src: src
 djangoapp_working_dir: "{{ djangoapp_app_dir }}/{{ djangoapp_project_src }}"
 
 djangoapp_dirs:
   - "{{ djangoapp_static_dir }}"
+  - "{{ djangoapp_media_dir }}"
 
 djangoapp_http_listen_addr: 0.0.0.0
 djangoapp_http_port: 8000
