@@ -10,7 +10,7 @@ User={{ djangoapp_user }}
 Group={{ djangoapp_group }}
 WorkingDirectory={{ djangoapp_working_dir }}
 
-ExecStart=daphne -b {{ djangoapp_http_listen_addr }} -p {{ djangoapp_http_port }} {{ djangoapp_project }}.asgi:application
+ExecStart=pipenv run daphne -b {{ djangoapp_http_listen_addr }} -p {{ djangoapp_http_port }} {{ djangoapp_project }}.asgi:application
 Restart=always
 
 {% for item in djangoapp_env_vars %}
