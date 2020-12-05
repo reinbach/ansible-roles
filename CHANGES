@@ -1,3 +1,10 @@
+0.7.0
+-----
+* Migration django/app roles to better molecule setup
+* Create MEDIA directory in django role
+* Update podman requirements
+* Install djangoapp in venv
+
 0.6.8
 -----
 * Add allowsHosts option to traefik
