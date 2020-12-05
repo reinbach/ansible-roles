@@ -18,6 +18,7 @@ EMAIL_HOST_USER={{ djangoapp_smtp_user }}
 EMAIL_HOST_PASSWORD={{ djangoapp_smtp_password }}
 
 STATIC_ROOT={{ djangoapp_static_dir }}
+MEDIA_ROOT={{ djangoapp_media_dir }}
 
 {% for item in djangoapp_env_vars %}
 {{ item.key }}={{ item.value }}
