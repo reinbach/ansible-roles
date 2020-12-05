@@ -28,7 +28,7 @@
     path: "{{ django_dir }}/{{ django_version }}"
   register: version
 
-- name: download django release
+- name: download project release
   unarchive:
     src: "{{ item.url }}"
     dest: "{{ item.dest }}"
@@ -41,16 +41,16 @@
   with_items:
     - url: "{{ django_release_url }}"
       dest: "{{ django_dir }}"
-  when: version.stat.exists == False
+  when: not version.stat.exists
 
-- name: rename django download
+- name: rename project download
   command: "mv {{ django_dir }}/{{ django_repo_name }} {{ django_dir }}/{{ django_version }}"
   args:
     creates: "{{ django_dir }}/{{ django_version }}"
     removes: "{{ django_dir }}/{{ django_repo_name }}"
-  when: version.stat.exists == False
+  when: not version.stat.exists
 
-- name: link django release
+- name: link project release
   file:
     path: "{{ django_app_dir }}"
     src: "{{ django_dir }}/{{ django_version }}"
@@ -59,8 +59,8 @@
     group: "{{ django_group }}"
     mode: 0755
 
-- name: install django app libraries
-  command: pipenv install --system  --ignore-pipfile --deploy
+- name: install project app libraries
+  command: pipenv install  --ignore-pipfile --deploy
   args:
     chdir: "{{ django_app_dir }}"
-  when: version.stat.exists == False
+  when: not version.stat.exists

@@ -6,4 +6,4 @@ ansible_support_packages:
 django_libraries:
   - pipenv
   # - poetry
-  - daphne
+  # - daphne
