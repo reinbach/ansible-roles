@@ -1,3 +1,7 @@
+0.7.1
+-----
+* Update djangoapp service template
+
 0.7.0
 -----
 * Migration django/app roles to better molecule setup
