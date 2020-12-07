@@ -1,3 +1,7 @@
+0.7.2
+-----
+* Use become_user for commands involved venv
+
 0.7.1
 -----
 * Update djangoapp service template

@@ -22,27 +22,37 @@
     mode: 0664
 
 - name: run deployment checklist
+  become: yes
+  become_user: "{{ djangoapp_user }}"
   command: pipenv run python manage.py check --deploy
   args:
     chdir: "{{ djangoapp_app_dir }}"
 
 - name: collect static files
+  become: yes
+  become_user: "{{ djangoapp_user }}"
   command: pipenv run python manage.py collectstatic --noinput
   args:
     chdir: "{{ djangoapp_app_dir }}"
 
 - name: migrate database
+  become: yes
+  become_user: "{{ djangoapp_user }}"
   command: pipenv run python manage.py migrate --noinput
   args:
     chdir: "{{ djangoapp_app_dir }}"
 
 - name: run initial commands
+  become: yes
+  become_user: "{{ djangoapp_user }}"
   command: "pipenv run python manage.py {{ item }}"
   args:
     chdir: "{{ djangoapp_app_dir }}"
   with_items: "{{ djangoapp_commands }}"
 
 - name: load fixtures
+  become: yes
+  become_user: "{{ djangoapp_user }}"
   command: "pipenv run python manage.py loaddata {{ item }}"
   args:
     chdir: "{{ djangoapp_app_dir }}"
