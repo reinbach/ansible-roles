@@ -1,3 +1,7 @@
+0.7.3
+-----
+* Add prefix_required for traefik dynamic config routing
+
 0.7.2
 -----
 * Use become_user for commands involved venv

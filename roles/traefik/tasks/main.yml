@@ -93,7 +93,11 @@
 
 - set_fact:
     router_rule: "{{ router_rule }} || ({{ router_rule }} && PathPrefix(`{{ add_prefix }}`))"
-  when: file_config == "yes" and add_prefix is defined and add_prefix != ""
+  when: file_config == "yes" and prefix_required == "no" and add_prefix is defined and add_prefix != ""
+
+- set_fact:
+    router_rule: "{{ router_rule }} && PathPrefix(`{{ add_prefix }}`)"
+  when: file_config == "yes" and prefix_required == "yes" and add_prefix is defined and add_prefix != ""
 
 - name: Add dynamic config
   template:

@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name="bayete-roles",
-    version="0.7.2",
+    version="0.7.3",
     description=readme(),
     url="https://git.ironlabs.com/Bayete/roles",
     author="Greg Reinbach",
