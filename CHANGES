@@ -1,3 +1,8 @@
+0.7.4
+-----
+* Update traefik to allow multiple path prefixes
+* Update traefik to allow overwritting of default config file name
+
 0.7.3
 -----
 * Add prefix_required for traefik dynamic config routing
