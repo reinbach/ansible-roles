@@ -20,7 +20,9 @@ traefik_systemd_unit_template: traefik.service
 traefik_systemd_unit_dest: /etc/systemd/system/traefik.service
 traefik_update: true
 add_www: false
-prefix_required: "no"
+path_prefix_rules: []
+path_prefix_required: "no"
+add_path_prefixes: []
 file_config: "no"
 docker_config: "no"
 

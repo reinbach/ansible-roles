@@ -26,7 +26,10 @@
       - https://static.example.com
       - https://else.example.com
     add_www: true
-    add_prefix: "/api"
+    add_path_prefixes:
+      - "/media/"
+      - "/static/"
+    path_prefix_required: "yes"
     add_allowed_hosts: "example.com,www.example.com,10.0.2.100,127.0.0.1"
   tasks:
     - name: "Include traefik"
