@@ -1,3 +1,7 @@
+0.7.6
+-----
+* Add bitbucket option to drone env vars
+
 0.7.5
 -----
 * Fix handling of empty path_prefix_rules in traefik
