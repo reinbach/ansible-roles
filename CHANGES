@@ -1,3 +1,7 @@
+0.7.7
+-----
+* Allow goapp to have separate name to application
+
 0.7.6
 -----
 * Add bitbucket option to drone env vars
