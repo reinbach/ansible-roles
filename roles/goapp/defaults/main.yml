@@ -4,7 +4,8 @@ goapp_version: 0.1
 # to better handle different scenarios
 goapp_name: app
 
-goapp_release_file: "{{ goapp_name }}-{{ goapp_version }}.tar.gz"
+goapp_app: "{{ goapp_name }}"
+goapp_release_file: "{{ goapp_app }}-{{ goapp_version }}.tar.gz"
 
 # s3 release source
 goapp_release_bucket: bayete
