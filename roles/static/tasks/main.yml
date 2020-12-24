@@ -1,0 +1,21 @@
+---
+- include_tasks: install.yml
+
+- include_role:
+    name: goapp
+  vars:
+    goapp_name: "{{ static_name }}"
+    goapp_domain: "{{ static_domain }}"
+    goapp_http_port: "{{ static_http_port }}"
+    goapp_add_www: "{{ static_add_www }}"
+
+    goapp_version: "{{ static_version }}"
+    goapp_app: static-server
+    goapp_release_source: s3
+    goapp_release_bucket: bayete
+    goapp_release_path: releases/static-server
+    goapp_access_key_id: "{{ static_access_key }}"
+    goapp_secret_access_key: "{{ static_secret_key }}"
+    goapp_env_vars:
+      - key: BASE_DIR
+        value: "{{ static_files_dir }}"

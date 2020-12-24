@@ -1,0 +1,15 @@
+---
+static_version: 0.4.0
+static_name: static
+
+static_user: "{{ static_name }}"
+static_group: "{{ static_user }}"
+static_dir: "/home/www/{{ static_name }}"
+static_files_dir: "{{ static_dir }}/assets"
+
+static_dirs:
+  - "{{ static_files_dir }}"
+
+static_http_listen_addr: 0.0.0.0
+static_http_port: 3000
+static_add_www: false

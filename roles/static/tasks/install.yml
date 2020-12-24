@@ -1,0 +1,21 @@
+---
+- name: create static group
+  group:
+    name: "{{ static_group }}"
+    state: present
+
+- name: create static user
+  user:
+    name: "{{ static_user }}"
+    group: "{{ static_group }}"
+    home: "{{ static_dir }}"
+
+- name: make sure all relevant static directories exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ static_user }}"
+    group: "{{ static_group }}"
+    mode: 0755
+    recurse: yes
+  with_items: "{{ static_dirs }}"
