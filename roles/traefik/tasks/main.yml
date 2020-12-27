@@ -88,12 +88,15 @@
 
 - block:
     - set_fact:
-        domains: "{{ domains }} + ['`{{ item }}`'{% if add_www %}, '`www.{{ item }}`'{% endif %}]"
-        sans_domains: "{{ sans_domains }} + ['{{ item }}'{% if add_www %}, 'www.{{ item }}'{% endif %}]"
+        domains: "{{ domains }} + ['{{ item }}'{% if add_www %}, 'www.{{ item }}'{% endif %}]"
       with_items: "{{ domain_list }}"
 
     - set_fact:
-        router_rule: "Host({{ domains|join(',') }})"
+        cors_domains: "{{ domains }}"
+      when: cors_domains == "domains"
+
+    - set_fact:
+        router_rule: "Host(`{{ domains|join('`,`') }}`)"
 
     - set_fact:
         path_prefix_rules: "{{ path_prefix_rules }} + ['`{{ item }}`']"
