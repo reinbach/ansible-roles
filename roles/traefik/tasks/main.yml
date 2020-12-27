@@ -1,5 +1,4 @@
 ---
-# Variable configuration.
 - name: define cors middleware label
   set_fact:
     cors_middleware: "{{ label }}CORSHeader"
@@ -87,30 +86,40 @@
     group: root
     mode: 0744
 
-- set_fact:
-    router_rule: "Host(`{{ domain }}`{% if add_www %}, `www.{{ domain }}`{% endif %})"
-  when: file_config == "yes"
+- block:
+    - set_fact:
+        domains: "{{ domains }} + ['`{{ item }}`'{% if add_www %}, '`www.{{ item }}`'{% endif %}]"
+      with_items: "{{ domain_list }}"
 
-- set_fact:
-    path_prefix_rules: "{{ path_prefix_rules }} + ['`{{ item }}`']"
-  with_items: "{{ add_path_prefixes }}"
-  when: file_config == "yes" and (add_path_prefixes|length > 0)
+    - debug:
+        msg: "{{ domains }}"
 
-- set_fact:
-    router_rule: "{{ router_rule }} || PathPrefix({{ path_prefix_rules|join(',') }})"
-  when: file_config == "yes" and (path_prefix_rules|length > 0) and path_prefix_required == "no"
+    - set_fact:
+        router_rule: "Host({{ domains|join(',') }})"
 
-- set_fact:
-    router_rule: "{{ router_rule }} && PathPrefix({{ path_prefix_rules|join(',') }})"
-  when: file_config == "yes" and (path_prefix_rules|length > 0) and path_prefix_required == "yes"
+    - debug:
+        msg: "{{ router_rule }}"
 
-- name: Add dynamic config
-  template:
-    src: "{{ traefik_dynamic_config_file }}.j2"
-    dest: "{{ traefik_config_dir }}/{{ traefik_config_name }}.toml"
-    owner: root
-    group: root
-    mode: 0744
+    - set_fact:
+        path_prefix_rules: "{{ path_prefix_rules }} + ['`{{ item }}`']"
+      with_items: "{{ add_path_prefixes }}"
+      when: (add_path_prefixes|length > 0)
+
+    - set_fact:
+        router_rule: "{{ router_rule }} || PathPrefix({{ path_prefix_rules|join(',') }})"
+      when: (path_prefix_rules|length > 0) and path_prefix_required == "no"
+
+    - set_fact:
+        router_rule: "{{ router_rule }} && PathPrefix({{ path_prefix_rules|join(',') }})"
+      when: (path_prefix_rules|length > 0) and path_prefix_required == "yes"
+
+    - name: Add dynamic config
+      template:
+        src: "{{ traefik_dynamic_config_file }}.j2"
+        dest: "{{ traefik_config_dir }}/{{ traefik_config_name }}.toml"
+        owner: root
+        group: root
+        mode: 0744
   when: file_config == "yes"
 
 - name: set htpasswd file
