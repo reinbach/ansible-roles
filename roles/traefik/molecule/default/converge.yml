@@ -22,9 +22,7 @@
     http_port: 3000
     middlewares:
       - auth
-    cors_domains:
-      - https://static.example.com
-      - https://else.example.com
+    cors_domains: "domains"
     add_www: true
     add_path_prefixes:
       - "/media/"

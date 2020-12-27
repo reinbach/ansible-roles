@@ -16,7 +16,7 @@
         certResolver = "letsencrypt"
         [[http.routers.https-{{ label }}-router.tls.domains]]
           main = "{{ domain }}"
-          sans = ["{{ sans_domains|join('","') }}"]
+          sans = ["{{ domains|join('","') }}"]
 
   [http.services]
     [http.services.service-{{ label }}]
@@ -27,7 +27,7 @@
 {% if cors_domains is defined %}
 [http.middlewares.{{ cors_middleware }}.headers]
   accessControlAllowMethods = ["GET", "OPTIONS"]
-  accessControlAllowOriginList = [{% for c in cors_domains %}"{{ c }}",{% endfor %}]
+  accessControlAllowOriginList = ["https://{{ cors_domains|join('","https://') }}"]
   accessControlMaxAge = 100
   addVaryHeader = true
 {% endif %}
