@@ -8,7 +8,6 @@
     goapp_domain: "{{ static_domain }}"
     goapp_http_port: "{{ static_http_port }}"
     goapp_add_www: "{{ static_add_www }}"
-
     goapp_version: "{{ static_version }}"
     goapp_app: static-server
     goapp_release_source: s3
@@ -19,3 +18,5 @@
     goapp_env_vars:
       - key: BASE_DIR
         value: "{{ static_files_dir }}"
+      - key: STATIC_PORT
+        value: "{{ static_http_port }}"
