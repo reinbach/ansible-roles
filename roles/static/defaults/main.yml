@@ -12,4 +12,4 @@ static_dirs:
 
 static_http_listen_addr: 0.0.0.0
 static_http_port: 3000
-static_add_www: false
+static_add_www: "yes"
