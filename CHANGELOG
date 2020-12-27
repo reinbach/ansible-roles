@@ -1,1 +1,1 @@
-* Allow cors_domains to be set to domains
+* Fix handling of cors_domains

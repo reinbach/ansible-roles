@@ -27,7 +27,7 @@
 {% if cors_domains is defined %}
 [http.middlewares.{{ cors_middleware }}.headers]
   accessControlAllowMethods = ["GET", "OPTIONS"]
-  accessControlAllowOriginList = ["https://{{ cors_domains|join('","https://') }}"]
+  accessControlAllowOriginList = ["https://{{ final_cors_domains|join('","https://') }}"]
   accessControlMaxAge = 100
   addVaryHeader = true
 {% endif %}

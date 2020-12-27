@@ -6,6 +6,19 @@
     static_domain: bayete.com
     static_access_key: AKIAXU542XLPFIJHITJ3
     static_secret_key: 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
+    users:
+      - first_name: greg
+        last_name: reinbach
+        username: greg
+        password: $2b$12$oavfdr55JFPR6VytG6JHc.v9F5wvjjpUn4KZgoSqV75ET3unftNSO
+        email: greg@ironlabs.com
+        public_keys:
+          active: []
+          disabled: []
+        is_admin: true
+        type: admin
+        is_active: true
+        state: present
   tasks:
     - name: "Include static"
       include_role:

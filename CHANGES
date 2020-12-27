@@ -1,3 +1,7 @@
+0.7.12
+------
+* Fix handling of cors_domains
+
 0.7.11
 ------
 * Allow cors_domains to be set to domains
