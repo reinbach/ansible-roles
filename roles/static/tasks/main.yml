@@ -20,3 +20,6 @@
         value: "{{ static_files_dir }}"
       - key: STATIC_PORT
         value: "{{ static_http_port }}"
+    cors_domains:
+      - 'https://{{ static_domain }}'
+      - 'https://www.{{ static_domain }}'
