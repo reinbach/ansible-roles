@@ -16,7 +16,7 @@
         certResolver = "letsencrypt"
         [[http.routers.https-{{ label }}-router.tls.domains]]
           main = "{{ domain }}"
-          {% if add_www %}sans = ["www.{{ domain }}"]{% endif %}
+          sans = ["{{ sans_domains|join('","') }}"]
 
   [http.services]
     [http.services.service-{{ label }}]

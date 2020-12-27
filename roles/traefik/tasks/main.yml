@@ -89,16 +89,11 @@
 - block:
     - set_fact:
         domains: "{{ domains }} + ['`{{ item }}`'{% if add_www %}, '`www.{{ item }}`'{% endif %}]"
+        sans_domains: "{{ sans_domains }} + ['{{ item }}'{% if add_www %}, 'www.{{ item }}'{% endif %}]"
       with_items: "{{ domain_list }}"
-
-    - debug:
-        msg: "{{ domains }}"
 
     - set_fact:
         router_rule: "Host({{ domains|join(',') }})"
-
-    - debug:
-        msg: "{{ router_rule }}"
 
     - set_fact:
         path_prefix_rules: "{{ path_prefix_rules }} + ['`{{ item }}`']"

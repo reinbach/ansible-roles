@@ -34,3 +34,4 @@ allowed_hosts_middleware: ""
 other_domains: []
 domain_list: "['{{ domain }}'] + {{ other_domains }}"
 domains: []
+sans_domains: []
