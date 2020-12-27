@@ -30,3 +30,7 @@ docker_config: "no"
 middlewares: []
 cors_middleware: ""
 allowed_hosts_middleware: ""
+
+other_domains: []
+domain_list: "['{{ domain }}'] + {{ other_domains }}"
+domains: []

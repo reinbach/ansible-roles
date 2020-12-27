@@ -31,6 +31,9 @@
       - "/static/"
     path_prefix_required: "yes"
     add_allowed_hosts: "example.com,www.example.com,10.0.2.100,127.0.0.1"
+    other_domains:
+      - "examp.le"
+      - "rand.om"
   tasks:
     - name: "Include traefik"
       include_role:
