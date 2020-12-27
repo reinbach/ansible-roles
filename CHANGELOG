@@ -1,1 +1,1 @@
-* Add complete list of domains for TLS
+* Allow cors_domains to be set to domains
