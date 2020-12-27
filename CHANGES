@@ -1,3 +1,10 @@
+0.7.9
+-----
+* Allow multiple domains in traefik role
+* Add cors domains to static role
+* Update static role to add www by default
+* Set STATIC_PORT env var in static role
+
 0.7.8
 -----
 * Add static role
