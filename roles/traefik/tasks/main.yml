@@ -93,11 +93,11 @@
 
     - set_fact:
         final_cors_domains: "{{ domains }}"
-      when: cors_domains == "domains"
+      when: cors_domains is defined and cors_domains == "domains"
 
     - set_fact:
         final_cors_domains: "{{ cors_domains }}"
-      when: cors_domains != "domains"
+      when: cors_domains is defined and cors_domains != "domains"
 
     - set_fact:
         router_rule: "Host(`{{ domains|join('`,`') }}`)"
