@@ -1,1 +1,1 @@
-* Traefik role handles no cors_domain var
+* Update setting/handling of allowed hosts in django app/traefik
