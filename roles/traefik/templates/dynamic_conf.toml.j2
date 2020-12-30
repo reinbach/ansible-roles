@@ -10,7 +10,7 @@
       service = "service-{{ label }}"
       rule = "{{ router_rule }}"
       {% if middlewares %}
-      middlewares = [{% for m in middlewares %}"{{ m }}",{% endfor %}]
+      middlewares = ["{{ middlewares|join('","') }}"]
       {% endif %}
       [http.routers.https-{{ label }}-router.tls]
         certResolver = "letsencrypt"
@@ -34,5 +34,5 @@
 
 {% if add_allowed_hosts is defined %}
 [http.middlewares.{{ allowed_hosts_middleware }}.headers]
-  allowedHosts = [{% for h in add_allowed_hosts.split(",") %}"{{ h }}",{% endfor %}]
+  allowedHosts = ["{{ add_allowed_hosts|join('","') }}"]
 {% endif %}

@@ -1,7 +1,9 @@
 ---
 - name: define allowed_hosts
   set_fact:
-    allowed_hosts: "{{ djangoapp_domain }},www.{{ djangoapp_domain }},{{ ansible_default_ipv4.address }},127.0.0.1"
+    allowed_hosts:
+      - "{{ djangoapp_domain }}"
+      - "www.{{ djangoapp_domain }}"
 
 - name: create the djangoapp systemd service file
   template:

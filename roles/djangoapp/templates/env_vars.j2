@@ -1,6 +1,6 @@
 DEBUG=False
 SECRET_KEY={{ djangoapp_secret_key }}
-ALLOWED_HOSTS={{ allowed_hosts }}
+ALLOWED_HOSTS={{ allowed_hosts|join(",") }}
 SITE_DOMAIN={{ djangoapp_domain }}
 SECURE_SSL_REDIRECT=True
 SESSION_COOKIE_SECURE=True
