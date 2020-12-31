@@ -1,1 +1,1 @@
-* Update setting/handling of allowed hosts in django app/traefik
+* Update djangoapps to run on localhost, force requests through traefik

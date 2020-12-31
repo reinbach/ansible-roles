@@ -1,3 +1,7 @@
+0.7.15
+------
+* Update djangoapps to run on localhost, force requests through traefik
+
 0.7.14
 ------
 * Update setting/handling of allowed hosts in django app/traefik
