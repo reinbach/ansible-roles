@@ -1,1 +1,1 @@
-* Update djangoapps to run on localhost, force requests through traefik
+* Ensure we pass correct IP address to traefik from djangoapp
