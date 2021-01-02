@@ -19,6 +19,16 @@
     middlewares: "{{ middlewares + [allowed_hosts_middleware] }}"
   when: allowed_hosts_middleware != ""
 
+- name: define ip whitelist middleware label
+  set_fact:
+    ip_whitelist_middleware: "{{ label }}IpWhiteList"
+  when: ip_whitelist is defined
+
+- name: add ip_whitelist_middle to middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [ip_whitelist_middleware] }}"
+  when: ip_whitelist_middleware != ""
+
 - name: Create traefik systemd unit
   template:
     src: "{{ traefik_systemd_unit_template }}.j2"

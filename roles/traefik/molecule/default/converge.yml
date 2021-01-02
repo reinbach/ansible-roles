@@ -19,6 +19,7 @@
     label: Example
     domain: example.com
     ip_address: "{{ ansible_default_ipv4.address }}"
+    # ip_whitelist: ["192.168.0.1"]
     http_port: 3000
     middlewares:
       - auth
