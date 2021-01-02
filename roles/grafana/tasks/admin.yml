@@ -20,7 +20,8 @@
     src: "{{ grafana_token_file }}"
   register: api_token_encoded
 
-- set_fact:
+- name: set api token if api token encoded is defined
+  set_fact:
     api_token: "{{ api_token_encoded.content | b64decode }}"
   when: api_token_encoded is defined
 
@@ -38,9 +39,10 @@
       name: bayete
       role: Admin
   register: token_response
-  when: api_token is not defined or api_token == ""
+  when: api_token is not defined or not api_token | length
 
-- set_fact:
+- name: set api token from token response
+  set_fact:
     api_token: "{{ token_response.json.key }}"
   when: token_response is defined and not "skipped" in token_response
 
@@ -48,4 +50,5 @@
   copy:
     content: "{{ api_token }}"
     dest: "{{ grafana_token_file }}"
+    mode: 0700
   when: token_response is defined and not "skipped" in token_response
