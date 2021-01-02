@@ -5,7 +5,7 @@ dependency:
 driver:
   name: podman
 platforms:
-  - name: instance-grafana
+  - name: grafana-instance-grafana
     image: docker.io/ubuntu:20.04
     privileged: true
 provisioner:
