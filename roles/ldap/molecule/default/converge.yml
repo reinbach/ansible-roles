@@ -1,6 +1,32 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    ldap_base: dc=example.com,dc=example,dc=com
+    ldap_admin_dn: cn=admin,dc=example.com,dc=example,dc=com
+    ldap_admin_group_dn: cn=admins,dc=example.com,dc=example,dc=com
+    ldap_admin_hashed_password: $6$rounds=656000$U/UO3LDxGOQv181h$RhFOiN5oIu1l79OXkc8AMiGcU0BRC3bCc63utFE5LQ7DHP4HoXpAgCscfVCDZsc0dabYOrsEbvCMXWFGvaVQm1
+    ldap_admin_password: '123'
+    ldap_admin_cn: admins
+    ldap_domain: ldap.example.com
+    ldap_user_dn: ou=users,dc=example.com,dc=example,dc=com
+    ldap_user_ou: users
+    ldap_organization: example.com
+    users:
+      - first_name: ""
+        last_name: Unknown
+        username: greg
+        password: "123"
+        ldap_password: $6$rounds=656000$U/UO3LDxGOQv181h$RhFOiN5oIu1l79OXkc8AMiGcU0BRC3bCc63utFE5LQ7DHP4HoXpAgCscfVCDZsc0dabYOrsEbvCMXWFGvaVQm1
+        email: greg@reinbach.com
+        public_keys:
+          active: []
+          disabled: []
+        is_admin: true
+        type: admin
+        is_active: true
+        state: present
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: "Include ldap"
       include_role:
