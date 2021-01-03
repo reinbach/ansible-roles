@@ -1,3 +1,12 @@
+0.7.17
+------
+* Add realm to traefik middleware auth
+* Update ldap role to python3
+* Upgrade ldap to ldap_attrs
+* Set unique platform name for grafana
+* Add /api/datasources to grafana traefik router rules
+* Add option to whitelist ips in traefik
+
 0.7.16
 ------
 * Ensure we pass correct IP address to traefik from djangoapp
