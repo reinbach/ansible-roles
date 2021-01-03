@@ -36,3 +36,8 @@
 [http.middlewares.{{ allowed_hosts_middleware }}.headers]
   allowedHosts = ["{{ add_allowed_hosts|join('","') }}"]
 {% endif %}
+
+{% if ip_whitelist is defined %}
+[http.middlewares.{{ ip_whitelist_middleware }}.headers]
+  sourceRange = ["{{ ip_whitelist|join('","') }}"]
+{% endif %}

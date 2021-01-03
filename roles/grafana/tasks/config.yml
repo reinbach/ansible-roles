@@ -29,3 +29,4 @@
     content: ""
     dest: "{{ grafana_token_file }}"
     force: no
+    mode: 0700

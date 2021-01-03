@@ -13,7 +13,8 @@
   register: source_response
   when: api_token is defined
 
-- set_fact:
+- name: set source id from source response
+  set_fact:
     source_id: "{{ source_response.json.id | default(0) }}"
   when: source_response is defined
 

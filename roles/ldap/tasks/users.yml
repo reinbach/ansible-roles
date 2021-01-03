@@ -1,15 +1,11 @@
 ---
 - name: configure ldap admin user
-  ldap_attr:
+  ldap_attrs:
     state: exact
     dn: olcDatabase={1}mdb,cn=config
-    name: "{{ item.name }}"
-    values: "{{ item.value }}"
-  with_items:
-    - name: olcRootDN
-      value: "{{ ldap_admin_dn }}"
-    - name: olcRootPW
-      value: "{{ ldap_admin_password }}"
+    attributes:
+      olcRootDN: "{{ ldap_admin_dn }}"
+      olcRootPW: "{{ ldap_admin_password }}"
   no_log: true
 
 - name: Create users
@@ -26,23 +22,23 @@
   tags: users
 
 - name: Set user password attribute
-  ldap_attr:
+  ldap_attrs:
     dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
-    name: userPassword
-    values: "{CRYPT}{{ item.ldap_password }}"
+    attributes:
+      userPassword: "{CRYPT}{{ item.ldap_password }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
-  no_log: true
+  # no_log: true
   tags: users
 
 - name: Set user email attribute
-  ldap_attr:
+  ldap_attrs:
     dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
-    name: mail
-    values: "{{ item.email }}"
+    attributes:
+      mail: "{{ item.email }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
@@ -50,11 +46,11 @@
   tags: users
 
 - name: Set user first name attribute
-  ldap_attr:
+  ldap_attrs:
     dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
-    name: givenName
-    values: "{{ item.first_name }}"
+    attributes:
+      givenName: "{{ item.first_name }}"
   with_items:
     - "{{ users }}"
   when: item.first_name | length > 0 and item.state == "present"
@@ -62,11 +58,11 @@
   tags: users
 
 - name: Set user last name attribute
-  ldap_attr:
+  ldap_attrs:
     dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
-    name: sn
-    values: "{{ item.last_name }}"
+    attributes:
+      sn: "{{ item.last_name }}"
   with_items:
     - "{{ users }}"
   when: item.state == "present"
@@ -74,11 +70,11 @@
   tags: users
 
 - name: add user to admin group
-  ldap_attr:
+  ldap_attrs:
     dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: exact
-    name: memberOf
-    values: "{{ ldap_admin_group_dn }}"
+    attributes:
+      memberOf: "{{ ldap_admin_group_dn }}"
   with_items:
     - "{{ users }}"
   when: item.is_admin and item.state == "present"
@@ -86,11 +82,11 @@
   tags: users
 
 - name: remove user from admin group
-  ldap_attr:
+  ldap_attrs:
     dn: "cn={{ item.username }},{{ ldap_user_dn }}"
     state: "absent"
-    name: memberOf
-    values: "{{ ldap_admin_group_dn }}"
+    attributes:
+      memberOf: "{{ ldap_admin_group_dn }}"
   with_items:
     - "{{ users }}"
   when: not item.is_admin and item.state == "present"

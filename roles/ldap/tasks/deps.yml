@@ -6,20 +6,11 @@
     state: present
   with_items: "{{ ansible_support_packages }}"
 
-- name: get pip2
-  get_url:
-    url: "{{ pip2_download_url }}"
-    dest: "{{ pip2_file }}"
-    force: no
-
-- name: install python2 pip
-  command: "python2 {{ pip2_file }}"
-
 - name: install required libraries
   pip:
     name: "{{ python_pip_packages }}"
     state: present
-    executable: pip2
+    executable: /usr/bin/pip3
 
 - name: start slapd
   systemd:
