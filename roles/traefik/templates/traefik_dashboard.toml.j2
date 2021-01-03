@@ -8,3 +8,4 @@
   [http.middlewares]
     [http.middlewares.auth.basicAuth]
       usersFile = "{{ traefik_auth_file }}"
+      realm = "{{ ansible_hostname }}"
