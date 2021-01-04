@@ -7,6 +7,5 @@
     docker_config: "yes"
     label: "{{ sentry_label }}"
     domain: "{{ sentry_domain }}"
-    ip_address: "{{ ansible_default_ipv4.address }}"
   tags:
     - users
