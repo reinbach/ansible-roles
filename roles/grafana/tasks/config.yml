@@ -15,14 +15,6 @@
     mode: 0664
   notify: restart grafana
 
-- name: set grafana config file
-  become: true
-  template:
-    src: grafana.ini.j2
-    dest: "{{ grafana_config_file }}"
-    mode: 0664
-  notify: restart grafana
-
 - name: create grafana token file
   become: true
   copy:
