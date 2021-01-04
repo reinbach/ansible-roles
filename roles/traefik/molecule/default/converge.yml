@@ -29,6 +29,8 @@
       - "/media/"
       - "/static/"
     path_prefix_required: "yes"
+    strip_prefixes:
+      - "/media"
     add_allowed_hosts:
       - "example.com"
       - "www.example.com"
