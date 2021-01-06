@@ -7,7 +7,7 @@ prometheus_db_dir: /var/lib/prometheus
 prometheus_web_listen_url: "127.0.0.1"
 prometheus_web_listen_port: "9090"
 prometheus_web_listen_address: "{{ prometheus_web_listen_url }}:{{ prometheus_web_listen_port }}"
-prometheus_web_external_url: "{{ prometheus_domain }}"
+prometheus_web_external_url: "http://{{ prometheus_web_listen_address }}"
 prometheus_metrics_port: "8080"
 
 prometheus_storage_retention: "30d"
