@@ -38,7 +38,7 @@
 {% endif %}
 
 {% if ip_whitelist is defined %}
-[http.middlewares.{{ ip_whitelist_middleware }}.headers]
+[http.middlewares.{{ ip_whitelist_middleware }}.ipWhiteList]
   sourceRange = ["{{ ip_whitelist|join('","') }}"]
 {% endif %}
 
