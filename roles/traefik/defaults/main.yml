@@ -31,6 +31,7 @@ middlewares: []
 cors_middleware: ""
 allowed_hosts_middleware: ""
 ip_whitelist_middleware: ""
+strip_prefix_middleware: ""
 
 other_domains: []
 domain_list: "['{{ domain }}'] + {{ other_domains }}"

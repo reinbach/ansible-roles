@@ -31,7 +31,7 @@
     file_config: "yes"
     label: "{{ prometheus_label }}"
     domain: "{{ prometheus_domain }}"
-    ip_address: "{{ ansible_default_ipv4.address }}"
+    ip_address: "{{ prometheus_web_listen_url }}"
     http_port: "{{ prometheus_web_listen_port }}"
     middlewares:
       - auth

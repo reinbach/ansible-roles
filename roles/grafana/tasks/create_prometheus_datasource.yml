@@ -30,7 +30,7 @@
     body:
       name: "prometheus"
       type: "prometheus"
-      url: "{{ prometheus_domain }}"
+      url: "https://{{ prometheus_domain }}"
       access: "proxy"
       basicAuth: true
       basicAuthUser: "{{ prometheus_system_user_email }}"
@@ -52,7 +52,7 @@
       id: "{{ source_id }}"
       name: "prometheus"
       type: "prometheus"
-      url: "{{ prometheus_domain }}"
+      url: "https://{{ prometheus_domain }}"
       access: "proxy"
       basicAuth: true
       basicAuthUser: "{{ prometheus_system_user_email }}"

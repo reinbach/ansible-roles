@@ -1,0 +1,6 @@
+{{ ansible_managed | comment }}
+
+- targets:
+{% for target in prometheus_proxy_targets.split(",") %}
+  - {{ target }}:{{ proxy_metrics_port }}
+{% endfor %}

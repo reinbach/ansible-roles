@@ -56,7 +56,6 @@
     docker_config: "yes"
     label: "{{ pypiserver_label }}"
     domain: "{{ pypiserver_domain }}"
-    ip_address: "{{ ansible_default_ipv4.address }}"
     middlewares:
       - auth
   tags:

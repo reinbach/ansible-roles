@@ -14,7 +14,7 @@
     file_config: "yes"
     label: "{{ goapp_name }}"
     domain: "{{ goapp_domain }}"
-    ip_address: "{{ ansible_default_ipv4.address }}"
+    ip_address: "{{ goapp_http_listen_addr }}"
     http_port: "{{ goapp_http_port }}"
     add_www: "{{ goapp_add_www }}"
     add_path_prefixes: "{{ goapp_add_path_prefixes|default([]) }}"

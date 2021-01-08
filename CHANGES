@@ -1,3 +1,13 @@
+0.7.18
+------
+* Set prometheus domain correctly in grafana data source
+* Remove duplicate tasks in grafana
+* Add proxy scape configs to prometheus
+* Update prometheus external url config
+* Update port in node_exporter
+* Add stripPrefix middleware option to traefik
+* Ensure most services are behind traefik
+
 0.7.17
 ------
 * Add realm to traefik middleware auth

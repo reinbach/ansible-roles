@@ -38,6 +38,11 @@
 {% endif %}
 
 {% if ip_whitelist is defined %}
-[http.middlewares.{{ ip_whitelist_middleware }}.headers]
+[http.middlewares.{{ ip_whitelist_middleware }}.ipWhiteList]
   sourceRange = ["{{ ip_whitelist|join('","') }}"]
+{% endif %}
+
+{% if strip_prefixes is defined %}
+[http.middlewares.{{ strip_prefix_middleware }}.stripPrefix]
+  prefixes = ["{{ strip_prefixes|join('","') }}"]
 {% endif %}
