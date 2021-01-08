@@ -8,7 +8,8 @@ prometheus_web_listen_url: "127.0.0.1"
 prometheus_web_listen_port: "9090"
 prometheus_web_listen_address: "{{ prometheus_web_listen_url }}:{{ prometheus_web_listen_port }}"
 prometheus_web_external_url: "http://{{ prometheus_web_listen_address }}"
-prometheus_metrics_port: "8080"
+prometheus_metrics_port: "9090"
+proxy_metrics_port: "8080"
 
 prometheus_storage_retention: "30d"
 # Available since Prometheus 2.7.0
@@ -57,16 +58,8 @@ prometheus_remote_read: []
 prometheus_external_labels:
   environment: "{{ prometheus_domain }}"
 
-prometheus_targets: {}
-#  node:
-#    - targets:
-#        - localhost:9100
-#      labels:
-#        env: test
-
 prometheus_scrape_configs:
   - job_name: "prometheus"
-    metrics_path: "{{ prometheus_metrics_path }}"
     static_configs:
       - targets:
           - "{{ prometheus_domain }}:{{ prometheus_metrics_port }}"
@@ -75,6 +68,11 @@ prometheus_scrape_configs:
     file_sd_configs:
       - files:
         - "{{ prometheus_config_dir }}/file_sd/nodes.yml"
+  - job_name: "proxy"
+    metrics_path: "{{ prometheus_metrics_path }}"
+    file_sd_configs:
+      - files:
+        - "{{ prometheus_config_dir }}/file_sd/proxies.yml"
 
 # Alternative config file name, searched in ansible templates path.
 prometheus_config_file: 'prometheus.yml.j2'
