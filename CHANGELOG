@@ -1,6 +1,7 @@
-* Add realm to traefik middleware auth
-* Update ldap role to python3
-* Upgrade ldap to ldap_attrs
-* Set unique platform name for grafana
-* Add /api/datasources to grafana traefik router rules
-* Add option to whitelist ips in traefik
+* Set prometheus domain correctly in grafana data source
+* Remove duplicate tasks in grafana
+* Add proxy scape configs to prometheus
+* Update prometheus external url config
+* Update port in node_exporter
+* Add stripPrefix middleware option to traefik
+* Ensure most services are behind traefik
