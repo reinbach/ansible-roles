@@ -1,3 +1,1 @@
-* Update goapp to allow add pip packages to install
-* Lint cleanup of goapp role
-* Add ansible as requirement
+* Add default drone_bitbucket_enabled param

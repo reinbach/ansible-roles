@@ -30,6 +30,9 @@ drone_gitea_enabled: no
 # Gitlab
 drone_gitlab_enabled: no
 
+# Bitbucket
+drone_bitbucket_enabled: no
+
 # Database
 # drone_database_user: drone_user
 # drone_database_name: drone
