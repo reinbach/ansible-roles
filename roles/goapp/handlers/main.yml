@@ -3,3 +3,8 @@
   service:
     name: "{{ goapp_name }}"
     state: restarted
+
+- name: set filename
+  set_fact:
+    goapp_filename: "{{ release_list.files[0] }}"
+  when: goapp_filename is not defined
