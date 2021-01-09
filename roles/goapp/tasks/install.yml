@@ -38,6 +38,9 @@
 - include_tasks: source_url.yml
   when: goapp_release_source == "url"
 
+- name: flush handlers
+  meta: flush_handlers
+
 - name: rename goapp file
   command: "mv {{ goapp_dir }}/{{ goapp_filename }} {{ goapp_dir }}/{{ goapp_version }}"
   args:
@@ -49,7 +52,7 @@
   file:
     path: "{{ goapp_dir }}/{{ goapp_release_file }}"
     state: absent
-  when: version.stat.exists == False
+  when: version.stat.exists
 
 - name: link goapp release
   file:
@@ -65,4 +68,5 @@
   template:
     src: goapp.service.j2
     dest: "{{ systemd_units_dir }}/{{ goapp_name }}.service"
+    mode: 0644
   notify: restart goapp

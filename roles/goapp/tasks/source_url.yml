@@ -14,8 +14,5 @@
     remote_src: true
     list_files: true
   register: release_list
-  when: version.stat.exists == False
-
-- set_fact:
-    goapp_filename: "{{ release_list.files[0] }}"
-  when: release_list.changed and goapp_filename is not defined
+  when: version.stat.exists
+  notify: set filename
