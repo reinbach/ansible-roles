@@ -1,3 +1,9 @@
+0.7.19
+------
+* Update goapp to allow add pip packages to install
+* Lint cleanup of goapp role
+* Add ansible as requirement
+
 0.7.18
 ------
 * Set prometheus domain correctly in grafana data source
