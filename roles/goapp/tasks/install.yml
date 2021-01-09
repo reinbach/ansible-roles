@@ -8,7 +8,7 @@
 
 - name: install required libraries
   pip:
-    name: "{{ python_pip_packages }}"
+    name: "{{ python_pip_packages + goapp_pip_packages }}"
     state: present
 
 - name: create goapp group

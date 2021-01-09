@@ -16,6 +16,7 @@ goapp_release_object: "{{ goapp_release_path }}/{{ goapp_release_file }}"
 goapp_release_url: "https://github.com/Bayete/sample-public/releases/download/{{ goapp_version }}/{{ goapp_release_file }}"
 
 goapp_ubuntu_packages: []
+goapp_pip_packages: []
 
 goapp_user: "{{ goapp_name }}"
 goapp_group: "{{ goapp_user }}"
