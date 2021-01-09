@@ -1,3 +1,7 @@
+0.7.20
+------
+* Add default drone_bitbucket_enabled param
+
 0.7.19
 ------
 * Update goapp to allow add pip packages to install
