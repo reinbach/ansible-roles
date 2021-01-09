@@ -8,6 +8,7 @@ molecule = {extras = ["lint", "podman"], version = "*"}
 jmespath = "*"
 
 [packages]
+ansible = "==2.10.5"
 
 [requires]
 python_version = "3.8"
