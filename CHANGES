@@ -1,3 +1,7 @@
+0.7.21
+------
+* Update sentry 20.12.1b
+
 0.7.20
 ------
 * Add default drone_bitbucket_enabled param
