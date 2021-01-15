@@ -31,14 +31,15 @@
   with_items:
     - url: "{{ sentry_release_url }}"
       dest: "{{ srv_dir }}"
-  when: version.stat.exists == False
+  when: not version.stat.exists
 
 - name: rename sentry download
+  notify: install sentry
   command: "mv {{ srv_dir }}/{{ sentry_repo_name }} {{ sentry_version_dir }}"
   args:
     creates: "{{ sentry_version_dir }}"
     removes: "{{ srv_dir }}/{{ sentry_repo_name }}"
-  when: version.stat.exists == False
+  when: not version.stat.exists
 
 - name: link sentry release
   file:
@@ -56,6 +57,7 @@
     replace: "{{ sentry_domain }}"
 
 - name: add requirements file
+  notify: install sentry
   template:
     src: requirements.txt.j2
     dest: "{{ sentry_requirements_file }}"
@@ -63,7 +65,7 @@
   register: requirements
 
 - name: add configuration yml file
-  notify: restart sentry
+  notify: install sentry
   template:
     src: config.yml.j2
     dest: "{{ sentry_config_yml_file }}"
@@ -71,25 +73,16 @@
   register: config_yml
 
 - name: add configuration py file
-  notify: restart sentry
+  notify: install sentry
   template:
     src: sentry.conf.py.j2
     dest: "{{ sentry_config_py_file }}"
     mode: 0644
   register: config_py
 
-- name: install sentry
-  notify: restart sentry
-  command:
-    chdir: "{{ sentry_dir }}"
-    cmd: "{{ sentry_dir }}/install.sh"
-  # See https://github.com/getsentry/onpremise/issues/412
-  # environment:
-  #   SENTRY_IMAGE: "getsentry/sentry:{{ sentry_version }}"
-  when: version.stat.exists == False or requirements.changed or config_yml.changed or config_py.changed
-
 - name: create the sentry systemd service file
   template:
     src: sentry.service.j2
     dest: "{{ systemd_units_dir }}/sentry.service"
+    mode: 0644
   notify: restart sentry

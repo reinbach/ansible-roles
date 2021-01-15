@@ -1,4 +1,13 @@
 ---
+- name: install sentry
+  notify: restart sentry
+  command:
+    chdir: "{{ sentry_dir }}"
+    cmd: "{{ sentry_dir }}/install.sh"
+  # See https://github.com/getsentry/onpremise/issues/412
+  # environment:
+  #   SENTRY_IMAGE: "getsentry/sentry:{{ sentry_version }}"
+
 - name: restart sentry
   service:
     name: sentry
