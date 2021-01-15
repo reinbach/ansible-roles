@@ -3,18 +3,21 @@
   template:
     src: systemd-tempfiles.j2
     dest: "/etc/tmpfiles.d/{{ celery_name }}.conf"
+    mode: 0644
   notify: restart celery
 
 - name: create the celery systemd service file
   template:
     src: celery.service.j2
     dest: "{{ systemd_units_dir }}/{{ celery_name }}.service"
+    mode: 0644
   notify: restart celery
 
 - name: create the celery beater systemd service file
   template:
     src: beater.service.j2
     dest: "{{ systemd_units_dir }}/celery-beater.service"
+    mode: 0644
   notify: restart beater
 
 - name: setup celery environment file
