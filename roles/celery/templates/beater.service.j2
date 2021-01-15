@@ -9,9 +9,9 @@ User={{ celery_user }}
 Group={{ celery_group }}
 EnvironmentFile={{ celery_config_file }}
 WorkingDirectory={{ celery_working_dir }}
-ExecStart=/bin/sh -c '${CELERY_BIN} -A ${CELERY_APP} beat  \
+ExecStart=pipenv run celery -A ${CELERY_APP} beat  \
     --pidfile=${CELERYBEAT_PID_FILE} \
-    --logfile=${CELERYBEAT_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL}'
+    --logfile=${CELERYBEAT_LOG_FILE} --loglevel=${CELERYD_LOG_LEVEL}
 
 [Install]
 WantedBy=multi-user.target

@@ -1,3 +1,7 @@
+0.7.22
+------
+* Update celery service commands and update template file permissions
+
 0.7.21
 ------
 * Update sentry 20.12.1b
