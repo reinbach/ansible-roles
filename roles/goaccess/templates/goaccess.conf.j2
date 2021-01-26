@@ -1,0 +1,10 @@
+--enable-utf8
+--enable-geoip=mmdb
+--restore
+--persist
+--db-path={{ goaccess_data_dir }}
+--geoip-database={{ goaccess
+-o {{ goaccess_html_file }}
+--real-time-html
+--port={{ goaccess_http_port }}
+--addr={{ goaccess_http_listen_addr }}

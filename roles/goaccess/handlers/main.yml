@@ -1,0 +1,5 @@
+---
+- name: restart goaccess
+  service:
+    name: "{{ goaccess_name }}"
+    state: restarted

@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    goaccess_project: "example"
+    goaccess_domain: "example.com"
+  tasks:
+    - name: "Include goaccess"
+      include_role:
+        name: "goaccess"

@@ -1,0 +1,26 @@
+---
+goaccess_name: "{{ goaccess_project }}-analytics"
+
+goaccess_version: 1.4.4
+goaccess_download_url: "https://tar.goaccess.io/goaccess-{{ goaccess_version }}.tar.gz"
+goaccess_download_file: "goaccess-{{ goaccess_version }}.tar.gz"
+
+goaccess_dir: /opt/goaccess
+goaccess_config_dir: "{{ goaccess_dir }}/config"
+goaccess_config_file: "{{ goaccess_config_dir }}/{{ goaccess_name }}.conf"
+goaccess_html_dir: "{{ goaccess_dir }}/html"
+goaccess_html_file: "{{ goaccess_html_dir }}/{{ goaccess_name }}.html"
+goaccess_data_dir: "{{ goaccess_dir }}/data"
+goaccess_geoip_dir: "{{ goaccess_dir }}/geoip"
+goaccess_geoip_file: "{{ goaccess_geoip_dir }}/GeoLite2-City.mmdb"
+
+goaccess_http_port: 7890
+goaccess_http_listen_addr: 127.0.0.1
+goaccess_add_path_prefixes: analytics
+goaccess_add_www: "yes"
+
+# geoip
+geoip_token: bIf9d4SW6xsX3gdN
+geoip_download_url: "https://download.maxmind.com/app/geoip_download?license_key={{ geoip_token }}&suffix=tar.gz"
+geoip2_city_download_url: "{{ geoip_download_url }}&edition_id=GeoLite2-City"
+geoip2_country_download_url: "{{ geoip_download_url }}&edition_id=GeoLite2-Country"

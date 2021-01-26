@@ -1,0 +1,70 @@
+---
+- name: create goaccess directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    mode: 0770
+  with_items:
+    - "{{ goaccess_dir }}"
+    - "{{ goaccess_config_dir }}"
+    - "{{ goaccess_html_dir }}"
+    - "{{ goaccess_data_dir }}"
+    - "{{ goaccess_geoip_dir }}"
+
+- name: download goaccess
+  become: false
+  get_url:
+    url: "{{ goaccess_download_url }}"
+    dest: "{{ goaccess_dir }}/{{ goaccess_download_file }}"
+  register: _download_archive
+  until: _download_archive is succeeded
+  retries: 5
+  delay: 2
+  run_once: true
+  delegate_to: localhost
+  check_mode: false
+
+- name: unpack goaccess
+  become: false
+  unarchive:
+    src: "{{ goaccess_dir }}/{{ goaccess_download_file }}"
+    dest: "{{ goaccess_dir }}"
+    creates: "{{ goaccess_dir }}/goaccess-{{ goaccess_version }}"
+  delegate_to: localhost
+  check_mode: false
+
+- name: configure goaccess build
+  command: ./configure --enable-utf8 --enable-geoip=legacy
+  args:
+    chdir: "{{ goaccess_dir }}/goaccess-{{ goaccess_version }}"
+  when: _download_archive is defined
+
+- name: make goaccess build
+  become: true
+  command: make
+  args:
+    chdir: "{{ goaccess_dir }}/goaccess-{{ goaccess_version }}"
+  when: _download_archive is defined
+
+- name: install goaccess
+  become: true
+  command: make install
+  args:
+    chdir: "{{ goaccess_dir }}/goaccess-{{ goaccess_version }}"
+  when: _download_archive is defined
+
+- name: download geoip city database
+  get_url:
+    url: "{{ goaccess_geoip_city_url }}"
+    dest: "{{ goaccess_geoip_dir }}"
+  delegate_to: localhost
+  check_mode: false
+
+- name: unpack geoip city database
+  unarchive:
+    src: "{{ goaccess_geoip_file }}.gz"
+    dest: "{{ goaccess_geoip_file }}"
+    creates: "{{ goaccess_geoip_file }}"
+  delegate_to: localhost
+  check_mode: false

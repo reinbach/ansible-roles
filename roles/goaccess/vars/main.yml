@@ -1,0 +1,9 @@
+---
+ansible_support_packages:
+  - libncursesw5-dev
+  - libgeoip-dev
+  - libmaxminddb-dev
+  - libssl-dev
+  - build-essential
+
+systemd_units_dir: /lib/systemd/system
