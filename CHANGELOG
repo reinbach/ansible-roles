@@ -1,3 +1,2 @@
-* Add goaccess role for web log analysis
-* Update traefik with access logs
-* Update sentry config options
+* Correct path prefix in goaccess role
+* Differentiate config name for goaccess traefik config

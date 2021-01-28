@@ -1,3 +1,8 @@
+0.7.24
+------
+* Correct path prefix in goaccess role
+* Differentiate config name for goaccess traefik config
+
 0.7.23
 ------
 * Add goaccess role for web log analysis

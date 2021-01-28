@@ -16,7 +16,7 @@ goaccess_log_file: /var/log/traefik/access.log
 
 goaccess_http_port: 7890
 goaccess_http_listen_addr: 127.0.0.1
-goaccess_add_path_prefixes: analytics
+goaccess_add_path_prefixes: /analytics
 goaccess_add_www: "yes"
 
 # geoip
