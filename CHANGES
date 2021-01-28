@@ -1,3 +1,7 @@
+0.7.25
+------
+* Update way goaccess configured
+
 0.7.24
 ------
 * Correct path prefix in goaccess role
