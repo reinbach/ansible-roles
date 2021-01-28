@@ -1,0 +1,14 @@
+---
+- name: create goaccess config file
+  template:
+    src: goaccess.conf.j2
+    dest: "{{ goaccess_config_file }}"
+    mode: 0644
+  notify: restart goaccess
+
+- name: create goaccess service file
+  template:
+    src: goaccess.service.j2
+    dest: "{{ systemd_units_dir }}/{{ goaccess_name }}.service"
+    mode: 0644
+  notify: restart goaccess

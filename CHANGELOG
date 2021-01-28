@@ -1,1 +1,3 @@
-* Update celery service commands and update template file permissions
+* Add goaccess role for web log analysis
+* Update traefik with access logs
+* Update sentry config options

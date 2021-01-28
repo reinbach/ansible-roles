@@ -30,3 +30,6 @@
 [metrics]
   [metrics.prometheus]
     entryPoint = "api"
+
+[accessLog]
+  filePath = "{{ traefik_log_access_file }}"

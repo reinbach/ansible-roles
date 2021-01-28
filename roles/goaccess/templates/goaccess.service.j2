@@ -1,0 +1,11 @@
+[Unit]
+Description=GoAccess {{ goaccess_name }} Live Log Analyzer
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/goaccess --config-file={{ goaccess_config_file }}
+ExecStop=/bin/kill -9 ${MAINPID}
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target
