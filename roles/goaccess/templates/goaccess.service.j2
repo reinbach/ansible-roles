@@ -3,7 +3,18 @@ Description=GoAccess {{ goaccess_name }} Live Log Analyzer
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/goaccess --config-file={{ goaccess_config_file }}
+ExecStart=/bin/sh -c '/usr/bin/tail -f {{ goaccess_log_file }} | \
+               grep -i --line-buffered "{{ goaccess_project }}" | \
+               /usr/local/bin/goaccess \
+               --log-format COMMON \
+               --addr {{ goaccess_http_listen_addr }} \
+               --port {{ goaccess_http_port }} \
+               --real-time-html \
+               --output {{ goaccess_html_file }} \
+               --geoip-database {{ goaccess_geoip_file }} \
+               --db-path {{ goaccess_data_dir }} \
+               --persist \
+               --restore'
 ExecStop=/bin/kill -9 ${MAINPID}
 PrivateTmp=false
 

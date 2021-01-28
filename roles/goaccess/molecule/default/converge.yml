@@ -3,7 +3,6 @@
   hosts: all
   vars:
     goaccess_project: "example"
-    goaccess_log_file: "/var/log/www/reinbach.log"
     goaccess_domain: "example.com"
     users:
       - first_name: ""
