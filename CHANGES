@@ -1,3 +1,9 @@
+0.7.26
+------
+* Strip prefixes from goaccess traefik config
+* User geoip-database package for goaccess
+* Correct traefik config file name for goaccess
+
 0.7.25
 ------
 * Update way goaccess configured

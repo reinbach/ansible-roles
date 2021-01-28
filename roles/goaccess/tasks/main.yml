@@ -13,12 +13,13 @@
   vars:
     file_config: "yes"
     label:  "{{ goaccess_name }}"
-    traefik_config_name: "{{ goaccess_name }}-analytics"
+    traefik_config_name: "{{ goaccess_name }}"
     domain: "{{ goaccess_domain }}"
     ip_address: "{{ goaccess_http_listen_addr }}"
     http_port: "{{ goaccess_http_port }}"
     add_www: "{{ goaccess_add_www }}"
     add_path_prefixes: "{{ goaccess_add_path_prefixes }}"
+    strip_prefixes: "{{ goaccess_add_path_prefixes }}"
     path_prefix_required: "yes"
     middlewares:
       - auth
