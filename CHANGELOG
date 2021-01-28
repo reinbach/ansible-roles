@@ -1,2 +1,1 @@
-* Correct path prefix in goaccess role
-* Differentiate config name for goaccess traefik config
+* Update way goaccess configured
