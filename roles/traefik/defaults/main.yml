@@ -15,6 +15,7 @@ traefik_auth_file: "{{ traefik_dir }}/.htpasswd"
 traefik_dashboard_config_file: traefik_dashboard.toml
 traefik_dynamic_config_file: dynamic_conf.toml
 traefik_log_dir: /var/log/traefik
+traefik_log_access_file: "{{ traefik_log_dir }}/access.log"
 traefik_template: traefik.toml
 traefik_systemd_unit_template: traefik.service
 traefik_systemd_unit_dest: /etc/systemd/system/traefik.service
