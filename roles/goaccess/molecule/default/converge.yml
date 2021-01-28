@@ -3,7 +3,22 @@
   hosts: all
   vars:
     goaccess_project: "example"
+    goaccess_log_file: "/var/log/www/reinbach.log"
     goaccess_domain: "example.com"
+    users:
+      - first_name: ""
+        last_name: Unknown
+        username: greg
+        password: "123"
+        ldap_password: $6$rounds=656000$U/UO3LDxGOQv181h$RhFOiN5oIu1l79OXkc8AMiGcU0BRC3bCc63utFE5LQ7DHP4HoXpAgCscfVCDZsc0dabYOrsEbvCMXWFGvaVQm1
+        email: greg@reinbach.com
+        public_keys:
+          active: []
+          disabled: []
+        is_admin: true
+        type: admin
+        is_active: true
+        state: present
   tasks:
     - name: "Include goaccess"
       include_role:

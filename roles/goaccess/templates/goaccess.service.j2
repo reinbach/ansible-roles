@@ -3,7 +3,7 @@ Description=GoAccess {{ goaccess_name }} Live Log Analyzer
 
 [Service]
 Type=simple
-ExecStart=journalctl -f -u {{ goaccess_project }} | /bin/goaccess -p {{ goaccess_config_file }} -
+ExecStart=/usr/local/bin/goaccess --config-file={{ goaccess_config_file }}
 ExecStop=/bin/kill -9 ${MAINPID}
 PrivateTmp=false
 
