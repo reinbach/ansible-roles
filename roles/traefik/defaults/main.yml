@@ -27,6 +27,10 @@ add_path_prefixes: []
 file_config: "no"
 docker_config: "no"
 
+# analytics
+add_analytics: "no"
+analytics_port: 7890
+
 middlewares: []
 cors_middleware: ""
 allowed_hosts_middleware: ""

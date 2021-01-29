@@ -5,6 +5,12 @@
       service = "service-{{ label }}"
       rule = "{{ router_rule }}"
       middlewares = ["https-redirect"]
+    {% if add_analytics %}
+    [http.routers.analytics-{{ label }}-router]
+      entryPoints = ["analytics"]
+      service = "service-analytics-{{ label }}"
+      rule = "{{ router_rule }}"
+    {% endif %}
     [http.routers.https-{{ label }}-router]
       entryPoints = ["web-secure"]
       service = "service-{{ label }}"
@@ -23,6 +29,12 @@
       [http.services.service-{{ label }}.loadBalancer]
         [[http.services.service-{{ label }}.loadBalancer.servers]]
           url = "http://{{ ip_address }}:{{ http_port }}"
+    {% if add_analytics %}
+    [http.services.service-analytics-{{ label }}]
+      [http.services.service-analytics-{{ label }}.loadBalancer]
+        [[http.services.service-analytics-{{ label }}.loadBalancer.servers]]
+          url = "http://{{ ip_address }}:{{ analytics_port }}"
+    {% endif %}
 
 {% if cors_domains is defined %}
 [http.middlewares.{{ cors_middleware }}.headers]
