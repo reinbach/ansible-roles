@@ -1,3 +1,14 @@
+0.10.0
+------
+* Update static role to pass analytics option to goapp role
+* Update goapp to pass analytics option to traefik
+* Update traefik with analytics endpoint, router, and service option
+* Refactor traefik tasks
+* Add RegexRedirect middleware option to traefik
+* Set goaccess HTML report title
+* Fine tune the filtering of access logs in goaccess
+* Update service stop handling in goaccess
+
 0.9.0
 -----
 * Correct goapp source s3 install tasks
