@@ -1,0 +1,106 @@
+---
+- name: create traefik systemd unit
+  template:
+    src: "{{ traefik_systemd_unit_template }}.j2"
+    dest: "{{ traefik_systemd_unit_dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart traefik
+
+- name: copy traefik config file
+  template:
+    src: "{{ traefik_template }}.j2"
+    dest: "{{ traefik_config_file }}"
+    owner: root
+    group: root
+    mode: 0744
+    force: "no"
+  notify:
+    - restart traefik
+
+- name: copy traefik middleware
+  template:
+    src: "middleware.toml.j2"
+    dest: "{{ traefik_config_dir }}/middleware.toml"
+    owner: root
+    group: root
+    mode: 0744
+
+- name: copy traefik tls options
+  template:
+    src: "tls_options.toml.j2"
+    dest: "{{ traefik_config_dir }}/tls_options.toml"
+    owner: root
+    group: root
+    mode: 0744
+
+- name: set docker provider
+  blockinfile:
+    path: "{{ traefik_config_file }}"
+    marker_begin: "BEGIN_DOCKER"
+    marker_end: "END_DOCKER"
+    state: present
+    block: |
+        [providers.docker]
+          endpoint = "unix:///var/run/docker.sock"
+  notify:
+    - restart traefik
+  when: docker_config == "yes"
+
+- name: copy traefik dashboard config file
+  template:
+    src: "{{ traefik_dashboard_config_file }}.j2"
+    dest: "{{ traefik_config_dir }}/{{ traefik_dashboard_config_file }}"
+    owner: root
+    group: root
+    mode: 0744
+
+- block:
+    - set_fact:
+        domains: "{{ domains }} + ['{{ item }}'{% if add_www %}, 'www.{{ item }}'{% endif %}]"
+      with_items: "{{ domain_list }}"
+
+    - set_fact:
+        final_cors_domains: "{{ domains }}"
+      when: cors_domains is defined and cors_domains == "domains"
+
+    - set_fact:
+        final_cors_domains: "{{ cors_domains }}"
+      when: cors_domains is defined and cors_domains != "domains"
+
+    - set_fact:
+        router_rule: "Host(`{{ domains|join('`,`') }}`)"
+
+    - set_fact:
+        path_prefix_rules: "{{ path_prefix_rules }} + ['`{{ item }}`']"
+      with_items: "{{ add_path_prefixes }}"
+      when: (add_path_prefixes|length > 0)
+
+    - set_fact:
+        router_rule: "{{ router_rule }} || PathPrefix({{ path_prefix_rules|join(',') }})"
+      when: (path_prefix_rules|length > 0) and path_prefix_required == "no"
+
+    - set_fact:
+        router_rule: "{{ router_rule }} && PathPrefix({{ path_prefix_rules|join(',') }})"
+      when: (path_prefix_rules|length > 0) and path_prefix_required == "yes"
+
+    - name: Add dynamic config
+      template:
+        src: "{{ traefik_dynamic_config_file }}.j2"
+        dest: "{{ traefik_config_dir }}/{{ traefik_config_name }}.toml"
+        owner: root
+        group: root
+        mode: 0744
+  when: file_config == "yes"
+
+- name: set htpasswd file
+  template:
+    src: htpasswd.j2
+    dest: "{{ traefik_auth_file }}"
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - users

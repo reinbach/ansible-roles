@@ -46,3 +46,9 @@
 [http.middlewares.{{ strip_prefix_middleware }}.stripPrefix]
   prefixes = ["{{ strip_prefixes|join('","') }}"]
 {% endif %}
+
+{% for redirect in regex_redirect %}
+[http.middlewares.{{ redirect.label }}.stripPrefix]
+  regex = "{{ redirect.regex }}"
+  replacement = "{{ redirect.replacement }}"
+{% endfor %}
