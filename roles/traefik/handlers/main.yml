@@ -1,5 +1,5 @@
 ---
-- name: Restart traefik
+- name: restart traefik
   systemd:
     name: traefik
     state: restarted

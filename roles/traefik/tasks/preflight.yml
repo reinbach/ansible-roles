@@ -1,0 +1,51 @@
+---
+- name: define cors middleware label
+  set_fact:
+    cors_middleware: "{{ label }}CORSHeader"
+  when: cors_domains is defined
+
+- name: add cors_middle to middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [cors_middleware] }}"
+  when: (cors_middleware|length > 0)
+
+- name: define allowed hosts middleware label
+  set_fact:
+    allowed_hosts_middleware: "{{ label }}AllowedHosts"
+  when: add_allowed_hosts is defined
+
+- name: add allowed_hosts_middle to middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [allowed_hosts_middleware] }}"
+  when: (allowed_hosts_middleware|length > 0)
+
+- name: define ip whitelist middleware label
+  set_fact:
+    ip_whitelist_middleware: "{{ label }}IpWhiteList"
+  when: ip_whitelist is defined
+
+- name: add ip_whitelist_middleware to middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [ip_whitelist_middleware] }}"
+  when: (ip_whitelist_middleware|length > 0)
+
+- name: define strip prefix middleware label
+  set_fact:
+    strip_prefix_middleware: "{{ label }}StripPrefix"
+  when: strip_prefixes is defined
+
+- name: add strip_prefix_middleware to middlewares list
+  set_fact:
+    middlewares: "{{ middlewares + [strip_prefix_middleware] }}"
+  when: (strip_prefix_middleware|length > 0)
+
+- name: define regex_redirect_middlewares
+  set_fact:
+    regex_redirect_middlewares: "{{ regex_redirect_middlewares }} + ['{{ label }}{{ item.label }}']"
+  with_items: "{{ regex_redirect }}"
+  when: (regex_redirect|length > 0)
+
+- name: add regex_redirect to middleswares list
+  set_fact:
+    middlewares: "{{ middlewares }} + {{ regex_redirect_middlewares }}"
+  when: (regex_redirect_middlewares|length > 0)

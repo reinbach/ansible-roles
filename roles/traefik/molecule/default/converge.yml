@@ -29,6 +29,8 @@
       - "/media/"
       - "/static/"
     path_prefix_required: "yes"
+    add_analytics: "yes"
+    analytics_port: 7891
     strip_prefixes:
       - "/media"
     add_allowed_hosts:
@@ -37,6 +39,10 @@
     other_domains:
       - "examp.le"
       - "rand.om"
+    regex_redirect:
+      - label: "BlogToPost"
+        regex: "^https://example.com/blog/(.*)"
+        replacement: "https://example.com/post/${1}"
   tasks:
     - name: "Include traefik"
       include_role:

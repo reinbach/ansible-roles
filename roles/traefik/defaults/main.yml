@@ -19,7 +19,6 @@ traefik_log_access_file: "{{ traefik_log_dir }}/access.log"
 traefik_template: traefik.toml
 traefik_systemd_unit_template: traefik.service
 traefik_systemd_unit_dest: /etc/systemd/system/traefik.service
-traefik_update: true
 traefik_config_name: "{{ domain }}"
 add_www: false
 path_prefix_rules: []
@@ -28,11 +27,17 @@ add_path_prefixes: []
 file_config: "no"
 docker_config: "no"
 
+# analytics
+add_analytics: "no"
+analytics_port: 7890
+
 middlewares: []
 cors_middleware: ""
 allowed_hosts_middleware: ""
 ip_whitelist_middleware: ""
 strip_prefix_middleware: ""
+regex_redirect: []
+regex_redirect_middlewares: []
 
 other_domains: []
 domain_list: "['{{ domain }}'] + {{ other_domains }}"

@@ -4,9 +4,6 @@
     path: "{{ goapp_dir }}/{{ goapp_version }}"
   register: version
 
-- debug:
-    msg: "{{ version }}"
-
 - block:
   - name: download goapp release
     aws_s3:
