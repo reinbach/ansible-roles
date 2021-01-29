@@ -1,15 +1,30 @@
 ---
-static_version: 0.4.0
+static_version: 0.5.0
 static_name: static
+
+static_analytics: "no"
+static_analytics_ws_port: 7890
 
 static_user: "{{ static_name }}"
 static_group: "{{ static_user }}"
 static_dir: "/home/www/{{ static_name }}"
 static_files_dir: "{{ static_dir }}/assets"
+static_analytic_dir: "{{ static_files_dir }}/analytics"
 
 static_dirs:
   - "{{ static_files_dir }}"
+  - "{{ static_analytic_dir }}"
 
 static_http_listen_addr: 0.0.0.0
 static_http_port: 3000
 static_add_www: "yes"
+
+static_env_vars:
+  - key: BASE_DIR
+    value: "{{ static_files_dir }}"
+  - key: STATIC_PORT
+    value: "{{ static_http_port }}"
+
+analytic_env_vars:
+  - key: ANALYTIC_DIR
+    value: "{{ static_analytic_dir }}"
