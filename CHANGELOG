@@ -1,6 +1,1 @@
-* Update static role to 0.5.0
-* Update static handle analytic option
-* Update goaccess to use new geoip database
-* Goaccess no longer calls traefik
-* Goaccess expects to static service to serve files
-* Goaccess sets up websocket properly
+* Correct goapp source s3 install tasks
