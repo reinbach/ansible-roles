@@ -4,25 +4,28 @@
     path: "{{ goapp_dir }}/{{ goapp_version }}"
   register: version
 
-- name: download goapp release
-  aws_s3:
-    aws_access_key: "{{ goapp_access_key_id }}"
-    aws_secret_key: "{{ goapp_secret_access_key }}"
-    bucket: "{{ goapp_release_bucket }}"
-    object: "{{ goapp_release_object }}"
-    dest: "{{ goapp_dir }}/{{ goapp_release_file }}"
-    mode: get
-  when: version.stat.exists
+- debug:
+    msg: "{{ version }}"
 
-- name: unarchive goapp release
-  unarchive:
-    src: "{{ goapp_dir }}/{{ goapp_release_file }}"
-    dest: "{{ goapp_dir }}"
-    owner: "{{ goapp_user }}"
-    group: "{{ goapp_group }}"
-    mode: 0755
-    remote_src: true
-    list_files: true
-  register: release_list
-  when: version.stat.exists
-  notify: set filename
+- block:
+  - name: download goapp release
+    aws_s3:
+      aws_access_key: "{{ goapp_access_key_id }}"
+      aws_secret_key: "{{ goapp_secret_access_key }}"
+      bucket: "{{ goapp_release_bucket }}"
+      object: "{{ goapp_release_object }}"
+      dest: "{{ goapp_dir }}/{{ goapp_release_file }}"
+      mode: get
+
+  - name: unarchive goapp release
+    unarchive:
+      src: "{{ goapp_dir }}/{{ goapp_release_file }}"
+      dest: "{{ goapp_dir }}"
+      owner: "{{ goapp_user }}"
+      group: "{{ goapp_group }}"
+      mode: 0755
+      remote_src: true
+      list_files: true
+    register: release_list
+    notify: set filename
+  when: not version.stat.exists
