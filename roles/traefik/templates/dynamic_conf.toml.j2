@@ -60,7 +60,7 @@
 {% endif %}
 
 {% for redirect in regex_redirect %}
-[http.middlewares.{{ redirect.label }}.stripPrefix]
+[http.middlewares.{{ label }}{{ redirect.label }}.redirectRegex]
   regex = "{{ redirect.regex }}"
   replacement = "{{ redirect.replacement }}"
 {% endfor %}
