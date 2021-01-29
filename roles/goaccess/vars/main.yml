@@ -5,6 +5,5 @@ ansible_support_packages:
   - libmaxminddb-dev
   - libssl-dev
   - build-essential
-  - geoip-database
 
 systemd_units_dir: /lib/systemd/system

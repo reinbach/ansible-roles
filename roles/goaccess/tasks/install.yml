@@ -17,6 +17,7 @@
     - "{{ goaccess_config_dir }}"
     - "{{ goaccess_html_dir }}"
     - "{{ goaccess_data_dir }}"
+    - "{{ goaccess_geoip_dir }}"
 
 - name: download goaccess
   get_url:
@@ -39,7 +40,7 @@
 
 - block:
   - name: configure goaccess build
-    command: ./configure --enable-utf8
+    command: ./configure --enable-utf8 --enable-geoip=mmdb
     args:
       chdir: "{{ goaccess_dir }}/goaccess-{{ goaccess_version }}"
 
@@ -56,3 +57,30 @@
       chdir: "{{ goaccess_dir }}/goaccess-{{ goaccess_version }}"
     notify: restart goaccess
   when: _download_archive.changed
+
+- name: download geoip city database
+  get_url:
+    url: "{{ geoip_city_download_url }}"
+    dest: "{{ goaccess_geoip_dir }}"
+  register: _download_geoip
+  until: _download_geoip is succeeded
+  retries: 5
+  delay: 2
+  run_once: true
+  check_mode: false
+
+- block:
+  - name: unpack geoip city database
+    unarchive:
+      src: "{{ _download_geoip.dest }}"
+      dest: "{{ goaccess_geoip_dir }}"
+      remote_src: "yes"
+    check_mode: false
+
+  - name: move geoip city file
+    copy:
+      src: "{{ _download_geoip.dest | regex_replace('.tar.gz') }}/{{ geoip_city_file }}"
+      dest: "{{ goaccess_geoip_file }}"
+      remote_src: "yes"
+      mode: 0770
+  when: _download_geoip.changed
