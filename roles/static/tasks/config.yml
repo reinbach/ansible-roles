@@ -1,0 +1,5 @@
+---
+- name: add analytics to env vars
+  set_fact:
+    static_env_vars: "{{ static_env_vars }} + {{ analytic_env_vars }}"
+  when: static_analytics == "yes"

@@ -6,6 +6,7 @@
     static_domain: bayete.com
     static_access_key: AKIAXU542XLPFIJHITJ3
     static_secret_key: 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
+    static_analytics: "yes"
     users:
       - first_name: greg
         last_name: reinbach
