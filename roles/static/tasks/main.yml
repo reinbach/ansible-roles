@@ -27,4 +27,6 @@
     goapp_access_key_id: "{{ static_access_key }}"
     goapp_secret_access_key: "{{ static_secret_key }}"
     goapp_env_vars: "{{ static_env_vars }}"
+    goapp_add_analytics: "{{ static_analytics }}"
+    goapp_analytics_port: "{{ static_analytics_ws_port }}"
     cors_domains: "domains"
