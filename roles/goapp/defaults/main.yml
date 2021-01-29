@@ -30,3 +30,5 @@ goapp_env_vars: []
 goapp_http_listen_addr: 127.0.0.1
 goapp_http_port: 3000
 goapp_add_www: false
+goapp_add_analytics: "no"
+goapp_analytics_port: 7890

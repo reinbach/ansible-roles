@@ -18,5 +18,7 @@
     http_port: "{{ goapp_http_port }}"
     add_www: "{{ goapp_add_www }}"
     add_path_prefixes: "{{ goapp_add_path_prefixes|default([]) }}"
+    add_analytics: "{{ goapp_add_analytics }}"
+    analytics_port: "{{ goapp_analytics_port }}"
   tags:
     - users
