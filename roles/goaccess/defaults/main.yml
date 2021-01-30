@@ -11,6 +11,7 @@ goaccess_config_file: "{{ goaccess_config_dir }}/{{ goaccess_name }}.conf"
 goaccess_html_dir: "{{ goaccess_dir }}/html"
 goaccess_html_file: "{{ goaccess_html_dir }}/{{ goaccess_name }}.html"
 goaccess_data_dir: "{{ goaccess_dir }}/data"
+goaccess_data_project_dir: "{{ goaccess_data_dir }}/{{ goaccess_project }}"
 goaccess_geoip_dir: "{{ goaccess_dir }}/geoip"
 goaccess_log_file: /var/log/traefik/access.log
 

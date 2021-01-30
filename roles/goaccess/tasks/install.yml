@@ -17,6 +17,7 @@
     - "{{ goaccess_config_dir }}"
     - "{{ goaccess_html_dir }}"
     - "{{ goaccess_data_dir }}"
+    - "{{ goaccess_data_project_dir }}"
     - "{{ goaccess_geoip_dir }}"
 
 - name: download goaccess
