@@ -33,7 +33,7 @@
     [http.services.service-analytics-{{ label }}]
       [http.services.service-analytics-{{ label }}.loadBalancer]
         [[http.services.service-analytics-{{ label }}.loadBalancer.servers]]
-          url = "http://{{ ip_address }}:{{ analytics_port }}"
+          url = "ws://{{ ip_address }}:{{ analytics_port }}"
     {% endif %}
 
 {% if cors_domains is defined %}
