@@ -1,2 +1,3 @@
-* Add make command to create container
-* Break oaccess services into separate access filter, and goaccess services
+* Move traefik analytics to tcp routers/services
+* Set default analytics ws port to 7891 in static
+* Update goaccess filter service command, escape string properly
