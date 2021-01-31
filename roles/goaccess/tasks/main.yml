@@ -2,8 +2,14 @@
 - include: install.yml
 - include: config.yml
 
+- name: ensure goaccess filter is running
+  service:
+    name: "{{ goaccess_filter_service }}"
+    state: started
+    enabled: "yes"
+
 - name: ensure goaccess is running
   service:
-    name: "{{ goaccess_name }}"
+    name: "{{ goaccess_service }}"
     state: started
     enabled: "yes"

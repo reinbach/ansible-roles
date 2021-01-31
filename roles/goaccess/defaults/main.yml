@@ -13,9 +13,14 @@ goaccess_html_file: "{{ goaccess_html_dir }}/{{ goaccess_name }}.html"
 goaccess_data_dir: "{{ goaccess_dir }}/data"
 goaccess_data_project_dir: "{{ goaccess_data_dir }}/{{ goaccess_project }}"
 goaccess_geoip_dir: "{{ goaccess_dir }}/geoip"
-goaccess_log_file: /var/log/traefik/access.log
+goaccess_log_dir: /var/log/traefik
+goaccess_log_file: "{{ goaccess_log_dir }}/access.log"
+goaccess_project_log_file: "{{ goaccess_data_dir }}/access_{{ goaccess_project }}.log"
 
 goaccess_ws_port: 7890
+
+goaccess_filter_service: "{{ goaccess_name }}-filter.service"
+goaccess_service: "{{ goaccess_name }}.service"
 
 # geoip
 geoip_token: bIf9d4SW6xsX3gdN

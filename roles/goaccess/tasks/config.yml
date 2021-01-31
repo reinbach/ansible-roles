@@ -1,7 +1,44 @@
 ---
+- name: check that traefik access log file exists
+  stat:
+    path: "{{ goaccess_log_file }}"
+  register: access_log_file_result
+
+- block:
+    - name: create access log dir
+      file:
+        path: "{{ goaccess_log_dir }}"
+        state: directory
+        owner: root
+        mode: 0755
+
+    - name: create access log file
+      file:
+        path: "{{ goaccess_log_file }}"
+        state: touch
+  when: not access_log_file_result.stat.exists
+
+- name: check that project access log file exists
+  stat:
+    path: "{{ goaccess_project_log_file }}"
+  register: project_log_file_result
+
+- name: create project access log file
+  file:
+    path: "{{ goaccess_project_log_file }}"
+    state: touch
+  when: not project_log_file_result.stat.exists
+
+- name: create goaccess filter service file
+  template:
+    src: goaccess_filter.service.j2
+    dest: "{{ systemd_units_dir }}/{{ goaccess_filter_service }}"
+    mode: 0644
+  notify: restart goaccess filter
+
 - name: create goaccess service file
   template:
     src: goaccess.service.j2
-    dest: "{{ systemd_units_dir }}/{{ goaccess_name }}.service"
+    dest: "{{ systemd_units_dir }}/{{ goaccess_service }}"
     mode: 0644
   notify: restart goaccess
