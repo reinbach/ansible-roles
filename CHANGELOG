@@ -1,3 +1,2 @@
-* Update server in traefik analytics loadBalancer
-* Separate project data files in goaccess
-* Correct labelling of traefik redirectRegex middleware
+* Add make command to create container
+* Break oaccess services into separate access filter, and goaccess services
