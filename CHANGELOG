@@ -1,3 +1,3 @@
-* Move traefik analytics to tcp routers/services
-* Set default analytics ws port to 7891 in static
-* Update goaccess filter service command, escape string properly
+* Add ws-url to goaccess service
+* Update traefik analytics with tls and middleware
+* Update make container to remove container first
