@@ -5,13 +5,27 @@
       service = "service-{{ label }}"
       rule = "{{ router_rule }}"
       middlewares = ["https-redirect"]
+
+{% if add_analytics %}
+    [http.routers.analytics-{{ label }}-router]
+      entryPoints = ["analytics"]
+      service = "service-analytics-{{ label }}"
+      rule = "{{ router_rule }}"
+      middlewares = ["ssl-header"]
+      [http.routers.analytics-{{ label }}-router.tls]
+        certResolver = "letsencrypt"
+        [[http.routers.analytics-{{ label }}-router.tls.domains]]
+          main = "{{ domain }}"
+          sans = ["{{ domains|join('","') }}"]
+{% endif %}
+
     [http.routers.https-{{ label }}-router]
       entryPoints = ["web-secure"]
       service = "service-{{ label }}"
       rule = "{{ router_rule }}"
-      {% if middlewares %}
+{% if middlewares %}
       middlewares = ["{{ middlewares|join('","') }}"]
-      {% endif %}
+{% endif %}
       [http.routers.https-{{ label }}-router.tls]
         certResolver = "letsencrypt"
         [[http.routers.https-{{ label }}-router.tls.domains]]
@@ -24,21 +38,12 @@
         [[http.services.service-{{ label }}.loadBalancer.servers]]
           url = "http://{{ ip_address }}:{{ http_port }}"
 
-
 {% if add_analytics %}
-[tcp]
-  [tcp.routers]
-    [tcp.routers.analytics-{{ label }}-router]
-      entryPoints = ["analytics"]
-      service = "service-analytics-{{ label }}"
-      rule = "{{ router_rule }}"
-  [tcp.services]
-    [tcp.services.service-analytics-{{ label }}]
-      [tcp.services.service-analytics-{{ label }}.loadBalancer]
-        [[tcp.services.service-analytics-{{ label }}.loadBalancer.servers]]
-          address = "{{ ip_address }}:{{ analytics_port }}"
+    [http.services.service-analytics-{{ label }}]
+      [http.services.service-analytics-{{ label }}.loadBalancer]
+        [[http.services.service-analytics-{{ label }}.loadBalancer.servers]]
+          url = "https://{{ ip_address }}:{{ analytics_port }}"
 {% endif %}
-
 
 
 {% if cors_domains is defined %}
