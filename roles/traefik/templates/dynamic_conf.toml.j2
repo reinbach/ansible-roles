@@ -42,7 +42,7 @@
     [http.services.service-analytics-{{ label }}]
       [http.services.service-analytics-{{ label }}.loadBalancer]
         [[http.services.service-analytics-{{ label }}.loadBalancer.servers]]
-          url = "https://{{ ip_address }}:{{ analytics_port }}"
+          url = "http://{{ ip_address }}:{{ analytics_port }}"
 {% endif %}
 
 

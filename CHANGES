@@ -1,3 +1,7 @@
+0.15.0
+------
+* Correct url for analytics service in traefik
+
 0.14.0
 ------
 * Add ws-url to goaccess service
