@@ -1,3 +1,1 @@
-* Add ws-url to goaccess service
-* Update traefik analytics with tls and middleware
-* Update make container to remove container first
+* Correct url for analytics service in traefik
