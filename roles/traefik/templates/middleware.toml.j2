@@ -8,3 +8,7 @@
     [http.middlewares.hsts-header.headers]
       [http.middlewares.hsts-header.headers.customResponseHeaders]
         Strict-Transport-Security = "max-age=63072000"
+
+   [http.middlewares.ssl-header.headers]
+      [http.middlewares.ssl-header.headers.customRequestHeaders]
+        X-Forwarded-Proto = "https"

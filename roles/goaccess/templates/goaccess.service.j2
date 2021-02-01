@@ -9,6 +9,7 @@ ExecStart=/usr/local/bin/goaccess \
                --log-format COMMON \
                --html-report-title "{{ goaccess_project|title }} Statistics" \
                --port {{ goaccess_ws_port }} \
+               --ws-url {{ goaccess_domain }}:7890 \
                --real-time-html \
                --output {{ goaccess_html_file }} \
                --geoip-database {{ goaccess_geoip_file }} \

@@ -1,3 +1,9 @@
+0.14.0
+------
+* Add ws-url to goaccess service
+* Update traefik analytics with tls and middleware
+* Update make container to remove container first
+
 0.13.0
 ------
 * Move traefik analytics to tcp routers/services

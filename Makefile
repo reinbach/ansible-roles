@@ -37,6 +37,7 @@ test:
 
 
 container:
+	podman rm ${NAME}-ubuntu-20.04
 	podman run -d --tmpfs=/run --tmpfs=/tmp \
 	    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
 	    --cap-add=SYS_ADMIN \
