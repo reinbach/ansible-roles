@@ -3,3 +3,20 @@
   set_fact:
     static_env_vars: "{{ static_env_vars }} + {{ analytic_env_vars }}"
   when: static_analytics == "yes"
+
+- block:
+  - name: set add prefixes var
+    set_fact:
+      static_add_path_prefixes:
+        - "/media/"
+        - "/static/"
+
+  - name: add analytics to prefixes var
+    set_fact:
+      static_add_path_prefixes: "{{ static_add_path_prefixes }} + [/analytics]"
+    when: static_analytics == "yes"
+
+  - name: set proxy config name
+    set_fact:
+      static_proxy_config_name: "{{ static_name }}"
+  when: path_prefix_required

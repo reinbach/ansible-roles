@@ -1,6 +1,7 @@
 ---
 static_version: 0.5.0
 static_name: static
+static_proxy_config_name: "{{ static_domain }}"
 
 static_analytics: "no"
 static_analytics_ws_port: 7891
@@ -19,11 +20,14 @@ static_http_listen_addr: 0.0.0.0
 static_http_port: 3000
 static_add_www: "yes"
 
+static_add_path_prefixes: []
 static_env_vars:
   - key: BASE_DIR
     value: "{{ static_files_dir }}"
   - key: STATIC_PORT
     value: "{{ static_http_port }}"
+
+path_prefix_required: "no"
 
 analytic_env_vars:
   - key: ANALYTIC_DIR
