@@ -20,5 +20,6 @@
     add_path_prefixes: "{{ goapp_add_path_prefixes|default([]) }}"
     add_analytics: "{{ goapp_add_analytics }}"
     analytics_port: "{{ goapp_analytics_port }}"
+    traefik_config_name: "{{ goapp_proxy_config_name }}"
   tags:
     - users

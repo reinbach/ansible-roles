@@ -5,6 +5,7 @@ goapp_version: 0.1
 goapp_name: app
 
 goapp_app: "{{ goapp_name }}"
+goapp_proxy_config_name: "{{ goapp_domain }}"
 goapp_release_file: "{{ goapp_app }}-{{ goapp_version }}.tar.gz"
 
 # s3 release source

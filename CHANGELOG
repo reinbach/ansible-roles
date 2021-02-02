@@ -1,1 +1,1 @@
-* Correct url for analytics service in traefik
+* Update static to handle add path prefix cleanly
