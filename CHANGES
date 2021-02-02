@@ -1,3 +1,8 @@
+0.18.0
+------
+* Update traefik analytics with auth middleware
+* Update traefik to ignore path prefixes for analytics websocket endpoint
+
 0.17.0
 ------
 * Fix static_add_path_prefixes var in static

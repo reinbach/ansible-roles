@@ -71,7 +71,10 @@
       when: cors_domains is defined and cors_domains != "domains"
 
     - set_fact:
-        router_rule: "Host(`{{ domains|join('`,`') }}`)"
+        router_domain_rule: "Host(`{{ domains|join('`,`') }}`)"
+
+    - set_fact:
+        router_rule: "{{ router_domain_rule }}"
 
     - set_fact:
         path_prefix_rules: "{{ path_prefix_rules }} + ['`{{ item }}`']"
