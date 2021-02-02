@@ -1,3 +1,7 @@
+0.17.0
+------
+* Fix static_add_path_prefixes var in static
+
 0.16.0
 ------
 * Update static to handle add path prefix cleanly

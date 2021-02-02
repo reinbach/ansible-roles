@@ -1,1 +1,1 @@
-* Update static to handle add path prefix cleanly
+* Fix static_add_path_prefixes var in static
