@@ -90,7 +90,7 @@
       when: (path_prefix_rules|length > 0) and path_prefix_required == "yes"
 
     - set_fact:
-        router_analytic_rule: "{{ router_domain_rule }} && PathPrefix(`/analytics')"
+        router_analytic_rule: "{{ router_domain_rule }} && PathPrefix(`/analytics`)"
 
     - name: Add dynamic config
       template:
