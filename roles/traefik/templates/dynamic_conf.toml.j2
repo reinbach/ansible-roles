@@ -17,6 +17,17 @@
         [[http.routers.analytics-{{ label }}-router.tls.domains]]
           main = "{{ domain }}"
           sans = ["{{ domains|join('","') }}"]
+
+    [http.routers.https-{{ label }}-analytics-router]
+      entryPoints = ["web-secure"]
+      service = "service-{{ label }}"
+      rule = "{{ router_analytic_rule }}"
+      middlewares = ["auth"]
+      [http.routers.https-{{ label }}-analytics-router.tls]
+        certResolver = "letsencrypt"
+        [[http.routers.https-{{ label }}-analytics-router.tls.domains]]
+          main = "{{ domain }}"
+          sans = ["{{ domains|join('","') }}"]
 {% endif %}
 
     [http.routers.https-{{ label }}-router]
