@@ -1,3 +1,2 @@
-* Handle /analytics with auth middleware in traefik config
-* No longer add /analytics to path prefixes in static
-* Remove auth middleware from traefik analytics websocket endpoint
+* Fix traefik statement for router_analytic_rule
+* Correct static config block when statement
