@@ -1,2 +1,1 @@
-* Fix traefik statement for router_analytic_rule
-* Correct static config block when statement
+* Correct if statements in traefik dynamic config

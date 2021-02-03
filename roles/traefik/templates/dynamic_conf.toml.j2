@@ -6,7 +6,7 @@
       rule = "{{ router_rule }}"
       middlewares = ["https-redirect"]
 
-{% if add_analytics %}
+{% if add_analytics == "yes" %}
     [http.routers.analytics-{{ label }}-router]
       entryPoints = ["analytics"]
       service = "service-analytics-{{ label }}"
@@ -34,7 +34,7 @@
       entryPoints = ["web-secure"]
       service = "service-{{ label }}"
       rule = "{{ router_rule }}"
-{% if middlewares %}
+{% if (middlewares|length > 0) %}
       middlewares = ["{{ middlewares|join('","') }}"]
 {% endif %}
       [http.routers.https-{{ label }}-router.tls]
@@ -49,7 +49,7 @@
         [[http.services.service-{{ label }}.loadBalancer.servers]]
           url = "http://{{ ip_address }}:{{ http_port }}"
 
-{% if add_analytics %}
+{% if add_analytics == "yes" %}
     [http.services.service-analytics-{{ label }}]
       [http.services.service-analytics-{{ label }}.loadBalancer]
         [[http.services.service-analytics-{{ label }}.loadBalancer.servers]]
