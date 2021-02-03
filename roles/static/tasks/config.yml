@@ -14,4 +14,4 @@
   - name: set proxy config name
     set_fact:
       static_proxy_config_name: "{{ static_name }}"
-  when: path_prefix_required
+  when: path_prefix_required == "yes"
