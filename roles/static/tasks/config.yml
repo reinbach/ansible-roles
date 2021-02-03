@@ -11,11 +11,6 @@
         - "/media/"
         - "/static/"
 
-  - name: add analytics to prefixes var
-    set_fact:
-      static_add_path_prefixes: "{{ static_add_path_prefixes }} + ['/analytics']"
-    when: static_analytics == "yes"
-
   - name: set proxy config name
     set_fact:
       static_proxy_config_name: "{{ static_name }}"
