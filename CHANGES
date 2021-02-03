@@ -1,3 +1,8 @@
+0.20.0
+------
+* Fix traefik statement for router_analytic_rule
+* Correct static config block when statement
+
 0.19.0
 ------
 * Handle /analytics with auth middleware in traefik config
