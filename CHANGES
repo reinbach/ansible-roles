@@ -1,3 +1,9 @@
+0.19.0
+------
+* Handle /analytics with auth middleware in traefik config
+* No longer add /analytics to path prefixes in static
+* Remove auth middleware from traefik analytics websocket endpoint
+
 0.18.0
 ------
 * Update traefik analytics with auth middleware
