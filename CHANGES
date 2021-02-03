@@ -1,3 +1,7 @@
+0.21.0
+------
+* Correct if statements in traefik dynamic config
+
 0.20.0
 ------
 * Fix traefik statement for router_analytic_rule
