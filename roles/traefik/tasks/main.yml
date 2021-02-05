@@ -3,6 +3,12 @@
 - include_tasks: install.yml
 - include_tasks: config.yml
 
+- include_role:
+    name: logrotate
+  vars:
+    logrotate_name: traefik
+    logrotate_files_regex: "{{ traefik_log_dir }}/*.log"
+
 - name: ensure traefik service is enabled and running
   systemd:
     name: traefik

@@ -2,6 +2,12 @@
 - include: install.yml
 - include: config.yml
 
+- include_role:
+    name: logrotate
+  vars:
+    logrotate_name: "{{ goaccess_name }}"
+    logrotate_files_regex: "{{ goaccess_project_log_file }}"
+
 - name: ensure goaccess filter is running
   service:
     name: "{{ goaccess_filter_service }}"
