@@ -1,3 +1,8 @@
+0.22.0
+------
+* Add logrotate to traefik log
+* Add logrotate functionality to goaccess access logs
+
 0.21.0
 ------
 * Correct if statements in traefik dynamic config

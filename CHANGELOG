@@ -1,1 +1,2 @@
-* Correct if statements in traefik dynamic config
+* Add logrotate to traefik log
+* Add logrotate functionality to goaccess access logs
