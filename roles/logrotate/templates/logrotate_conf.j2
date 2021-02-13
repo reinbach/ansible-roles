@@ -2,6 +2,12 @@
 	missingok
 	notifempty
 	delaycompress
+{% if logrotate_post_command != "" %}
+        postrotate
+                {{ logrotate_post_command }}
+{% endif %}
+{% if logrotate_sharedscripts == "yes" %}
 	sharedscripts
+{% endif %}
 	rotate 5
 }

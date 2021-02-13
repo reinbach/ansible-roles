@@ -7,6 +7,8 @@
   vars:
     logrotate_name: "{{ goaccess_name }}"
     logrotate_files_regex: "{{ goaccess_project_log_file }}"
+    logrotate_post_command: "ps aux | grep '\\-{{ goaccess_project }}\\-' | awk '{print $2}' | xargs /usr/bin/kill -USR1"
+    logrotate_sharedscripts: "no"
 
 - name: ensure goaccess filter is running
   service:

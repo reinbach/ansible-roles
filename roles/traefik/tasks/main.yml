@@ -8,6 +8,7 @@
   vars:
     logrotate_name: traefik
     logrotate_files_regex: "{{ traefik_log_dir }}/*.log"
+    logrotate_post_command: /usr/bin/pkill -USR1 traefik
 
 - name: ensure traefik service is enabled and running
   systemd:
