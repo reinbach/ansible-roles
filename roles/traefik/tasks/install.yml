@@ -1,5 +1,6 @@
 ---
 - name: create traefik directories
+  become: yes
   file:
     path: "{{ item }}"
     state: directory
@@ -9,6 +10,7 @@
     - "{{ traefik_log_dir }}"
 
 - name: download traefik binary
+  become: yes
   unarchive:
     src: "{{ item.url }}"
     dest: "{{ item.dest }}"
