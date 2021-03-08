@@ -1,18 +1,20 @@
 ---
 - name: install required packages
-  become: true
+  become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ ansible_support_packages }}"
 
 - name: install required libraries
+  become: yes
   pip:
     name: "{{ python_pip_packages }}"
     state: present
     executable: /usr/bin/pip3
 
 - name: start slapd
+  become: yes
   systemd:
     name: slapd
     state: started

@@ -1,5 +1,6 @@
 ---
 - name: Configure permissions
+  become: yes
   notify: restart slapd
   ldap_attrs:
     state: exact
@@ -22,6 +23,7 @@
           by * none
 
 - name: 'Create root object "{{ ldap_base }}"'
+  become: yes
   ldap_entry:
     state: present
     dn: '{{ ldap_base }}'
@@ -33,6 +35,7 @@
       o: ldap
 
 - name: Create basic organizational units
+  become: yes
   ldap_entry:
     state: present
     dn: '{{ item.dn }}'
