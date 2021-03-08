@@ -3,6 +3,7 @@
 - include_tasks: config.yml
 
 - name: enable and start the gitea web service
+  become: yes
   systemd:
     name: gitea
     state: started

@@ -1,9 +1,11 @@
 ---
 - name: restart gitea
+  become: yes
   service:
     name: gitea
     state: restarted
     enabled: yes
 
 - name: set gitea auth
+  become: yes
   command: "{{ gitea_bin | dirname }}/scripts/auth.sh"
