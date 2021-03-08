@@ -1,5 +1,6 @@
 ---
 - name: Copy the Node Exporter systemd service file
+  become: yes
   template:
     src: node_exporter.service.j2
     dest: /etc/systemd/system/node_exporter.service
@@ -9,6 +10,7 @@
   notify: restart node_exporter
 
 - name: Create textfile collector dir
+  become: yes
   file:
     path: "{{ node_exporter_textfile_dir }}"
     state: directory

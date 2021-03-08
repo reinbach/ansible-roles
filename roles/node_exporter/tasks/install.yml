@@ -1,5 +1,6 @@
 ---
 - name: Create the node_exporter group
+  become: yes
   group:
     name: "{{ _node_exporter_system_group }}"
     state: present
@@ -7,6 +8,7 @@
   when: _node_exporter_system_group != "root"
 
 - name: Create the node_exporter user
+  become: yes
   user:
     name: "{{ _node_exporter_system_user }}"
     groups: "{{ _node_exporter_system_group }}"
@@ -52,6 +54,7 @@
   when: node_exporter_binary_local_dir | length == 0
 
 - name: propagate locally distributed node_exporter binary
+  become: yes
   copy:
     src: "{{ node_exporter_binary_local_dir }}/node_exporter"
     dest: "{{ _node_exporter_binary_install_dir }}/node_exporter"
