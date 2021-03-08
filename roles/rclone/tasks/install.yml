@@ -1,11 +1,13 @@
 ---
 - name: install required packages
+  become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ ansible_support_packages }}"
 
 - name: create rclone config directory
+  become: yes
   file:
     path: "{{ item }}"
     owner: "{{ rclone_user }}"
@@ -15,6 +17,7 @@
   with_items: "{{ rclone_dirs }}"
 
 - name: create rclone open directories
+  become: yes
   file:
     path: "{{ item }}"
     owner: "{{ rclone_user }}"
@@ -24,6 +27,7 @@
   with_items: "{{ rclone_open_dirs }}"
 
 - name: download rclone
+  become: yes
   unarchive:
     src: "{{ item.url }}"
     dest: "{{ item.dest }}"
@@ -36,6 +40,7 @@
       dest: "{{ rclone_working_dir }}"
 
 - name: install rclone
+  become: yes
   file:
     path: /usr/local/bin/rclone
     src: "{{ rclone_working_dir }}/{{ rclone_release }}/rclone"

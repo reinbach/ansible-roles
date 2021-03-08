@@ -1,5 +1,6 @@
 ---
 - name: configure rclone
+  become: yes
   template:
     src: "rclone_conf.j2"
     dest: "{{ rclone_config_file }}"
