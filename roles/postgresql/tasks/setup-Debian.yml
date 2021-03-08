@@ -1,16 +1,19 @@
 ---
 - name: Ensure PostgreSQL Python libraries are installed.
+  become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ postgresql_python_packages }}"
 
 - name: Ensure PostgreSQL packages are installed.
+  become: yes
   package:
     name: "{{ postgresql_packages }}"
     state: present
 
 - name: Ensure all configured locales are present.
+  become: yes
   locale_gen:
     name: "{{ item }}"
     state: present

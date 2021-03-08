@@ -1,5 +1,6 @@
 ---
 - name: Create backup scripts for databases
+  become: yes
   template:
     src: "backup_script.j2"
     dest: "{{ postgresql_backup_scripts }}/{{ item.name }}.sh"
@@ -9,6 +10,7 @@
   with_items: "{{ postgresql_databases }}"
 
 - name: Ensure backup of databases
+  become: yes
   cron:
     name: "{{ item.name }} backup script"
     minute: "5"
