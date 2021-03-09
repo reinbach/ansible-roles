@@ -1,16 +1,19 @@
 ---
 - name: Ensure dependencies are installed.
+  become: yes
   apt:
     name: "{{ item }}"
     state: present
   with_items: "{{ docker_packages }}"
 
 - name: Install required libraries
+  become: yes
   pip:
     name: "{{ item }}"
   with_items: "{{ docker_libraries }}"
 
 - name: Add Docker apt key.
+  become: yes
   apt_key:
     url: https://download.docker.com/linux/ubuntu/gpg
     id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
@@ -19,24 +22,28 @@
   ignore_errors: true
 
 - name: Add Docker repository.
+  become: yes
   apt_repository:
     repo: "{{ docker_apt_repository }}"
     state: present
     update_cache: true
 
 - name: Install Docker.
+  become: yes
   package:
     name: "{{ docker_package }}"
     state: present
   notify: restart docker
 
 - name: Ensure Docker is started and enabled at boot.
+  become: yes
   service:
     name: docker
     state: started
     enabled: true
 
 - name: Install docker-compose.
+  become: yes
   get_url:
     url: "{{ docker_compose_url }}"
     dest: /usr/local/bin/docker-compose
