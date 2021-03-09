@@ -1,6 +1,6 @@
 ---
 - name: create system user script
-  become: true
+  become: yes
   template:
     src: gitea.create_system_user.script.j2
     dest: "{{ gitea_scripts_dir }}/create_system_user.sh"
