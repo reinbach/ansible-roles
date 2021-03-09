@@ -1,21 +1,25 @@
 ---
 - name: install required packages
+  become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ pypiserver_packages }}"
 
 - name: install required libraries
+  become: yes
   pip:
     name: "{{ pypiserver_libraries }}"
     state: present
 
 - name: create pypi group
+  become: yes
   group:
     name: "{{ pypiserver_group }}"
     state: present
 
 - name: create pypi user
+  become: yes
   user:
     name: "{{ pypiserver_user }}"
     group: "{{ pypiserver_group }}"
@@ -24,6 +28,7 @@
     append: yes
 
 - name: create needed directories
+  become: yes
   file:
     path: "{{ pypiserver_dir }}/{{ item }}"
     state: directory
@@ -34,6 +39,7 @@
   with_items: "{{ pypiserver_directories }}"
 
 - name: deploy docker-compose file
+  become: yes
   notify: restart pypiserver
   template:
     src: docker-compose.yml.j2
@@ -45,6 +51,7 @@
     - pypiserver
 
 - name: create the pypiserver systemd service file
+  become: yes
   template:
     src: pypiserver.service.j2
     dest: "{{ systemd_units_dir }}/pypiserver.service"
