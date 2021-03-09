@@ -1,21 +1,25 @@
 ---
 - name: Install required packages
+  become: yes
   package:
     name: "{{ item }}"
     state: present
   with_items: "{{ ansible_support_packages }}"
 
 - name: install required libraries
+  become: yes
   pip:
     name: "{{ python_pip_packages }}"
     state: present
 
 - name: create drone group
+  become: yes
   group:
     name: "{{ drone_group }}"
     state: present
 
 - name: create drone user
+  become: yes
   user:
     name: "{{ drone_user }}"
     group: "{{ drone_group }}"
@@ -24,6 +28,7 @@
     append: yes
 
 - name: make sure relevant directories exist
+  become: yes
   file:
     path: "{{ item }}"
     state: directory
@@ -36,6 +41,7 @@
     - "{{ drone_working_dir }}/data"
 
 - name: download drone cli
+  become: yes
   unarchive:
     src: "{{ drone_download_url }}"
     dest: "{{ drone_working_dir }}"
@@ -45,6 +51,7 @@
     remote_src: yes
 
 - name: create the drone systemd service file
+  become: yes
   template:
     src: drone.service.j2
     dest: "{{ systemd_units_dir }}/drone.service"
