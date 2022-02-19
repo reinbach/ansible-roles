@@ -33,7 +33,7 @@
     src: "{{ django_release_url }}"
     dest: "{{ django_release_file }}"
     headers:
-      Authorization: "{{ django_repo_token }}"
+      Authorization: "token {{ django_repo_token }}"
     remote_src: yes
   when: not version.stat.exists
 
