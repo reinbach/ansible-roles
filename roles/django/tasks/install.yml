@@ -29,18 +29,22 @@
   register: version
 
 - name: download project release
+  uri:
+    src: "{{ django_release_url }}"
+    dest: "{{ django_release_file }}"
+    headers:
+      Authorization: "{{ django_repo_token }}"
+  when: not version.stat.exists
+
+- name: unarchive project release
   unarchive:
-    src: "{{ item.url }}"
-    dest: "{{ item.dest }}"
+    src: "{{ django_release_file }}"
+    dest: "{{ django_dir }}"
     owner: "{{ django_user }}"
     group: "{{ django_group }}"
     mode: 0755
-    remote_src: true
     exclude:
       - tests
-  with_items:
-    - url: "{{ django_release_url }}"
-      dest: "{{ django_dir }}"
   when: not version.stat.exists
 
 - name: rename project download
