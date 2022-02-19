@@ -1,3 +1,8 @@
+0.23.0
+------
+* Update relevant commands to run as root
+* Update django repo/release url to work with github
+
 0.22.0
 ------
 * Add logrotate to traefik log

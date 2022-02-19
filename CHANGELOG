@@ -1,2 +1,2 @@
-* Add logrotate to traefik log
-* Add logrotate functionality to goaccess access logs
+* Update relevant commands to run as root
+* Update django repo/release url to work with github
