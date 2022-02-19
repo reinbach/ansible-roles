@@ -34,6 +34,7 @@
     dest: "{{ django_release_file }}"
     headers:
       Authorization: "{{ django_repo_token }}"
+    remote_src: yes
   when: not version.stat.exists
 
 - name: unarchive project release
