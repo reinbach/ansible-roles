@@ -10,6 +10,7 @@
 - include_tasks: configure.yml
 
 - name: Ensure PostgreSQL is started and enabled on boot.
+  become: yes
   service:
     name: "{{ postgresql_daemon }}"
     state: "{{ postgresql_service_state }}"

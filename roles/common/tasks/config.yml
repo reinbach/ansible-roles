@@ -1,5 +1,6 @@
 ---
 - name: configure automatic upgrades
+  become: yes
   lineinfile:
     dest: "{{ unattended_upgrades_config }}"
     regexp: "^//{{ item.option }}.+$"
@@ -14,6 +15,7 @@
     dest: /etc/apt/apt.conf.d/20auto-upgrades
 
 - name: pull termite info
+  become: yes
   get_url:
     url: "{{ termite_url }}"
     dest: "{{ termite_dir }}"
@@ -21,6 +23,7 @@
   register: termite
 
 - name: load termite info
+  become: yes
   command:
     cmd: tic -x termite.terminfo
     chdir: "{{ termite_dir }}"

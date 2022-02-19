@@ -1,7 +1,7 @@
 ---
 django_version: "{{ django_version }}"
-django_repo_url: "https://{{ django_repo_domain }}/api/v1/repos/{{ django_repo_org }}/{{ django_repo_name }}"
-django_release_url: "{{ django_repo_url }}/archive/{{ django_version }}.tar.gz?token={{ django_repo_token }}"
+django_repo_url: "https://{{ django_repo_domain }}/{{ django_repo_org }}/{{ django_repo_name }}"
+django_release_url: "{{ django_repo_url }}/archive/refs/tags/{{ django_version }}.tar.gz?token={{ django_repo_token }}"
 
 django_name: django
 django_user: "{{ django_name }}"

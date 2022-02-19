@@ -1,5 +1,6 @@
 ---
 - name: install sentry
+  become: yes
   notify: restart sentry
   command:
     chdir: "{{ sentry_dir }}"
@@ -9,6 +10,7 @@
   #   SENTRY_IMAGE: "getsentry/sentry:{{ sentry_version }}"
 
 - name: restart sentry
+  become: yes
   service:
     name: sentry
     state: restarted

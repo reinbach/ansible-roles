@@ -2,3 +2,5 @@
 logrotate_config_dir: /etc/logrotate.d/
 logrotate_user: root
 logrotate_group: root
+logrotate_post_command: ""
+logrotate_sharedscripts: "yes"

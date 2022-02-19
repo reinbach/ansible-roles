@@ -27,9 +27,11 @@
   wait_for:
     host: "https://{{ drone_domain }}"
     delay: 10
+    timeout: 60
   when: user_exists is not defined
 
 - name: update user if exists
+  become: yes
   command: "{{ drone_bin }} user update {{ item.username }} {{ admin_flag }}"
   environment:
     DRONE_SERVER: "https://{{ drone_domain }}"
@@ -37,6 +39,7 @@
   when: user_exists is defined and item.state == "present"
 
 - name: create user if does not exist and is present
+  become: yes
   command: "{{ drone_bin }} user add {{ item.username }} {{ admin_flag }}"
   environment:
     DRONE_SERVER: "https://{{ drone_domain }}"
@@ -44,6 +47,7 @@
   when: user_exists is not defined and item.state == "present"
 
 - name: remove user if exists and absent
+  become: yes
   command: "{{ drone_bin }} user rm {{ item.username }}"
   environment:
     DRONE_SERVER: "https://{{ drone_domain }}"

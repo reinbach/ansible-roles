@@ -1,5 +1,6 @@
 ---
 - name: "Create organization {{ ldap_organization }}"
+  become: yes
   ldap_entry:
     state: present
     dn: "{{ ldap_base }}"
@@ -11,6 +12,7 @@
       o: "{{ ldap_organization }}"
 
 - name: "Create organizational units for {{ ldap_organization }}"
+  become: yes
   ldap_entry:
     state: present
     dn: "{{ item.dn }}"
@@ -23,6 +25,7 @@
       ou: "{{ ldap_user_ou }}"
 
 - name: create admin group
+  become: yes
   ldap_entry:
     state: present
     dn: "{{ ldap_admin_group_dn }}"

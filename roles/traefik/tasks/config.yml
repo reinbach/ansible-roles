@@ -1,5 +1,6 @@
 ---
 - name: create traefik systemd unit
+  become: yes
   template:
     src: "{{ traefik_systemd_unit_template }}.j2"
     dest: "{{ traefik_systemd_unit_dest }}"
@@ -10,6 +11,7 @@
     - restart traefik
 
 - name: copy traefik config file
+  become: yes
   template:
     src: "{{ traefik_template }}.j2"
     dest: "{{ traefik_config_file }}"
@@ -21,6 +23,7 @@
     - restart traefik
 
 - name: copy traefik middleware
+  become: yes
   template:
     src: "middleware.toml.j2"
     dest: "{{ traefik_config_dir }}/middleware.toml"
@@ -29,6 +32,7 @@
     mode: 0744
 
 - name: copy traefik tls options
+  become: yes
   template:
     src: "tls_options.toml.j2"
     dest: "{{ traefik_config_dir }}/tls_options.toml"
@@ -37,6 +41,7 @@
     mode: 0744
 
 - name: set docker provider
+  become: yes
   blockinfile:
     path: "{{ traefik_config_file }}"
     marker_begin: "BEGIN_DOCKER"
@@ -50,6 +55,7 @@
   when: docker_config == "yes"
 
 - name: copy traefik dashboard config file
+  become: yes
   template:
     src: "{{ traefik_dashboard_config_file }}.j2"
     dest: "{{ traefik_config_dir }}/{{ traefik_dashboard_config_file }}"
@@ -93,6 +99,7 @@
         router_analytic_rule: "{{ router_domain_rule }} && PathPrefix(`/analytics`)"
 
     - name: Add dynamic config
+      become: yes
       template:
         src: "{{ traefik_dynamic_config_file }}.j2"
         dest: "{{ traefik_config_dir }}/{{ traefik_config_name }}.toml"
@@ -102,6 +109,7 @@
   when: file_config == "yes"
 
 - name: set htpasswd file
+  become: yes
   template:
     src: htpasswd.j2
     dest: "{{ traefik_auth_file }}"

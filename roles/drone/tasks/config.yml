@@ -1,7 +1,7 @@
 ---
 - name: deploy config file
   notify: restart drone
-  become: true
+  become: yes
   template:
     src: drone.env.j2
     dest: "{{ drone_env_file }}"
@@ -12,6 +12,7 @@
     - users
 
 - name: deploy docker-compose file
+  become: yes
   notify: restart drone
   template:
     src: docker-compose.yml.j2

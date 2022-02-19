@@ -1,5 +1,6 @@
 ---
 - name: configure logrotate
+  become: yes
   template:
     src: "logrotate_conf.j2"
     dest: "{{ logrotate_config_dir }}/{{ logrotate_name }}"

@@ -1,7 +1,7 @@
 ---
 - name: gitea config file
   notify: restart gitea
-  become: true
+  become: yes
   template:
     src: gitea.ini.j2
     dest: "{{ gitea_config_dir }}/app.ini"
@@ -10,7 +10,7 @@
     mode: 0664
 
 - name: admin auth script
-  become: true
+  become: yes
   template:
     src: gitea.auth.script.j2
     dest: "{{ gitea_scripts_dir }}/auth.sh"
@@ -20,7 +20,7 @@
   notify: set gitea auth
 
 - name: override home page
-  become: true
+  become: yes
   copy:
     src: files/home.tmpl
     dest: "{{ gitea_custom_dir }}/templates/home.tmpl"

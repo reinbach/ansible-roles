@@ -1,5 +1,6 @@
 ---
 - name: create sync script
+  become: yes
   template:
     src: "sync_script.j2"
     dest: "{{ rclone_sync_script }}"
@@ -8,6 +9,7 @@
     mode: 0700
 
 - name: add sync cron
+  become: yes
   cron:
     name: Sync files to storage
     minute: "30"

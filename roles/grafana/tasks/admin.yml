@@ -16,6 +16,7 @@
       Content-Type: application/json
 
 - name: check for api token
+  become: yes
   slurp:
     src: "{{ grafana_token_file }}"
   register: api_token_encoded
@@ -47,6 +48,7 @@
   when: token_response is defined and not "skipped" in token_response
 
 - name: store api token
+  become: yes
   copy:
     content: "{{ api_token }}"
     dest: "{{ grafana_token_file }}"

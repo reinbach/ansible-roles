@@ -1,5 +1,6 @@
 ---
 - name: restart pypiserver
+  become: yes
   service:
     name: pypiserver
     state: restarted
