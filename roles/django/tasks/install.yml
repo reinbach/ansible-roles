@@ -29,30 +29,35 @@
   register: version
 
 - name: download project release
-  uri:
-    src: "{{ django_release_url }}"
-    dest: "{{ django_release_file }}"
+  get_url:
+    url: "{{ django_release_url }}"
+    dest: "{{ django_dir }}/{{ django_release_file }}"
     headers:
-      Authorization: "token {{ django_repo_token }}"
-    remote_src: yes
+      Authorization: "Token {{ django_repo_token }}"
   when: not version.stat.exists
 
 - name: unarchive project release
   unarchive:
-    src: "{{ django_release_file }}"
+    src: "{{ django_dir }}/{{ django_release_file }}"
     dest: "{{ django_dir }}"
     owner: "{{ django_user }}"
     group: "{{ django_group }}"
     mode: 0755
+    remote_src: yes
     exclude:
       - tests
   when: not version.stat.exists
 
+- name: remove download file
+  file:
+    state: absent
+    path: "{{ django_dir }}/{{ django_release_file }}"
+
 - name: rename project download
-  command: "mv {{ django_dir }}/{{ django_repo_name }} {{ django_dir }}/{{ django_version }}"
+  command: "mv {{ django_dir }}/{{ django_repo_name }}-{{ django_version }} {{ django_dir }}/{{ django_version }}"
   args:
     creates: "{{ django_dir }}/{{ django_version }}"
-    removes: "{{ django_dir }}/{{ django_repo_name }}"
+    removes: "{{ django_dir }}/{{ django_repo_name }}-{{ django_version }}"
   when: not version.stat.exists
 
 - name: link project release
