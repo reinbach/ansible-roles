@@ -1,2 +1,1 @@
-* Update relevant commands to run as root
-* Update django repo/release url to work with github
+* Update django role to handle github release files
