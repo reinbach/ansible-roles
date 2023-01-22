@@ -72,7 +72,7 @@
 - name: install project app libraries
   become: yes
   become_user: "{{ django_user }}"
-  command: pipenv install  --ignore-pipfile --deploy
+  command: pipenv sync
   args:
     chdir: "{{ django_app_dir }}"
   when: not version.stat.exists
