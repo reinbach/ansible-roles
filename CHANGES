@@ -1,3 +1,7 @@
+0.24.0
+------
+* Update django role to handle github release files
+
 0.23.0
 ------
 * Update relevant commands to run as root
