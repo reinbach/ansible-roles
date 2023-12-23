@@ -3,16 +3,16 @@
   hosts: all
   vars:
     static_name: example
-    static_domain: bayete.com
-    static_access_key: AKIAXU542XLPFIJHITJ3
-    static_secret_key: /TmsgQCHVZ5lO/mwcAQ87fg7bf7fwa6nOKlhqke4
+    static_domain: example.com
+    static_access_key: 123
+    static_secret_key: s123
     static_analytics: "yes"
     users:
-      - first_name: greg
-        last_name: reinbach
-        username: greg
-        password: $2b$12$oavfdr55JFPR6VytG6JHc.v9F5wvjjpUn4KZgoSqV75ET3unftNSO
-        email: greg@ironlabs.com
+      - first_name: joe
+        last_name: soap
+        username: joe
+        password: 123
+        email: joe@example.com
         public_keys:
           active: []
           disabled: []
