@@ -9,7 +9,7 @@ goapp_proxy_config_name: "{{ goapp_domain }}"
 goapp_release_file: "{{ goapp_app }}-{{ goapp_version }}.tar.gz"
 
 # s3 release source
-goapp_release_bucket: bayete
+goapp_release_bucket: test-bucket
 goapp_release_path: releases/sample
 goapp_release_object: "{{ goapp_release_path }}/{{ goapp_release_file }}"
 

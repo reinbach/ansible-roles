@@ -7,7 +7,7 @@ help:
 	@echo ' '
 	@echo 'Usage: '
 	@echo '   make lint                        run lint checks '
-	@echo '   make test                        run tests '
+	@echo '   make tests                       run tests '
 	@echo '   make container NAME=<name>       create container '
 	@echo ' '
 
@@ -29,7 +29,7 @@ syntax:
 		cd $$d && molecule syntax && cd ${PWD}; \
 	done;
 
-test:
+tests:
 	@for d in ${ROLES} ; \
 	do \
 		cd $$d && molecule test && cd ${PWD}; \
@@ -37,10 +37,10 @@ test:
 
 
 container:
-	podman rm ${NAME}-ubuntu-20.04
+	podman rm ${NAME}-ubuntu-22.04
 	podman run -d --tmpfs=/run --tmpfs=/tmp \
 	    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
 	    --cap-add=SYS_ADMIN \
-	    --name=${NAME}-ubuntu-20.04 \
+	    --name=${NAME}-ubuntu-22.04 \
 	    geerlingguy/docker-ubuntu2004-ansible \
 	    /lib/systemd/systemd
