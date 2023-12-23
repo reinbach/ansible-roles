@@ -4,8 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-molecule = {extras = ["lint", "podman"], version = "*"}
+molecule = "*"
+ansible-lint = "*"
 jmespath = "*"
+molecule-plugins = {extras = ["podman"], version = "*"}
 
 [packages]
 ansible = "*"
