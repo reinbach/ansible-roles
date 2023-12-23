@@ -2,17 +2,17 @@ from setuptools import setup
 
 
 def readme():
-    with open("README.rst") as f:
+    with open("README.md") as f:
         return f.read()
 
 
 setup(
-    name="bayete-roles",
+    name="ansible-roles",
     version="0.24.0",
     description=readme(),
-    url="https://git.ironlabs.com/Bayete/roles",
+    url="https://github.com/reinbach/ansible-roles",
     author="Greg Reinbach",
-    author_email="greg@bayete.com",
+    author_email="greg@reinbach.com",
     license="MIT",
     packages=[],
     zip_safe=False,
