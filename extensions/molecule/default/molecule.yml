@@ -1,11 +1,17 @@
 ---
+# ansible_collections_path: ./roles
 dependency:
   name: galaxy
-  enabled: false
+  options:
+    requirements-file: requirements.yml
 driver:
-  name: podman
+  options:
+    managed: False
+    login_cmd_template: "podman exec -ti {instance} bash"
+    ansible_connection_options:
+      ansible_connection: podman
 platforms:
-  - name: static-ubuntu-22.04
+  - name: molecule-ubuntu-22.04
     image: geerlingguy/docker-ubuntu2204-ansible
     tmpfs:
       - /run

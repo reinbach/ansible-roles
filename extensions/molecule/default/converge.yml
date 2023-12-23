@@ -1,0 +1,28 @@
+---
+- name: static role
+  hosts: molecule
+  gather_facts: false
+  vars:
+    static_name: example
+    static_domain: example.com
+    static_access_key: 123
+    static_secret_key: s123
+    static_analytics: "yes"
+    users:
+      - first_name: joe
+        last_name: soap
+        username: joe
+        password: 123
+        email: joe@example.com
+        public_keys:
+          active: []
+          disabled: []
+        is_admin: true
+        type: admin
+        is_active: true
+        state: present
+  tasks:
+    - name: Static role
+      ansible.builtin.include_role:
+        name: static
+        # tasks_from: main.yaml
