@@ -1,6 +1,6 @@
 ---
-- include: install.yml
-- include: config.yml
+- include_tasks: install.yml
+- include_tasks: config.yml
 
 - include_role:
     name: logrotate
@@ -11,13 +11,13 @@
     logrotate_sharedscripts: "no"
 
 - name: ensure goaccess filter is running
-  service:
+  ansible.builtin.service:
     name: "{{ goaccess_filter_service }}"
     state: started
-    enabled: "yes"
+    enabled: true
 
 - name: ensure goaccess is running
-  service:
+  ansible.builtin.service:
     name: "{{ goaccess_service }}"
     state: started
-    enabled: "yes"
+    enabled: true

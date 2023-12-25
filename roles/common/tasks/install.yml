@@ -1,13 +1,13 @@
 ---
 - name: Update and upgrade apt packages
-  become: yes
-  apt:
-    upgrade: "yes"
-    update_cache: "yes"
+  become: true
+  ansible.builtin.apt:
+    upgrade: "safe"
+    update_cache: true
     # cache_valid_time: 86400  # One day
 
 - name: add required packages
-  become: yes
-  apt:
+  become: true
+  ansible.builtin.apt:
     name: "{{ apt_required_packages }}"
     state: present

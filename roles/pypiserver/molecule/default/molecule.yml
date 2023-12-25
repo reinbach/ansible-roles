@@ -6,7 +6,7 @@ driver:
   name: podman
 platforms:
   - name: instance-pypiserver
-    image: docker.io/ubuntu:22.04
+    image: docker.io/ubuntu:20.04
     privileged: true
 provisioner:
   name: ansible
