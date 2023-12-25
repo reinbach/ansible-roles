@@ -4,15 +4,29 @@
     path: "{{ goapp_dir }}/{{ goapp_version }}"
   register: version
 
-- name: unarchive goapp release
-  unarchive:
-    src: "{{ goapp_release_url }}"
-    dest: "{{ goapp_dir }}"
-    owner: "{{ goapp_user }}"
-    group: "{{ goapp_group }}"
-    mode: 0755
-    remote_src: true
-    list_files: true
-  register: release_list
-  when: version.stat.exists
-  notify: set filename
+- block:
+  - name: download goapp release
+    ansible.builtin.get_url:
+      url: "{{ goapp_release_url }}"
+      dest: "{{ goapp_dir }}/{{ goapp_release_file }}"
+      headers:
+        authorization: "Bearer {{ lookup('env', 'GITHUB_TOKEN') }}"
+    register: _download_archive
+    until: _download_archive is succeeded
+    retries: 5
+    delay: 2
+    run_once: true
+    check_mode: false
+
+  - name: unarchive goapp release
+    ansible.builtin.unarchive:
+      src: "{{ goapp_dir }}/{{ goapp_release_file }}"
+      dest: "{{ goapp_dir }}"
+      owner: "{{ goapp_user }}"
+      group: "{{ goapp_group }}"
+      mode: 0755
+      remote_src: true
+      list_files: true
+    register: release_list
+    notify: set filename
+  when: not version.stat.exists
