@@ -22,7 +22,7 @@ RestartSec=3
 #LimitNOFILE=65535
 
 {% for item in goapp_env_vars %}
-Environment="{{ item.key }}={{ item.value }}"
+Environment="{{ item['key'] }}={{ item['value'] }}"
 {% endfor %}
 
 [Install]
