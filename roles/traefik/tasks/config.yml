@@ -65,8 +65,11 @@
 
 - block:
     - set_fact:
-        domains: "{{ domains }} + ['{{ item }}'{% if add_www %}, 'www.{{ item }}'{% endif %}]"
+        domains_www: "['{{ item }}'{% if add_www %}, 'www.{{ item }}'{% endif %}]"
       with_items: "{{ domain_list }}"
+
+    - set_fact:
+        domains: "{{ domains + domains_www }}"
 
     - set_fact:
         final_cors_domains: "{{ domains }}"
