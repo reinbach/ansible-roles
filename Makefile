@@ -17,24 +17,15 @@ help:
 
 
 lint:
-	@for d in ${ROLES} ; \
-	do \
-		cd $$d && molecule lint && cd ${PWD}; \
-	done;
+	cd extensions && pipenv run molecule lint
 
 
 syntax:
-	@for d in ${ROLES} ; \
-	do \
-		cd $$d && molecule syntax && cd ${PWD}; \
-	done;
+	cd extensions && pipenv run molecule syntax
+
 
 tests:
-	@for d in ${ROLES} ; \
-	do \
-		cd $$d && molecule test && cd ${PWD}; \
-	done;
-
+	cd extensions && pipenv run molecule test --destroy=never
 
 container:
 	podman rm ${NAME}-ubuntu-22.04
