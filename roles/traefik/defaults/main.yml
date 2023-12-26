@@ -40,5 +40,6 @@ regex_redirect: []
 regex_redirect_middlewares: []
 
 other_domains: []
-domain_list: "['{{ domain }}'] + {{ other_domains }}"
+domain_main: "['{{ domain }}']"
+domain_list: "{{ domain_main + other_domains }}"
 domains: []

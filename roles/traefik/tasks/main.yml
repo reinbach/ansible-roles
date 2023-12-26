@@ -11,7 +11,7 @@
     logrotate_post_command: /usr/bin/pkill -USR1 traefik
 
 - name: ensure traefik service is enabled and running
-  become: yes
+  become: true
   systemd:
     name: traefik
     state: started

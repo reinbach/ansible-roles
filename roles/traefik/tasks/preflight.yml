@@ -47,5 +47,5 @@
 
 - name: add regex_redirect to middleswares list
   set_fact:
-    middlewares: "{{ middlewares }} + {{ regex_redirect_middlewares }}"
+    middlewares: "{{ middlewares + regex_redirect_middlewares }}"
   when: (regex_redirect_middlewares|length > 0)
