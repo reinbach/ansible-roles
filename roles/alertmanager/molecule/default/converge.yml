@@ -1,7 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include alertmanager"
-      include_role:
-        name: "alertmanager"

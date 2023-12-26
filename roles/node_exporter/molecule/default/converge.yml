@@ -1,9 +1,0 @@
----
-- name: Converge
-  hosts: all
-  tasks:
-    - name: "Include node_exporter"
-      include_role:
-        name: "node_exporter"
-      vars:
-        use_traefik: "no"
