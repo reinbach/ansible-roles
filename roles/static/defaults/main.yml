@@ -2,6 +2,7 @@
 static_version: 0.5.0
 static_name: static
 static_proxy_config_name: "{{ static_domain }}"
+static_release_url: "https://api.github.com/repos/reinbach/static-server/tarball/build/static-server-{{ static_version }}.tar.gz"
 
 static_analytics: "no"
 static_analytics_ws_port: 7891
